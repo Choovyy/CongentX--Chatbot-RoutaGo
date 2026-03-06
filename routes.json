@@ -1,0 +1,40 @@
+{
+  "01K": {
+    "name": "01K - NSO / Parkmall to Colon Loop",
+    "description": "Passes through SM City Cebu, North Bus Terminal, Parkmall, Colon, and back.",
+    "terminals": ["SM City Cebu", "Parkmall", "Colon"],
+    "stops": [
+      { "name": "National Statistics Office (NSO)", "type": "Landmark" },
+      { "name": "General Maxilom Ave", "type": "Road" },
+      { "name": "A Soriano Ave", "type": "Road" },
+      { "name": "SM City Cebu", "type": "Mall / Terminal" },
+      { "name": "North Bus Terminal", "type": "Terminal" },
+      { "name": "Cebu Doctors University", "type": "School" },
+      { "name": "CICC", "type": "Landmark" },
+      { "name": "Parkmall", "type": "Mall / Terminal" },
+      { "name": "Metro Gaisano", "type": "Mall" },
+      { "name": "Colonnade Supermarket", "type": "Mall / Grocery" },
+      { "name": "University of Visayas (UV)", "type": "School" },
+      { "name": "Gaisano Main", "type": "Mall" },
+      { "name": "Brgy. Parian", "type": "Landmark" },
+      { "name": "Zulueta St", "type": "Road" },
+      { "name": "MJ Cuenca Ave", "type": "Road" },
+      { "name": "V Urgello St", "type": "Road" },
+      { "name": "Sacred Heart Hospital", "type": "Health" },
+      { "name": "Southwestern University (SWU)", "type": "School" },
+      { "name": "Elizabeth Mall (Emall)", "type": "Mall / Grocery" },
+      { "name": "Leon Kilat St", "type": "Road" },
+      { "name": "Colon", "type": "Terminal" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near SM City Cebu or Parkmall for easy entry points.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "The jeepney loops back from Colon toward Metro Gaisano after the terminal."
+    ]
+  }
+}
