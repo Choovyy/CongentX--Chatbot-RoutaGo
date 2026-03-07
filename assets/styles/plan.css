@@ -58,6 +58,7 @@
 }
 
 /* ── Jeepney Code Formatting ── */
+/* Specifically styles the jeepney route codes for readability */
 .jeep-code {
     font-weight: 800 !important;
     text-decoration: underline !important;
@@ -178,6 +179,8 @@
     transform: translateY(-1px) !important;
 }
 
+/* ── Highway Animation Section ── */
+/* Creates a dark asphalt background for the animated jeepney */
 .highway-bar {
     width: 100%;
     height: 80px;
@@ -200,6 +203,8 @@
     opacity: 0.6;
 }
 
+/* ── Jeepney Wrapper & Animation ── */
+/* Handles the movement and smoke effect of the jeepney icon */
 .jeep-wrapper {
     position: absolute;
     bottom: 10px;
