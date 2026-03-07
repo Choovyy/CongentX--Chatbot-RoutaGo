@@ -28,6 +28,8 @@
     max-width: 480px;
 }
 
+/* ── Welcome Chips ── */
+/* Suggestions that users can click to start a conversation */
 .rg-chips {
     display: flex;
     flex-wrap: wrap;
@@ -54,7 +56,8 @@
     color: #2563EB;
 }
 
-/* Assistant message — clean white box */
+/* ── Chat Messages ── */
+/* Assistant message — clean white box with professional shadow */
 [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
     background: #FFFFFF !important;
     border: 1px solid #E2E8F0 !important;
@@ -89,7 +92,7 @@
     font-weight: 700 !important;
 }
 
-/* User message — subtle blue background */
+/* User message — subtle blue background to distinguish from assistant */
 [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
     background: #EFF6FF !important;
     border: 1px solid #DBEAFE !important;
