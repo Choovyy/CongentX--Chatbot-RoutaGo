@@ -1,5 +1,5 @@
 import streamlit as st
-import os
+import os, re
 
 def load_css(filepath: str):
     base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -34,3 +34,16 @@ def render_sidebar():
         <div class="sb-info-item">🚌 Route 01K available</div>
         <div class="sb-ver">RoutaGo v1.0.0</div>
         """, unsafe_allow_html=True)
+
+def format_response(text):
+    """
+    Processes the raw chatbot response to apply premium styling.
+    - Replaces markdown bold (**CODE**) with HTML span for underlined styling.
+    - Converts newlines to <br> for professional rendering in st.markdown.
+    """
+    # Bold and underline jeep codes (usually **XX-X** or **XXX**)
+    # We replace **TEXT** with <span class='jeep-code'>TEXT</span>
+    formatted = re.sub(r'\*\*(.*?)\*\*', r"<span class='jeep-code'>\1</span>", text)
+    # Ensure numbered lists and paragraphs look good
+    formatted = formatted.replace('\n', '<br>')
+    return formatted
