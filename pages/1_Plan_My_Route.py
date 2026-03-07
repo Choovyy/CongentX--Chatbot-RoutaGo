@@ -5,10 +5,8 @@ import os, json, sys, re
 from datetime import datetime
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-# --- ENHANCED ROUTE PLANNER ---
-# Implemented a tabbed UI to separate the Planning Form from Recent History
-# Added session-state based history tracking for the last 10 routes
-# Integrated centralized format_response for professional jeepney code styling
+# --- CUSTOM MODULES ---
+# helpers module contains shared UI components and response formatting logic
 from utils.helpers import load_css, render_sidebar, format_response
 
 load_dotenv()
@@ -34,11 +32,14 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+# TABBED UI: separates the interactive planning tool from history
 tab1, tab2 = st.tabs(["🔍 Plan Your Route", "🕒 Recent Routes"])
 
 with tab1:
+    # Card-style container for the route search form
     st.markdown("<div class='rg-form-card'>", unsafe_allow_html=True)
     with st.form("route_form", clear_on_submit=False):
+        # Premium UI element: Animated jeepney on a highway
         # Smoking Jeepney Highway Animation
         st.markdown("""
         <div class="highway-bar">
@@ -87,14 +88,14 @@ ROUTE DATABASE:\n{route_context}"""
                 result = response.choices[0].message.content
                 formatted_result = format_response(result)
                 
-                # Store in recent routes
+                # Save the planned route to history for the current session
                 st.session_state.recent_routes.insert(0, {
                     "origin": origin,
                     "destination": destination,
                     "result": formatted_result,
                     "time": datetime.now().strftime("%I:%M %p")
                 })
-                # Keep only last 10
+                # Maintain only the most recent 10 searches to keep UI clean
                 st.session_state.recent_routes = st.session_state.recent_routes[:10]
                 
                 st.markdown(f"<div class='rg-result'>{formatted_result}</div>", unsafe_allow_html=True)

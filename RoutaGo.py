@@ -4,9 +4,10 @@ from dotenv import load_dotenv
 import os, json, sys
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-# --- UI AND FORMATTING IMPROVEMENTS ---
-# Added format_response to handle custom styling for jeepney codes (bold/underline)
-# Improved chat history rendering to support HTML-formatted assistant messages
+# --- UTILITY IMPORTS ---
+# load_css: Loads external CSS files for custom styling
+# render_sidebar: Displays the consistent navigation sidebar
+# format_response: Specifically styles jeepney codes with bold and underlining
 from utils.helpers import load_css, render_sidebar, format_response
 
 load_dotenv()
@@ -33,10 +34,16 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+# Load the route database from a JSON file
+# Currently supports route 01K as specific in the prompt
 with open("routes.json", "r", encoding="utf-8") as f:
     ROUTES = json.load(f)
 
 def build_system_prompt(routes):
+    """
+    Constructs the system prompt for the Groq AI model.
+    Defines the persona (RoutaGo), language constraints, and response formatting rules.
+    """
     return f"""
 You are RoutaGo, a helpful jeepney route guide for Cebu City, Philippines.
 
