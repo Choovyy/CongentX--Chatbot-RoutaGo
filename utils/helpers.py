@@ -1,5 +1,6 @@
 import streamlit as st
-import os, re
+import os, re, base64
+
 
 def load_css(filepath: str):
     base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -8,11 +9,28 @@ def load_css(filepath: str):
         css = f.read()
     st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
+
+def get_logo_b64():
+    base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    logo_path = os.path.join(base, "logo.png")
+    try:
+        with open(logo_path, "rb") as f:
+            return base64.b64encode(f.read()).decode()
+    except FileNotFoundError:
+        return None
+
+
 def render_sidebar():
+    logo_b64 = get_logo_b64()
+    icon_html = (
+        f'<img src="data:image/png;base64,{logo_b64}" class="sb-logo-img" />'
+        if logo_b64 else "🚌"
+    )
+
     with st.sidebar:
-        st.markdown("""
+        st.markdown(f"""
         <div class="sb-brand">
-            <div class="sb-icon">🚌</div>
+            <div class="sb-icon">{icon_html}</div>
             <div class="sb-brand-text">
                 <span class="sb-name">RoutaGo</span>
                 <span class="sb-sub">Cebu Jeepney Guide</span>
@@ -35,15 +53,8 @@ def render_sidebar():
         <div class="sb-ver">RoutaGo v1.0.0</div>
         """, unsafe_allow_html=True)
 
+
 def format_response(text):
-    """
-    Processes the raw chatbot response to apply premium styling.
-    - Replaces markdown bold (**CODE**) with HTML span for underlined styling.
-    - Converts newlines to <br> for professional rendering in st.markdown.
-    """
-    # Bold and underline jeep codes (usually **XX-X** or **XXX**)
-    # We replace **TEXT** with <span class='jeep-code'>TEXT</span>
     formatted = re.sub(r'\*\*(.*?)\*\*', r"<span class='jeep-code'>\1</span>", text)
-    # Ensure numbered lists and paragraphs look good
     formatted = formatted.replace('\n', '<br>')
     return formatted

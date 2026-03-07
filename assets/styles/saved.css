@@ -1,8 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+* { font-family: 'Plus Jakarta Sans', sans-serif !important; }
+
+h1, h2, h3, h4 {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    color: #1E293B !important;
+    font-weight: 800 !important;
+}
+
+p, span, li {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    color: #475569 !important;
+    line-height: 1.7 !important;
+}
+
 .rg-empty {
     text-align: center;
     padding: 5rem 2rem;
     background: #FFFFFF;
-    border: 1px dashed #CBD5E1;
+    border: 1.5px dashed #E2D9C8;
     border-radius: 16px;
     margin-bottom: 1.5rem;
 }
@@ -12,13 +28,13 @@
 .rg-empty h3 {
     font-size: 1rem;
     font-weight: 700;
-    color: #1E40AF;
+    color: #1E40AF !important;
     margin: 0 0 8px 0;
 }
 
 .rg-empty p {
     font-size: 0.85rem;
-    color: #64748B;
+    color: #94A3B8 !important;
     margin: 0 auto;
     max-width: 320px;
     line-height: 1.6;
@@ -26,54 +42,51 @@
 
 .rg-route-card {
     background: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    border: 1.5px solid #EDE9E0;
     border-left: 3px solid #3B82F6;
     border-radius: 12px;
     padding: 16px 20px;
     margin-bottom: 10px;
-    transition: all 0.2s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 
 .rg-route-card:hover {
-    background: #F8FAFC;
-    border-color: #BFDBFE;
+    background: #F8F5F0;
+    border-color: #93C5FD;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(30,64,175,0.08);
 }
 
 .rg-route-card h4 {
     font-size: 0.92rem;
     font-weight: 700;
-    color: #1E40AF;
+    color: #1E40AF !important;
     margin: 0 0 4px 0;
 }
 
 .rg-route-card p {
     font-size: 0.82rem;
-    color: #475569;
+    color: #94A3B8 !important;
     margin: 0;
 }
 
 .rg-howto {
-    background: #EFF6FF;
-    border: 1px solid #DBEAFE;
+    background: #FFFFFF;
+    border: 1.5px solid #EDE9E0;
     border-radius: 12px;
     padding: 20px 24px;
     margin-top: 1.5rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 
 .rg-howto h4 {
     font-size: 0.88rem;
     font-weight: 700;
-    color: #1E40AF;
+    color: #1E40AF !important;
     margin: 0 0 12px 0;
 }
 
 .rg-howto ol {
     margin: 0;
     padding-left: 1.2rem;
-    color: #334155;
-    font-size: 0.875rem;
-    line-height: 2.1;
-}
-
-.rg-howto li strong { color: #1E40AF; }

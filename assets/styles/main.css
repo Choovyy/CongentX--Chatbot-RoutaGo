@@ -1,250 +1,314 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
-/* ── Base ── */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html,
-body,
-.stApp,
-[class*="css"] {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-    background-color: #F8FAFC !important;
-    color: #0F172A !important;
+html, body, .stApp, [class*="css"] {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    background-color: #F5F0E8 !important;
+    color: #1E293B !important;
     -webkit-font-smoothing: antialiased !important;
 }
 
-/* Hide only deploy/menu buttons — NOT the sidebar toggle */
-#MainMenu {
+/* ── Force font everywhere ── */
+h1, h2, h3, h4, h5, h6,
+p, span, div, label, li, a,
+button, input, textarea, select,
+[data-testid="stMarkdown"],
+[data-testid="stText"],
+[data-testid="stHeading"],
+.stMarkdown, .stTextInput,
+[class*="st-"], [class*="css-"] {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* ── Hide Streamlit clutter ── */
+#MainMenu, footer,
+[data-testid="stToolbar"],
+[data-testid="stDecoration"],
+[data-testid="stStatusWidget"],
+[data-testid="stSidebarCollapseButton"],
+[data-testid="stSidebarCollapsedControl"] {
+    display: none !important;
     visibility: hidden !important;
 }
 
-footer {
-    visibility: hidden !important;
-}
-
-[data-testid="stToolbar"] {
-    display: none !important;
-}
-
-[data-testid="stDecoration"] {
-    display: none !important;
-}
-
-[data-testid="stStatusWidget"] {
-    display: none !important;
-}
-
-/* ── Main content ── */
+/* ── Main container ── */
 .main .block-container {
-    padding: 2rem 3rem 7rem 3rem !important;
-    max-width: 780px !important;
+    padding: 2rem 2.5rem 8rem 2.5rem !important;
+    max-width: 860px !important;
     margin: 0 auto !important;
 }
 
-/* ══════════════════════════════════════
-   SIDEBAR — expanded state
-══════════════════════════════════════ */
+/* ══════════════════════════════
+   SIDEBAR
+══════════════════════════════ */
 [data-testid="stSidebar"] {
-    background-color: #1E40AF !important;
-    border-right: none !important;
-    min-width: 250px !important;
-    max-width: 260px !important;
+    background: #FFFFFF !important;
+    border-right: 1px solid #EDE9E0 !important;
+    min-width: 240px !important;
+    max-width: 240px !important;
+    width: 240px !important;
+    transform: none !important;
+    position: relative !important;
+    display: flex !important;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.04) !important;
 }
 
-[data-testid="stSidebar"]>div:first-child,
-section[data-testid="stSidebar"]>div {
+[data-testid="stSidebar"] > div:first-child,
+section[data-testid="stSidebar"] > div {
     background: transparent !important;
-    padding: 1.25rem 1rem !important;
+    padding: 1.5rem 1.1rem !important;
+}
+
+/* ── Hide sidebar scrollbar ── */
+section[data-testid="stSidebar"] > div {
+    overflow-y: auto !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+section[data-testid="stSidebar"] > div::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
 }
 
 [data-testid="stSidebar"] * {
-    color: #E2E8F0 !important;
+    color: #64748B !important;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
 /* ── Sidebar brand ── */
 .sb-brand {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 0.25rem 0 1rem 0;
+    gap: 11px;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #F1EDE4;
+    margin-bottom: 0.5rem;
 }
 
 .sb-icon {
-    font-size: 1.4rem;
-    background: rgba(32, 160, 144, 0.12);
-    border: 1px solid rgba(32, 160, 144, 0.2);
-    border-radius: 10px;
     width: 42px;
     height: 42px;
+    border-radius: 11px;
+    background: #F5F0E8;
+    border: 1px solid #EDE9E0;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    overflow: hidden;
+}
+
+.sb-logo-img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border-radius: 4px;
 }
 
 .sb-name {
-    font-size: 1rem !important;
-    font-weight: 700 !important;
-    color: #FFFFFF !important;
+    font-size: 0.95rem !important;
+    font-weight: 800 !important;
+    color: #1E293B !important;
     display: block;
-    letter-spacing: -0.2px;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
 .sb-sub {
-    font-size: 0.68rem !important;
-    color: #93C5FD !important;
+    font-size: 0.67rem !important;
+    color: #94A3B8 !important;
     display: block;
-    margin-top: 2px;
+    margin-top: 3px;
+    letter-spacing: 0.02em;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
+/* ── Divider ── */
 .sb-sep {
     height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 0.75rem 0;
+    background: #F1EDE4;
+    margin: 0.5rem 0 0.9rem 0;
+    border: none;
 }
 
+/* ── Section label ── */
 .sb-section-label {
-    font-size: 0.62rem !important;
+    font-size: 0.6rem !important;
     font-weight: 700 !important;
-    letter-spacing: 0.1em !important;
-    color: #93C5FD !important;
-    padding: 0.4rem 0 0.5rem 4px;
+    letter-spacing: 0.14em !important;
+    color: #CBD5E1 !important;
+    padding: 0.5rem 0 0.45rem 4px;
+    text-transform: uppercase;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
-/* ── Sidebar nav links ── */
+/* ── Nav links ── */
 [data-testid="stSidebarNavLink"] {
-    border-radius: 8px !important;
+    border-radius: 9px !important;
     padding: 9px 12px !important;
     margin: 2px 0 !important;
-    font-size: 0.875rem !important;
-    font-weight: 400 !important;
-    color: #BFDBFE !important;
+    font-size: 0.855rem !important;
+    font-weight: 500 !important;
+    color: #64748B !important;
     text-decoration: none !important;
     transition: all 0.15s ease !important;
     border: 1px solid transparent !important;
     display: flex !important;
     align-items: center !important;
+    gap: 9px !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
 [data-testid="stSidebarNavLink"]:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: #FFFFFF !important;
+    background: #F8F5F0 !important;
+    color: #1E293B !important;
 }
 
 [data-testid="stSidebarNavLink"][aria-current="page"] {
-    background: rgba(255, 255, 255, 0.15) !important;
-    color: #FFFFFF !important;
+    background: #F5F0E8 !important;
+    color: #1E40AF !important;
     font-weight: 600 !important;
-    border-color: rgba(255, 255, 255, 0.2) !important;
+    border-color: #E2D9C8 !important;
 }
 
 /* ── Sidebar info ── */
 .sb-info-item {
-    font-size: 0.78rem !important;
-    color: #BFDBFE !important;
-    padding: 4px 4px;
-    line-height: 1.6;
+    font-size: 0.75rem !important;
+    color: #94A3B8 !important;
+    padding: 3px 4px;
+    line-height: 1.7;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
 .sb-ver {
-    font-size: 0.65rem !important;
-    color: #27272A !important;
+    font-size: 0.63rem !important;
+    color: #CBD5E1 !important;
     text-align: center;
     padding-top: 1.5rem;
+    letter-spacing: 0.03em;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
-/* ══════════════════════════════════════
-   COLLAPSED SIDEBAR STRIP
-   — fully visible expand button
-══════════════════════════════════════ */
-[data-testid="stSidebarCollapsedControl"] {
-    background-color: #111111 !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
-    width: 3rem !important;
-    display: flex !important;
-    align-items: flex-start !important;
-    justify-content: center !important;
-    padding-top: 1rem !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
-[data-testid="stSidebarCollapsedControl"] button {
-    visibility: visible !important;
-    opacity: 1 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: #27272A !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    border-radius: 8px !important;
-    color: #A1A1AA !important;
-    width: 32px !important;
-    height: 32px !important;
-    cursor: pointer !important;
-}
-
-[data-testid="stSidebarCollapsedControl"] button:hover {
-    background: #3F3F46 !important;
-    color: #20A090 !important;
-    border-color: rgba(32, 160, 144, 0.3) !important;
-}
-
-[data-testid="stSidebarCollapsedControl"] button svg {
-    visibility: visible !important;
-    opacity: 1 !important;
-    fill: #A1A1AA !important;
-    width: 16px !important;
-    height: 16px !important;
-}
-
-/* ── Page header ── */
+/* ══════════════════════════════
+   PAGE HEADER
+══════════════════════════════ */
 .rg-page-header {
-    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 1.5rem;
     padding-bottom: 1.25rem;
-    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    border-bottom: 1px solid #EDE9E0;
+}
+
+.rg-header-logo {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    border-radius: 11px;
+    border: 1px solid #EDE9E0;
+    background: #F5F0E8;
+    padding: 5px;
 }
 
 .rg-page-header h1 {
-    font-size: 1.4rem !important;
-    font-weight: 700 !important;
-    color: #1E40AF !important;
-    margin: 0 0 4px 0 !important;
-    letter-spacing: -0.3px;
+    font-size: 1.35rem !important;
+    font-weight: 800 !important;
+    color: #1E293B !important;
+    margin: 0 0 2px 0 !important;
+    letter-spacing: -0.5px;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
 .rg-page-header p {
-    font-size: 0.875rem !important;
-    color: #64748B !important;
+    font-size: 0.845rem !important;
+    color: #94A3B8 !important;
     margin: 0 !important;
+    font-weight: 400;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
-/* ── Fix bottom bar bg ── */
+/* ══════════════════════════════
+   WELCOME STATE
+══════════════════════════════ */
+.rg-welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem 2.5rem;
+    gap: 0.5rem;
+    background: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03);
+    margin-bottom: 1rem;
+}
+
+.rg-welcome-logo {
+    font-size: 2.8rem;
+    margin-bottom: 0.75rem;
+    display: block;
+    filter: drop-shadow(0 4px 16px rgba(30,64,175,0.15));
+}
+
+.rg-welcome h2 {
+    font-size: 1.6rem !important;
+    font-weight: 800 !important;
+    color: #1E293B !important;
+    letter-spacing: -0.6px;
+    margin-bottom: 0.5rem !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+.rg-welcome p {
+    font-size: 0.9rem !important;
+    color: #64748B !important;
+    max-width: 420px;
+    line-height: 1.7;
+    margin-bottom: 1.5rem !important;
+    font-weight: 400;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+.rg-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    justify-content: center;
+}
+
+.rg-chip {
+    background: #F8F5F0;
+    border: 1.5px solid #EDE9E0;
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: 0.81rem;
+    color: #475569;
+    font-weight: 500;
+    cursor: default;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+.rg-chip:hover {
+    background: #EFF6FF;
+    border-color: #93C5FD;
+    color: #1D4ED8;
+    box-shadow: 0 3px 10px rgba(30,64,175,0.1);
+    transform: translateY(-1px);
+}
+
+/* ── Bottom bar ── */
 [data-testid="stBottom"],
-[data-testid="stBottom"]>div,
-[data-testid="stBottom"]>div>div {
-    background-color: #F8FAFC !important;
-}
-
-/* Remove collapse button entirely */
-[data-testid="stSidebarCollapseButton"] {
-    display: none !important;
-}
-
-/* Remove the collapsed strip too */
-[data-testid="stSidebarCollapsedControl"] {
-    display: none !important;
-}
-
-/* Force sidebar to always take up space */
-[data-testid="stSidebar"] {
-    transform: none !important;
-    min-width: 250px !important;
-    width: 250px !important;
-    position: relative !important;
-    display: flex !important;
+[data-testid="stBottom"] > div,
+[data-testid="stBottom"] > div > div {
+    background-color: #F5F0E8 !important;
 }

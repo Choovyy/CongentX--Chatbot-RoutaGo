@@ -1,21 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+* { font-family: 'Plus Jakarta Sans', sans-serif !important; }
+
+h1, h2, h3, h4 {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    color: #1E293B !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.4px;
+}
+
+p, span, li {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    color: #475569 !important;
+    line-height: 1.75 !important;
+}
+
 .tip-card {
     display: flex;
     align-items: flex-start;
     gap: 16px;
     background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
+    border: 1.5px solid #EDE9E0;
+    border-radius: 14px;
     padding: 18px 22px;
     margin-bottom: 10px;
     transition: all 0.2s ease;
     cursor: default;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 
 .tip-card:hover {
-    background: #F8FAFC;
-    border-color: #BFDBFE;
+    background: #F8F5F0;
+    border-color: #93C5FD;
     transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(30,64,175,0.08);
 }
 
 .tip-icon {
@@ -30,13 +48,13 @@
 .tip-body h4 {
     font-size: 0.92rem;
     font-weight: 700;
-    color: #1E40AF;
+    color: #1E40AF !important;
     margin: 0 0 5px 0;
 }
 
 .tip-body p {
     font-size: 0.85rem;
-    color: #475569;
+    color: #64748B !important;
     margin: 0;
-    line-height: 1.6;
+    line-height: 1.65;
 }

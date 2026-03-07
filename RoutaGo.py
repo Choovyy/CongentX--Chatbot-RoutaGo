@@ -1,49 +1,34 @@
 import streamlit as st
 from groq import Groq
 from dotenv import load_dotenv
-import os, json, sys
+import os, json, sys, base64
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-# --- UTILITY IMPORTS ---
-# load_css: Loads external CSS files for custom styling
-# render_sidebar: Displays the consistent navigation sidebar
-# format_response: Specifically styles jeepney codes with bold and underlining
 from utils.helpers import load_css, render_sidebar, format_response
 
 load_dotenv()
 
 st.set_page_config(
     page_title="RoutaGo",
-    page_icon="🚌",
+    page_icon="logo.png",
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+def get_logo_b64(path="assets/logo.png"):
+    with open(path, "rb") as f:
+        return base64.b64encode(f.read()).decode()
+
+logo_b64 = get_logo_b64()
 
 load_css("assets/styles/main.css")
 load_css("assets/styles/chat.css")
 render_sidebar()
 
-st.markdown("""
-<script>
-    const expand = () => {
-        const btn = window.parent.document.querySelector('[data-testid="stSidebarCollapsedControl"] button');
-        if (btn) btn.click();
-    };
-    setTimeout(expand, 300);
-</script>
-""", unsafe_allow_html=True)
-
-
-# Load the route database from a JSON file
-# Currently supports route 01K as specific in the prompt
 with open("routes.json", "r", encoding="utf-8") as f:
     ROUTES = json.load(f)
 
 def build_system_prompt(routes):
-    """
-    Constructs the system prompt for the Groq AI model.
-    Defines the persona (RoutaGo), language constraints, and response formatting rules.
-    """
     return f"""
 You are RoutaGo, a helpful jeepney route guide for Cebu City, Philippines.
 
@@ -72,7 +57,7 @@ RULES:
 api_key = os.getenv("GROQ_API_KEY")
 
 if not api_key or api_key == "your_actual_api_key_here":
-    st.error("🔑 **Groq API Key Missing!** Please add your `GROQ_API_KEY` to the `.env` file in the project folder.")
+    st.error("🔑 **Groq API Key Missing!** Please add your `GROQ_API_KEY` to the `.env` file.")
     st.stop()
 
 client = Groq(api_key=api_key)
@@ -82,10 +67,13 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 # Header
-st.markdown("""
+st.markdown(f"""
 <div class="rg-page-header">
-    <h1>🚌 RoutaGo</h1>
-    <p>Ask me anything about getting around Cebu by jeepney.</p>
+    <img src="data:image/png;base64,{logo_b64}" class="rg-header-logo" />
+    <div>
+        <h1>RoutaGo</h1>
+        <p>Ask me anything about getting around Cebu by jeepney.</p>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
