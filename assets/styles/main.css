@@ -1,314 +1,412 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap');
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ══════════════════════════════════════════════════════════════
+   CSS VARIABLES
+══════════════════════════════════════════════════════════════ */
+:root {
+    /* Page backgrounds */
+    --bg:       #F0F2F5;   /* soft neutral — not cold-blue, not harsh white */
+    --surface:  #FFFFFF;
+    --border:   #E2E8F0;
+    --border-focus: #93C5FD;
 
-html, body, .stApp, [class*="css"] {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
-    background-color: #F5F0E8 !important;
-    color: #1E293B !important;
+    /* Sidebar blues — matches original proposal */
+    --sb-bg:         #1E40AF;   /* primary blue */
+    --sb-bg-deep:    #172E80;   /* darker for depth at top */
+    --sb-text:       #BFDBFE;   /* blue-200 — readable on blue bg */
+    --sb-text-muted: rgba(191,219,254,0.55);
+    --sb-active-bg:  rgba(255,255,255,0.14);
+    --sb-hover-bg:   rgba(255,255,255,0.08);
+    --sb-sep:        rgba(255,255,255,0.12);
+    --sb-label:      rgba(147,197,253,0.55);
+
+    /* Accent colors */
+    --teal:       #0D9488;
+    --teal-light: rgba(13,148,136,0.10);
+    --blue:       #2563EB;
+    --blue-hover: #1D4ED8;
+    --blue-light: #EFF6FF;
+
+    /* Nav icon pill colors */
+    --nav-c1-bg:  rgba(125,211,252,0.18);   /* Chat  — sky     */
+    --nav-c1-bd:  rgba(125,211,252,0.30);
+    --nav-c1-ico: %237DD3FC;
+    --nav-c2-bg:  rgba(110,231,183,0.18);   /* Route — emerald */
+    --nav-c2-bd:  rgba(110,231,183,0.30);
+    --nav-c2-ico: %236EE7B7;
+    --nav-c3-bg:  rgba(253,186,116,0.18);   /* Safety — amber  */
+    --nav-c3-bd:  rgba(253,186,116,0.30);
+    --nav-c3-ico: %23FDBA74;
+    --nav-c4-bg:  rgba(249,168,212,0.18);   /* Saved — pink    */
+    --nav-c4-bd:  rgba(249,168,212,0.30);
+    --nav-c4-ico: %23F9A8D4;
+
+    /* Typography */
+    --text-1: #0F172A;
+    --text-2: #334155;
+    --text-3: #64748B;
+    --text-4: #94A3B8;
+
+    /* Radius */
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 16px;
+
+    /* Shadows */
+    --sh-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --sh-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   GLOBAL RESET & BASE
+══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    background-color: var(--bg) !important;
+    color: var(--text-1) !important;
     -webkit-font-smoothing: antialiased !important;
 }
 
-/* ── Force font everywhere ── */
-h1, h2, h3, h4, h5, h6,
-p, span, div, label, li, a,
-button, input, textarea, select,
-[data-testid="stMarkdown"],
-[data-testid="stText"],
-[data-testid="stHeading"],
-.stMarkdown, .stTextInput,
-[class*="st-"], [class*="css-"] {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+.stApp {
+    background-color: var(--bg) !important;
 }
 
-/* ── Hide Streamlit clutter ── */
-#MainMenu, footer,
-[data-testid="stToolbar"],
-[data-testid="stDecoration"],
-[data-testid="stStatusWidget"],
-[data-testid="stSidebarCollapseButton"],
-[data-testid="stSidebarCollapsedControl"] {
+/* ══════════════════════════════════════════════════════════════
+   KILL THE BLACK HEADER BAR
+   Streamlit renders a sticky header element that defaults to
+   #0E1117 (dark). We target every known selector for it.
+══════════════════════════════════════════════════════════════ */
+header[data-testid="stHeader"] {
+    background-color: transparent !important;
+    border-bottom: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Also zero out its inner containers */
+header[data-testid="stHeader"] > * {
     display: none !important;
-    visibility: hidden !important;
 }
 
-/* ── Main container ── */
+/* Older Streamlit versions use this class */
+.stApp > header,
+.css-18ni7ap, .css-1avcm0n {
+    background-color: transparent !important;
+    height: 0 !important;
+    display: none !important;
+}
+
+#MainMenu        { visibility: hidden !important; }
+footer           { visibility: hidden !important; }
+[data-testid="stToolbar"]         { display: none !important; }
+[data-testid="stDecoration"]      { display: none !important; }
+[data-testid="stStatusWidget"]    { display: none !important; }
+
+/* ── Main content area ── */
 .main .block-container {
-    padding: 2rem 2.5rem 8rem 2.5rem !important;
-    max-width: 860px !important;
+    padding: 2rem 3rem 8rem 3rem !important;
+    max-width: 820px !important;
     margin: 0 auto !important;
+    /* Ensure content starts flush — no gap from hidden header */
+    padding-top: 1.5rem !important;
 }
 
-/* ══════════════════════════════
+/* ══════════════════════════════════════════════════════════════
    SIDEBAR
-══════════════════════════════ */
+══════════════════════════════════════════════════════════════ */
 [data-testid="stSidebar"] {
-    background: #FFFFFF !important;
-    border-right: 1px solid #EDE9E0 !important;
+    background: linear-gradient(180deg, #1E3FA8 0%, #1E40AF 40%, #1A3A9E 100%) !important;
+    border-right: 1px solid rgba(0,0,0,0.15) !important;
     min-width: 240px !important;
-    max-width: 240px !important;
-    width: 240px !important;
-    transform: none !important;
+    max-width: 252px !important;
+    width:  252px !important;
     position: relative !important;
     display: flex !important;
-    box-shadow: 2px 0 12px rgba(0,0,0,0.04) !important;
+    transform: none !important;
 }
 
 [data-testid="stSidebar"] > div:first-child,
 section[data-testid="stSidebar"] > div {
     background: transparent !important;
-    padding: 1.5rem 1.1rem !important;
+    padding: 1.25rem 1rem !important;
 }
 
-/* ── Hide sidebar scrollbar ── */
-section[data-testid="stSidebar"] > div {
-    overflow-y: auto !important;
-    scrollbar-width: none !important;
-    -ms-overflow-style: none !important;
-}
-section[data-testid="stSidebar"] > div::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-}
+/* Kill collapse controls */
+[data-testid="stSidebarCollapseButton"]   { display: none !important; }
+[data-testid="stSidebarCollapsedControl"] { display: none !important; }
 
-[data-testid="stSidebar"] * {
-    color: #64748B !important;
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
-}
+/* Default text on blue sidebar */
+[data-testid="stSidebar"] * { color: var(--sb-text) !important; }
 
-/* ── Sidebar brand ── */
+/* ── Brand block ── */
 .sb-brand {
     display: flex;
     align-items: center;
-    gap: 11px;
-    padding-bottom: 1.25rem;
-    border-bottom: 1px solid #F1EDE4;
-    margin-bottom: 0.5rem;
+    gap: 12px;
+    padding: 0.25rem 0 1.1rem 0;
 }
 
 .sb-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 11px;
-    background: #F5F0E8;
-    border: 1px solid #EDE9E0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.20);
+    border-radius: 10px;
+    width: 42px; height: 42px;
+    display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
-    overflow: hidden;
-}
-
-.sb-logo-img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-    border-radius: 4px;
 }
 
 .sb-name {
-    font-size: 0.95rem !important;
-    font-weight: 800 !important;
-    color: #1E293B !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
     display: block;
-    letter-spacing: -0.3px;
-    line-height: 1.2;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    letter-spacing: -0.2px;
 }
 
 .sb-sub {
-    font-size: 0.67rem !important;
-    color: #94A3B8 !important;
+    font-size: 0.68rem !important;
+    color: var(--sb-text-muted) !important;
     display: block;
-    margin-top: 3px;
-    letter-spacing: 0.02em;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    margin-top: 1px;
 }
 
-/* ── Divider ── */
+/* ── Dividers & section labels ── */
 .sb-sep {
     height: 1px;
-    background: #F1EDE4;
-    margin: 0.5rem 0 0.9rem 0;
-    border: none;
+    background: var(--sb-sep);
+    margin: 0.75rem 0;
 }
 
-/* ── Section label ── */
 .sb-section-label {
     font-size: 0.6rem !important;
     font-weight: 700 !important;
-    letter-spacing: 0.14em !important;
-    color: #CBD5E1 !important;
-    padding: 0.5rem 0 0.45rem 4px;
+    letter-spacing: 0.12em !important;
+    color: var(--sb-label) !important;
+    padding: 0.4rem 4px 0.5rem 4px;
     text-transform: uppercase;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
-/* ── Nav links ── */
+/* ══════════════════════════════════════════════════════════════
+   NAV LINKS
+   st.page_link renders [data-testid="stSidebarNavLink"].
+   We prepend a colored icon pill via ::before + data-URI SVG.
+══════════════════════════════════════════════════════════════ */
 [data-testid="stSidebarNavLink"] {
-    border-radius: 9px !important;
-    padding: 9px 12px !important;
+    border-radius: var(--r-sm) !important;
+    padding: 8px 12px 8px 10px !important;
     margin: 2px 0 !important;
-    font-size: 0.855rem !important;
+    font-size: 0.875rem !important;
     font-weight: 500 !important;
-    color: #64748B !important;
-    text-decoration: none !important;
+    color: var(--sb-text) !important;
     transition: all 0.15s ease !important;
     border: 1px solid transparent !important;
     display: flex !important;
     align-items: center !important;
-    gap: 9px !important;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    gap: 10px !important;
 }
 
+/* Colored icon pill — injected purely via CSS */
+[data-testid="stSidebarNavLink"]::before {
+    content: "";
+    display: inline-block;
+    width: 26px; height: 26px;
+    border-radius: 7px;
+    flex-shrink: 0;
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* 1 — Chat Assistant — sky blue / chat bubble */
+[data-testid="stSidebarNavLink"]:nth-of-type(1)::before {
+    background-color: var(--nav-c1-bg);
+    border: 1px solid var(--nav-c1-bd);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237DD3FC' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'/%3E%3C/svg%3E");
+}
+
+/* 2 — Plan My Route — emerald / map */
+[data-testid="stSidebarNavLink"]:nth-of-type(2)::before {
+    background-color: var(--nav-c2-bg);
+    border: 1px solid var(--nav-c2-bd);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236EE7B7' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21'/%3E%3Cline x1='9' y1='3' x2='9' y2='18'/%3E%3Cline x1='15' y1='6' x2='15' y2='21'/%3E%3C/svg%3E");
+}
+
+/* 3 — Safety Tips — amber / shield */
+[data-testid="stSidebarNavLink"]:nth-of-type(3)::before {
+    background-color: var(--nav-c3-bg);
+    border: 1px solid var(--nav-c3-bd);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23FDBA74' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E");
+}
+
+/* 4 — Saved Routes — pink / heart */
+[data-testid="stSidebarNavLink"]:nth-of-type(4)::before {
+    background-color: var(--nav-c4-bg);
+    border: 1px solid var(--nav-c4-bd);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23F9A8D4' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E");
+}
+
+/* Hover */
 [data-testid="stSidebarNavLink"]:hover {
-    background: #F8F5F0 !important;
-    color: #1E293B !important;
+    background: var(--sb-hover-bg) !important;
+    color: #FFFFFF !important;
 }
 
+/* Active page */
 [data-testid="stSidebarNavLink"][aria-current="page"] {
-    background: #F5F0E8 !important;
-    color: #1E40AF !important;
+    background: var(--sb-active-bg) !important;
+    color: #FFFFFF !important;
     font-weight: 600 !important;
-    border-color: #E2D9C8 !important;
+    border-color: rgba(255,255,255,0.18) !important;
 }
 
-/* ── Sidebar info ── */
+/* ── Info items ── */
 .sb-info-item {
-    font-size: 0.75rem !important;
-    color: #94A3B8 !important;
-    padding: 3px 4px;
-    line-height: 1.7;
     display: flex;
     align-items: center;
-    gap: 7px;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    gap: 8px;
+    font-size: 0.78rem !important;
+    color: var(--sb-text-muted) !important;
+    padding: 4px 4px;
+    line-height: 1.5;
 }
 
+.sb-dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* ── Version label ── */
 .sb-ver {
-    font-size: 0.63rem !important;
-    color: #CBD5E1 !important;
+    font-size: 0.62rem !important;
+    color: rgba(255,255,255,0.15) !important;
     text-align: center;
     padding-top: 1.5rem;
-    letter-spacing: 0.03em;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    letter-spacing: 0.05em;
 }
 
-/* ══════════════════════════════
+/* ══════════════════════════════════════════════════════════════
    PAGE HEADER
-══════════════════════════════ */
+══════════════════════════════════════════════════════════════ */
 .rg-page-header {
     display: flex;
     align-items: center;
-    gap: 13px;
-    margin-bottom: 1.5rem;
+    gap: 14px;
+    margin-bottom: 2rem;
     padding-bottom: 1.25rem;
-    border-bottom: 1px solid #EDE9E0;
+    border-bottom: 1px solid var(--border);
 }
 
-.rg-header-logo {
-    width: 44px;
-    height: 44px;
-    object-fit: contain;
-    border-radius: 11px;
-    border: 1px solid #EDE9E0;
-    background: #F5F0E8;
-    padding: 5px;
+.rg-page-header-icon {
+    width: 42px; height: 42px;
+    background: var(--blue-light);
+    border: 1px solid #DBEAFE;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
 }
 
+.rg-page-header-text h1 {
+    font-size: 1.35rem !important;
+    font-weight: 700 !important;
+    color: var(--text-1) !important;
+    margin: 0 0 3px 0 !important;
+    letter-spacing: -0.3px;
+}
+
+.rg-page-header-text p {
+    font-size: 0.875rem !important;
+    color: var(--text-3) !important;
+    margin: 0 !important;
+}
+
+/* Legacy fallback for pages using the simpler header div */
 .rg-page-header h1 {
     font-size: 1.35rem !important;
-    font-weight: 800 !important;
-    color: #1E293B !important;
-    margin: 0 0 2px 0 !important;
-    letter-spacing: -0.5px;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-weight: 700 !important;
+    color: var(--text-1) !important;
+    margin: 0 0 3px 0 !important;
 }
-
 .rg-page-header p {
-    font-size: 0.845rem !important;
-    color: #94A3B8 !important;
+    font-size: 0.875rem !important;
+    color: var(--text-3) !important;
     margin: 0 !important;
-    font-weight: 400;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
-/* ══════════════════════════════
-   WELCOME STATE
-══════════════════════════════ */
-.rg-welcome {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 3rem 2rem 2.5rem;
-    gap: 0.5rem;
-    background: #FFFFFF;
-    border-radius: 20px;
-    box-shadow: 0 2px 24px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03);
-    margin-bottom: 1rem;
-}
-
-.rg-welcome-logo {
-    font-size: 2.8rem;
-    margin-bottom: 0.75rem;
-    display: block;
-    filter: drop-shadow(0 4px 16px rgba(30,64,175,0.15));
-}
-
-.rg-welcome h2 {
-    font-size: 1.6rem !important;
-    font-weight: 800 !important;
-    color: #1E293B !important;
-    letter-spacing: -0.6px;
-    margin-bottom: 0.5rem !important;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
-}
-
-.rg-welcome p {
-    font-size: 0.9rem !important;
-    color: #64748B !important;
-    max-width: 420px;
-    line-height: 1.7;
-    margin-bottom: 1.5rem !important;
-    font-weight: 400;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
-}
-
-.rg-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 9px;
-    justify-content: center;
-}
-
-.rg-chip {
-    background: #F8F5F0;
-    border: 1.5px solid #EDE9E0;
-    border-radius: 999px;
-    padding: 8px 18px;
-    font-size: 0.81rem;
-    color: #475569;
-    font-weight: 500;
-    cursor: default;
-    transition: all 0.15s ease;
-    white-space: nowrap;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
-}
-
-.rg-chip:hover {
-    background: #EFF6FF;
-    border-color: #93C5FD;
-    color: #1D4ED8;
-    box-shadow: 0 3px 10px rgba(30,64,175,0.1);
-    transform: translateY(-1px);
-}
-
-/* ── Bottom bar ── */
+/* ══════════════════════════════════════════════════════════════
+   BOTTOM BAR
+══════════════════════════════════════════════════════════════ */
 [data-testid="stBottom"],
 [data-testid="stBottom"] > div,
 [data-testid="stBottom"] > div > div {
-    background-color: #F5F0E8 !important;
+    background-color: var(--bg) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DARK MODE TOGGLE (sidebar)
+══════════════════════════════════════════════════════════════ */
+
+/* "Dark Mode" label text */
+.sb-dark-label {
+    font-size: 0.8rem !important;
+    color: #BFDBFE !important;
+    display: flex;
+    align-items: center;
+    height: 34px;
+    padding-left: 4px;
+}
+
+/* Sidebar columns: remove Streamlit's default gap/padding */
+[data-testid="stSidebar"] [data-testid="stHorizontalBlock"] {
+    gap: 4px !important;
+    align-items: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+[data-testid="stSidebar"] [data-testid="stColumn"] {
+    padding: 0 !important;
+    min-width: 0 !important;
+}
+
+/* The toggle button itself */
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] {
+    background: rgba(255,255,255,0.10) !important;
+    border: 1px solid rgba(255,255,255,0.20) !important;
+    border-radius: 8px !important;
+    width: 34px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 !important;
+    font-size: 0 !important;        /* hide any text/emoji label */
+    line-height: 34px !important;
+    color: transparent !important;
+    transition: background 0.18s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+}
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"]:hover {
+    background: rgba(255,255,255,0.22) !important;
+    border-color: rgba(255,255,255,0.35) !important;
+}
+/* Crescent moon painted via ::after — no emoji needed */
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"]::after {
+    content: "" !important;
+    position: absolute !important;
+    width: 16px !important;
+    height: 16px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 16px 16px !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23BFDBFE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E") !important;
+}
+/* Hide Streamlit's internal label/p/span inside the button */
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] p,
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] span {
+    display: none !important;
 }

@@ -1,40 +1,43 @@
 {
   "01K": {
-    "name": "01K - NSO / Parkmall to Colon Loop",
-    "description": "Passes through SM City Cebu, North Bus Terminal, Parkmall, Colon, and back.",
-    "terminals": ["SM City Cebu", "Parkmall", "Colon"],
+    "name": "01K - Urgello to Parkmall",
+    "description": "One-way route from Urgello area through Colon, SM City Cebu, North Terminal, and ending at Parkmall PUJ Terminal.",
+    "direction": "Urgello → Parkmall",
+    "terminals": ["Urgello St.", "Parkmall PUJ Terminal"],
     "stops": [
-      { "name": "National Statistics Office (NSO)", "type": "Landmark" },
-      { "name": "General Maxilom Ave", "type": "Road" },
-      { "name": "A Soriano Ave", "type": "Road" },
-      { "name": "SM City Cebu", "type": "Mall / Terminal" },
-      { "name": "North Bus Terminal", "type": "Terminal" },
-      { "name": "Cebu Doctors University", "type": "School" },
-      { "name": "CICC", "type": "Landmark" },
-      { "name": "Parkmall", "type": "Mall / Terminal" },
-      { "name": "Metro Gaisano", "type": "Mall" },
-      { "name": "Colonnade Supermarket", "type": "Mall / Grocery" },
-      { "name": "University of Visayas (UV)", "type": "School" },
-      { "name": "Gaisano Main", "type": "Mall" },
-      { "name": "Brgy. Parian", "type": "Landmark" },
-      { "name": "Zulueta St", "type": "Road" },
-      { "name": "MJ Cuenca Ave", "type": "Road" },
-      { "name": "V Urgello St", "type": "Road" },
-      { "name": "Sacred Heart Hospital", "type": "Health" },
-      { "name": "Southwestern University (SWU)", "type": "School" },
-      { "name": "Elizabeth Mall (Emall)", "type": "Mall / Grocery" },
-      { "name": "Leon Kilat St", "type": "Road" },
-      { "name": "Colon", "type": "Terminal" }
+      { "sequence": 1,  "name": "Urgello St.",                              "area": "Urgello Area",                   "type": "Road" },
+      { "sequence": 2,  "name": "Sacred Heart Hospital",                    "area": "Urgello Area",                   "type": "Health" },
+      { "sequence": 3,  "name": "Southwestern University (SWU)",            "area": "Urgello Area",                   "type": "School" },
+      { "sequence": 4,  "name": "Elizabeth Mall (Emall)",                   "area": "Urgello Area",                   "type": "Mall" },
+      { "sequence": 5,  "name": "Leon Kilat St.",                           "area": "Colon Area",                     "type": "Road" },
+      { "sequence": 6,  "name": "Colon St.",                                "area": "Colon Area",                     "type": "Terminal" },
+      { "sequence": 7,  "name": "Metro Gaisano Colon",                      "area": "Colon Area",                     "type": "Mall" },
+      { "sequence": 8,  "name": "Colonnade Supermarket",                    "area": "Colon Area",                     "type": "Mall" },
+      { "sequence": 9,  "name": "University of the Visayas (UV)",           "area": "Colon Area",                     "type": "School" },
+      { "sequence": 10, "name": "Gaisano Main",                             "area": "Colon Area",                     "type": "Mall" },
+      { "sequence": 11, "name": "Brgy. Parian",                             "area": "Parian / Downtown Area",         "type": "Landmark" },
+      { "sequence": 12, "name": "Zulueta St.",                              "area": "Parian / Downtown Area",         "type": "Road" },
+      { "sequence": 13, "name": "M.J. Cuenco Ave.",                         "area": "Mabolo / North Reclamation Area","type": "Road" },
+      { "sequence": 14, "name": "NSO (National Statistics Office)",         "area": "Mabolo / North Reclamation Area","type": "Landmark" },
+      { "sequence": 15, "name": "General Maxilom Ave.",                     "area": "Mabolo / North Reclamation Area","type": "Road" },
+      { "sequence": 16, "name": "A. Soriano Ave.",                          "area": "SM City Cebu Area",              "type": "Road" },
+      { "sequence": 17, "name": "SM City Cebu",                             "area": "SM City Cebu Area",              "type": "Mall" },
+      { "sequence": 18, "name": "SM Hypermarket",                           "area": "SM City Cebu Area",              "type": "Mall" },
+      { "sequence": 19, "name": "North Bus Terminal",                       "area": "North Terminal Area",            "type": "Terminal" },
+      { "sequence": 20, "name": "Cebu Doctors University",                  "area": "Mandaue Area",                   "type": "School" },
+      { "sequence": 21, "name": "CICC (Cebu International Convention Center)", "area": "Mandaue Area",               "type": "Landmark" },
+      { "sequence": 22, "name": "Parkmall PUJ Terminal",                    "area": "Final Destination",              "type": "Terminal" }
     ],
-    "fare_estimate": {
-      "base_fare": 13,
+    "fare": {
+      "base_fare": 15,
       "base_km": 4,
-      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+      "per_km_after": 1.80,
+      "note": "P15.00 for the first 4km; P1.80 per km after that."
     },
     "tips": [
-      "Board near SM City Cebu or Parkmall for easy entry points.",
-      "Say 'Lugar lang' or tap the rail when approaching your stop.",
-      "The jeepney loops back from Colon toward Metro Gaisano after the terminal."
+      "Board at Urgello St. or any stop along the route going toward Parkmall.",
+      "Say 'Lugar lang!' loudly or tap a coin on the rail to signal your stop.",
+      "This is a one-way route — for the return trip, take a different jeepney heading back toward Colon."
     ]
   }
 }

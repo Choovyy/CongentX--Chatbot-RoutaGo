@@ -76,10 +76,23 @@ with tab1:
                         {
                             "role": "system",
                             "content": f"""You are RoutaGo, a Cebu jeepney route guide. Always respond in English.
-Only use routes from this database. NEVER invent stops or routes.
-User is a PASSENGER — NEVER say Turn left/right/Continue onto. Describe landmarks they SEE out the window.
-Always include: bold jeepney CODE (e.g. **01K**), boarding spot, numbered landmark steps, drop-off cue with 'Lugar lang', fare (P13/4km then P3.25/km).
-ROUTE DATABASE:\n{route_context}"""
+Only use routes and stops from this database. NEVER invent stops or routes.
+NO EMOJIS anywhere in your response.
+User is a PASSENGER — NEVER say Turn left, Turn right, or Continue onto.
+
+FARE: Base fare P15.00 for first 4km, then P1.80 per km after. Estimate based on number of stops.
+
+ROUTE DATABASE:
+{route_context}
+
+CRITICAL OUTPUT RULE: Respond with a single valid JSON object only. No text before or after. No markdown fences. Pure raw JSON.
+
+For route questions (do not include travel_time):
+{{"type":"route","route_code":"CODE","route_name":"route name","origin":"origin","destination":"destination","boarding":"boarding spot + nearby landmark","steps":["Step 1 — go to boarding point at LANDMARK","Step 2 — board **CODE** (route name)","Step 3 — you will pass LANDMARK","...one step per stop between origin and destination in sequence order"],"fare":"P15.00","fare_note":"Standard fare (approx. Xkm, X stops)","dropoff":"Tell the driver \"Lugar lang!\" when you see LANDMARK. Tap a coin on the rail to signal stop.","tips":["copy each tip from the route tips array exactly as written"]}}
+
+STEPS RULE: Use the sequence numbers in the stops array. Include one step per stop between origin and destination. Never skip stops.
+
+If not found: {{"type":"text","message":"Sorry bai, I don't have that route yet!"}}"""
                         },
                         {"role": "user", "content": f"How do I commute from {origin} to {destination} by jeepney in Cebu?"}
                     ],
@@ -109,4 +122,3 @@ with tab2:
             with st.expander(f"📍 {route['origin']} → {route['destination']} ({route['time']})"):
                 st.markdown(f"<div class='rg-result' style='margin-top:0;'>{route['result']}</div>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
-

@@ -1,214 +1,273 @@
-/* ══════════════════════════════
-   WELCOME STATE
-══════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════
+   CHAT PAGE — chat.css
+   Depends on CSS variables defined in main.css.
+
+   !important policy:
+   - Our own .rg-* classes: NO !important — we own specificity
+   - [data-testid="st*"] selectors: YES !important — must beat
+     Streamlit's runtime emotion-cache classes
+══════════════════════════════════════════════════════════════ */
+
+/* ── Welcome screen ─────────────────────────────────────────── */
 .rg-welcome {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    padding: 3rem 0 2.5rem;
     text-align: center;
-    padding: 3rem 2rem 2.5rem;
-    gap: 0.5rem;
-    background: #FFFFFF;
-    border-radius: 20px;
-    box-shadow: 0 2px 24px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03);
-    margin-bottom: 1rem;
+    max-width: 560px;
+    margin: 0 auto 2rem;
 }
 
 .rg-welcome-logo {
-    font-size: 3rem;
-    margin-bottom: 0.75rem;
-    display: block;
-    filter: drop-shadow(0 4px 16px rgba(30,64,175,0.12));
+    width: 60px;
+    height: 60px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+    box-shadow: var(--sh-sm);
 }
 
 .rg-welcome h2 {
-    font-size: 1.65rem !important;
-    font-weight: 800 !important;
-    color: #1E293B !important;
-    letter-spacing: -0.6px;
-    margin-bottom: 0.5rem !important;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-1);
+    margin: 0 0 10px;
+    letter-spacing: -0.4px;
 }
 
 .rg-welcome p {
-    font-size: 0.9rem !important;
-    color: #64748B !important;
-    max-width: 440px;
+    font-size: 0.9rem;
+    color: var(--text-3);
     line-height: 1.7;
-    margin-bottom: 1.5rem !important;
-    font-weight: 400;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    margin: 0 auto 1.75rem;
+    max-width: 440px;
 }
 
+/* ── Suggestion chips ───────────────────────────────────────── */
 .rg-chips {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 9px;
+    gap: 8px;
 }
 
 .rg-chip {
-    background: #F8F5F0;
-    border: 1.5px solid #EDE9E0;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 100px;
-    padding: 8px 18px;
-    font-size: 0.81rem;
-    font-weight: 500;
-    color: #475569;
+    padding: 7px 15px;
+    font-size: 0.8rem;
+    color: var(--text-2);
     cursor: pointer;
     transition: all 0.18s ease;
     white-space: nowrap;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    box-shadow: var(--sh-sm);
 }
 
 .rg-chip:hover {
-    background: #EFF6FF;
-    border-color: #93C5FD;
-    color: #1D4ED8;
+    background: var(--blue-light);
+    border-color: #BFDBFE;
+    color: var(--blue);
+    box-shadow: var(--sh-md);
     transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(30,64,175,0.1);
 }
 
-/* ══════════════════════════════
+.rg-chip-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--teal);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════
    CHAT MESSAGES
-══════════════════════════════ */
-[data-testid="stChatMessage"] {
-    background: #FFFFFF !important;
-}
+   !important needed here — Streamlit sets inline styles on
+   stChatMessage that override stylesheet rules without it.
+══════════════════════════════════════════════════════════════ */
 
-[data-testid="stChatMessage"] *,
-[data-testid="stChatMessage"] p,
-[data-testid="stChatMessage"] span,
-[data-testid="stChatMessage"] li,
-[data-testid="stChatMessage"] ol,
-[data-testid="stChatMessage"] ul,
-[data-testid="stChatMessage"] div {
-    color: #1E293B !important;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
-    font-size: 0.9rem !important;
-    line-height: 1.75 !important;
-}
-
-/* Assistant bubble */
+/* ── Assistant bubble — white card, teal left bar ── */
 [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
-    background: #FFFFFF !important;
-    border: 1.5px solid #F1EDE4 !important;
-    padding: 1.2rem 1.15rem !important;
-    border-radius: 6px 16px 16px 16px !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-left: 3px solid var(--teal) !important;
+    padding: 1.2rem 1.25rem !important;
+    border-radius: var(--r-md) !important;
     margin-bottom: 10px !important;
-    box-shadow: 0 1px 8px rgba(0,0,0,0.05) !important;
+    box-shadow: var(--sh-sm) !important;
+    color: var(--text-2) !important;
 }
 
-[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) *,
 [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) p,
-[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) span,
-[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) li {
-    color: #1E293B !important;
-    background: transparent !important;
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) li,
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) div {
+    color: #334155 !important;
+    font-size: 0.92rem !important;
+    line-height: 1.72 !important;
 }
 
-/* User bubble */
+/* Response body div wrapping all LLM output — covers bare text nodes */
+.rg-response-body {
+    color: #334155;
+    font-size: 0.92rem;
+    line-height: 1.75;
+}
+
+/* ── User bubble — cool slate-blue, blends with sidebar palette ── */
 [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
-    background: #EFF6FF !important;
-    border: 1.5px solid #DBEAFE !important;
-    padding: 1.2rem 1.15rem !important;
-    border-radius: 16px 6px 16px 16px !important;
-    margin-bottom: 10px !important;
-    box-shadow: 0 1px 4px rgba(30,64,175,0.06) !important;
+    background: #E8EDF7 !important;
+    border: 1px solid #C5D0E8 !important;
+    border-left: 3px solid #2563EB !important;
+    padding: 1.2rem 1.25rem !important;
+    border-radius: var(--r-md) !important;
+    margin-bottom: 8px !important;
+    box-shadow: none !important;
 }
 
-[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) *,
 [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) p,
 [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) span {
-    color: #1E3A8A !important;
-    background: transparent !important;
-    font-weight: 500 !important;
+    color: #1E3A6E !important;
+    font-size: 0.92rem !important;
 }
 
+/* Bold inside any message */
 [data-testid="stChatMessage"] strong {
-    color: #1D4ED8 !important;
+    color: var(--blue) !important;
     font-weight: 700 !important;
 }
 
-[data-testid="stChatMessage"] code {
-    background: rgba(30,64,175,0.07) !important;
-    color: #1E40AF !important;
-    border-radius: 5px;
-    padding: 2px 7px;
-    font-family: 'JetBrains Mono', monospace !important;
-    font-size: 0.85em !important;
-    border: 1px solid rgba(30,64,175,0.12);
-}
-
-[data-testid="chatAvatarIcon-assistant"],
-[data-testid="chatAvatarIcon-user"] {
-    border-radius: 50% !important;
+/* Avatar image sizing */
+[data-testid="chatAvatarIcon-assistant"] img,
+[data-testid="chatAvatarIcon-user"] img {
+    border-radius: 8px !important;
     width: 32px !important;
     height: 32px !important;
 }
 
-/* ── Jeepney code badge ── */
+/* ══════════════════════════════════════════════════════════════
+   JEEPNEY CODE BADGE
+   No !important — .jeep-code is our class, no competition.
+══════════════════════════════════════════════════════════════ */
 .jeep-code {
-    font-weight: 700 !important;
-    color: #1E40AF !important;
-    background: rgba(30, 64, 175, 0.07);
+    display: inline-block;
+    font-weight: 800;
+    font-size: 0.87em;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 2px;
+    color: var(--teal);
+    background: var(--teal-light);
     padding: 2px 7px;
     border-radius: 5px;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
-    font-size: 0.85em;
-    border: 1px solid rgba(30, 64, 175, 0.12);
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    letter-spacing: 0.04em;
+    border: 1px solid rgba(13,148,136,0.2);
 }
 
-/* ══════════════════════════════
-   CHAT INPUT — VISIBILITY FIX
-══════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════
+   PAGE HEADER — override only what main.css sets differently
+══════════════════════════════════════════════════════════════ */
+.rg-page-header {
+    align-items: center !important;
+}
+.rg-page-header-icon {
+    margin-top: 0 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CHAT INPUT BAR
+   All !important — Streamlit injects inline background styles
+   on stBottom that can't be overridden without them.
+══════════════════════════════════════════════════════════════ */
 [data-testid="stBottom"],
 [data-testid="stBottom"] > div,
-[data-testid="stBottom"] > div > div {
-    background-color: #F5F0E8 !important;
+[data-testid="stBottom"] > div > div,
+[data-testid="stBottom"] > div > div > div {
+    background: var(--bg) !important;
+    border-top: 1px solid var(--border) !important;
 }
 
 [data-testid="stChatInput"] {
-    background: #FFFFFF !important;
-    border: 1.5px solid #E2E8F0 !important;
+    background: var(--surface) !important;
+    border: 1.5px solid var(--border) !important;
     border-radius: 14px !important;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
-    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07) !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 [data-testid="stChatInput"]:focus-within {
-    border-color: #3B82F6 !important;
-    box-shadow: 0 0 0 3px rgba(59,130,246,0.1), 0 4px 16px rgba(0,0,0,0.06) !important;
+    border-color: #93C5FD !important;
+    box-shadow: 0 0 0 3px rgba(147,197,253,0.2), 0 2px 8px rgba(0,0,0,0.07) !important;
 }
 
-[data-testid="stChatInput"] textarea,
-[data-testid="stChatInput"] > div,
-[data-testid="stChatInput"] > div > div {
-    background: #FFFFFF !important;
-    background-color: #FFFFFF !important;
-    color: #0F172A !important;
-    font-size: 0.92rem !important;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
-    font-weight: 400 !important;
+[data-testid="stChatInput"] textarea {
+    background: transparent !important;
+    color: var(--text-1) !important;
+    font-size: 0.93rem !important;
+    border: none !important;
+    padding: 12px 10px !important;
     caret-color: #2563EB !important;
 }
 
 [data-testid="stChatInput"] textarea::placeholder {
-    color: #94A3B8 !important;
-    font-weight: 400 !important;
+    color: var(--text-4) !important;
 }
 
-[data-testid="stChatInputSubmitButton"] button {
-    background: linear-gradient(135deg, #2563EB, #1D4ED8) !important;
-    border-radius: 9px !important;
-    border: none !important;
-    box-shadow: 0 2px 8px rgba(37,99,235,0.3) !important;
-    transition: all 0.2s ease !important;
+/* ══════════════════════════════════════════════════════════════
+   SUBMIT BUTTON
+   html body prefix raises specificity above emotion-cache
+   classes without needing to know their hashed names.
+══════════════════════════════════════════════════════════════ */
+html body [data-testid="stChatInputSubmitButton"] button {
+    background-color: #2563EB !important;
+    background:       #2563EB !important;
+    border:           none !important;
+    border-radius:    10px !important;
+    box-shadow:       none !important;
+    opacity:          0.88 !important;
+    transition:       opacity 0.18s ease, background 0.18s ease !important;
 }
-
-[data-testid="stChatInputSubmitButton"] button:hover {
-    background: linear-gradient(135deg, #1D4ED8, #1E40AF) !important;
-    transform: scale(1.06) !important;
-    box-shadow: 0 4px 14px rgba(37,99,235,0.4) !important;
+html body [data-testid="stChatInputSubmitButton"] button:hover {
+    background-color: #1D4ED8 !important;
+    background:       #1D4ED8 !important;
+    opacity:          1 !important;
+    transform: scale(1.04) !important;
 }
+html body [data-testid="stChatInputSubmitButton"] button svg,
+html body [data-testid="stChatInputSubmitButton"] button svg path {
+    stroke: #FFFFFF !important;
+    fill:   none !important;
+}
+/* ══════════════════════════════════════════════════════════════
+   ROUTE CARD STYLES — rendered by format_response() in helpers.py
+   Every rule is on a single line with zero leading whitespace.
+   st.markdown() converts 4-space-indented lines to code blocks.
+══════════════════════════════════════════════════════════════ */
+.rg-route-card-wrap { display: block; font-family: 'Inter', sans-serif; color: #1E293B; width: 100%; }
+.rg-route-header { display: block; font-size: 0.97rem; font-weight: 700; color: #0F172A; margin-bottom: 4px; line-height: 1.5; }
+.rg-route-code { font-size: 0.85em; margin-right: 8px; vertical-align: middle; }
+.rg-route-subtitle { display: block; font-size: 0.78rem; color: #64748B; margin-bottom: 14px; }
+.rg-steps { display: block; margin-bottom: 14px; }
+.rg-step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+.rg-step-num { min-width: 24px; height: 24px; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 50%; font-size: 0.72rem; font-weight: 700; color: #2563EB; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.rg-step-text { font-size: 0.875rem; color: #334155; line-height: 1.6; }
+.rg-card { display: block; border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
+.rg-card-label { display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+.rg-card-sub { display: block; font-size: 0.75rem; margin-top: 3px; }
+.rg-card-body { display: block; font-size: 0.845rem; line-height: 1.6; }
+.rg-card-fare { background: #FFFBEB; border: 1px solid #FDE68A; }
+.rg-card-fare .rg-card-label { color: #B45309; }
+.rg-card-fare .rg-card-sub { color: #92400E; }
+.rg-fare-amount { display: block; font-size: 1.5rem; font-weight: 800; color: #D97706; line-height: 1.2; }
+.rg-card-dropoff { background: #EFF6FF; border: 1px solid #BFDBFE; border-left: 3px solid #2563EB; }
+.rg-card-dropoff .rg-card-label { color: #1D4ED8; }
+.rg-card-dropoff .rg-card-body { color: #1E3A5F; }
+.rg-card-tips { background: #F0FDF4; border: 1px solid #BBF7D0; border-left: 3px solid #16A34A; }
+.rg-card-tips .rg-card-label { color: #15803D; }
+.rg-tip-item { font-size: 0.845rem; color: #166534; line-height: 1.6; padding: 4px 0; border-bottom: 1px solid #D1FAE5; }
+.rg-tip-item:last-child { border-bottom: none; padding-bottom: 0; }
