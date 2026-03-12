@@ -2,12 +2,13 @@ import streamlit as st
 import os, sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.helpers import load_css, render_sidebar
+from utils.helpers import load_css, render_sidebar, inject_dark_mode
 
 st.set_page_config(page_title="Safety Tips — RoutaGo", page_icon="🛡️", layout="wide", initial_sidebar_state="expanded")
 load_css("assets/styles/main.css")
 load_css("assets/styles/safety.css")
 render_sidebar()
+inject_dark_mode()
 
 st.markdown("""
 <div class="rg-page-header">
@@ -27,13 +28,31 @@ tips = [
     ("🕐", "Avoid Peak Congestion", "Cebu traffic is worst 7–9AM and 5–7PM weekdays. Commuting outside these windows saves significant time."),
 ]
 
-for icon, title, desc in tips:
+modal_blocks = []
+
+for idx, (icon, title, desc) in enumerate(tips):
     st.markdown(f"""
-    <div class="tip-card">
-        <div class="tip-icon">{icon}</div>
-        <div class="tip-body">
-            <h4>{title}</h4>
-            <p>{desc}</p>
+    <a class="tip-card-link" href="#tip-modal-{idx}" aria-label="View {title} full details">
+        <div class="tip-card" role="button" tabindex="0">
+            <div class="tip-icon">{icon}</div>
+            <div class="tip-body">
+                <h4>{title}</h4>
+                <p>{desc}</p>
+            </div>
+        </div>
+    </a>
+    """, unsafe_allow_html=True)
+
+    modal_blocks.append(f"""
+    <div id="tip-modal-{idx}" class="tip-modal" aria-hidden="true">
+        <a class="tip-modal-backdrop" href="#" aria-label="Close"></a>
+        <div class="tip-modal-box" role="dialog" aria-modal="true" aria-label="Safety tip full view">
+            <a class="tip-modal-close" href="#" aria-label="Close">&times;</a>
+            <div class="tip-modal-icon">{icon}</div>
+            <div class="tip-modal-title">{title}</div>
+            <div class="tip-modal-meaning">{desc}</div>
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """)
+
+st.markdown("\n".join(modal_blocks), unsafe_allow_html=True)

@@ -3,50 +3,53 @@
    Depends on CSS variables in main.css
 ══════════════════════════════════════════════════════════════ */
 
-/* ── Tabs ── */
+/* ── Tabs ───────────────────────────────────────────────────── */
 .stTabs [data-baseweb="tab-list"] {
-    gap: 0;
-    background-color: transparent;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 2rem;
+    gap: 0.3rem;
+    border-bottom: 1px solid var(--border) !important;
+    margin-bottom: 1.35rem;
     padding: 0;
 }
 
 .stTabs [data-baseweb="tab"] {
-    height: 44px;
+    height: 42px;
     background-color: transparent !important;
-    border: none !important;
+    border: 1px solid transparent !important;
+    border-radius: 8px 8px 0 0 !important;
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-3) !important;
-    padding: 0 1rem 0 1rem !important;
-    margin-right: 4px;
+    padding: 0 0.9rem !important;
+    margin-right: 0.15rem;
     transition: color 0.2s ease;
     border-bottom: 2px solid transparent !important;
 }
 
 .stTabs [data-baseweb="tab"]:hover {
     color: var(--blue) !important;
+    background: rgba(37,99,235,0.05) !important;
 }
 
 .stTabs [aria-selected="true"] {
     color: var(--blue) !important;
+    background: var(--surface) !important;
+    border-color: var(--border) !important;
     border-bottom: 2px solid var(--blue) !important;
     font-weight: 600 !important;
 }
 
-/* ── Form card ── */
+/* ── Form card ───────────────────────────────────────────────── */
 .rg-form-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.75rem 2rem;
-    box-shadow: var(--shadow-sm);
+    border-radius: var(--r-lg);
+    padding: 1.3rem 1.45rem 1.45rem;
+    box-shadow: var(--sh-sm);
     margin-bottom: 1.5rem;
 }
 
 .stTextInput > label {
-    font-size: 0.75rem !important;
+    font-size: 0.72rem !important;
     font-weight: 600 !important;
     color: var(--text-3) !important;
     letter-spacing: 0.05em !important;
@@ -55,10 +58,10 @@
 }
 
 .stTextInput input {
-    background: var(--bg) !important;
+    background: var(--surface) !important;
     border: 1px solid var(--border) !important;
-    border-radius: var(--radius-sm) !important;
-    padding: 0.7rem 1rem !important;
+    border-radius: var(--r-sm) !important;
+    padding: 0.68rem 0.95rem !important;
     font-size: 0.9rem !important;
     color: var(--text-1) !important;
     font-family: 'Inter', sans-serif !important;
@@ -67,7 +70,7 @@
 
 .stTextInput input:focus {
     border-color: var(--border-focus) !important;
-    box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.25) !important;
+    box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.2) !important;
     outline: none !important;
     background: var(--surface) !important;
 }
@@ -76,8 +79,8 @@
     background: var(--blue) !important;
     color: #FFFFFF !important;
     border: none !important;
-    border-radius: var(--radius-sm) !important;
-    padding: 0.75rem 2rem !important;
+    border-radius: var(--r-sm) !important;
+    padding: 0.72rem 1.6rem !important;
     font-size: 0.875rem !important;
     font-weight: 600 !important;
     font-family: 'Inter', sans-serif !important;
@@ -85,164 +88,227 @@
     margin-top: 0.75rem !important;
     cursor: pointer !important;
     transition: all 0.18s ease !important;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25) !important;
+    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.22) !important;
     letter-spacing: 0.01em !important;
 }
 
 .stFormSubmitButton > button:hover {
     background: var(--blue-hover) !important;
-    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35) !important;
-    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.28) !important;
+    transform: translateY(-0.5px) !important;
 }
 
-/* ── Route result card ── */
+/* ── Route result card ──────────────────────────────────────── */
 .rg-result {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.75rem 1.75rem 1.75rem 2rem;
-    margin-top: 1.5rem;
-    font-size: 0.925rem;
-    line-height: 1.8;
-    color: var(--text-2);
-    box-shadow: var(--shadow-md);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Teal accent stripe on left */
-.rg-result::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 4px; height: 100%;
-    background: linear-gradient(180deg, var(--teal), #06B6D4);
-    border-radius: 4px 0 0 4px;
+    border-left: 3px solid #0D9488;
+    border-radius: var(--r-lg);
+    padding: 1rem 1.05rem;
+    margin-top: 1.2rem;
+    box-shadow: var(--sh-sm);
 }
 
 .rg-result p { color: var(--text-2) !important; margin: 0.75rem 0; }
 
-/* ── Recent routes ── */
+/* ── Route card styles (same visual system as Chat Assistant) ───────────── */
+.rg-route-card-wrap { display: block; font-family: 'Inter', sans-serif; color: #1E293B; width: 100%; }
+.rg-route-header { display: block; font-size: 0.97rem; font-weight: 700; color: #0F172A; margin-bottom: 4px; line-height: 1.5; }
+.rg-route-code { font-size: 0.85em; margin-right: 8px; vertical-align: middle; }
+.rg-route-subtitle { display: block; font-size: 0.78rem; color: #64748B; margin-bottom: 14px; }
+.rg-steps-label { display: block; font-size: 0.7rem; color: #64748B; letter-spacing: 0.08em; font-weight: 800; margin-bottom: 8px; }
+.rg-steps { display: block; margin-bottom: 14px; }
+.rg-step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; padding: 9px 10px; border: 1px solid #E2E8F0; border-radius: 10px; background: #F8FAFC; }
+.rg-step-num { width: 24px; height: 24px; border-radius: 999px; background: #DBEAFE; color: #1D4ED8; font-size: 0.75rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; flex: 0 0 24px; margin-top: 1px; }
+.rg-step-content { display: block; min-width: 0; }
+.rg-step-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #1D4ED8; margin-bottom: 2px; }
+.rg-step-text { font-size: 0.875rem; color: #334155; line-height: 1.6; }
+.rg-card { display: block; border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
+.rg-card-label { display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+.rg-card-sub { display: block; font-size: 0.75rem; margin-top: 3px; }
+.rg-card-body { display: block; font-size: 0.845rem; line-height: 1.6; }
+.rg-card-fare { background: #FFFBEB; border: 1px solid #FDE68A; }
+.rg-card-fare .rg-card-label { color: #B45309; }
+.rg-card-fare .rg-card-sub { color: #92400E; }
+.rg-fare-amount { display: block; font-size: 1.5rem; font-weight: 800; color: #D97706; line-height: 1.2; }
+.rg-card-dropoff { background: #EFF6FF; border: 1px solid #BFDBFE; border-left: 3px solid #2563EB; }
+.rg-card-dropoff .rg-card-label { color: #1D4ED8; }
+.rg-card-dropoff .rg-card-body { color: #1E3A5F; }
+.rg-card-tips { background: #F0FDF4; border: 1px solid #BBF7D0; border-left: 3px solid #16A34A; }
+.rg-card-tips .rg-card-label { color: #15803D; }
+.rg-tip-item { font-size: 0.845rem; color: #166534; line-height: 1.6; padding: 4px 0; border-bottom: 1px solid #D1FAE5; }
+.rg-tip-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+/* ── Recent routes ──────────────────────────────────────────── */
 .recent-container { display: flex; flex-direction: column; gap: 10px; }
 
-.recent-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 1.1rem 1.25rem;
-    cursor: pointer;
-    transition: all 0.18s ease;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    box-shadow: var(--shadow-sm);
-}
-
-.recent-item:hover {
-    border-color: #93C5FD;
-    box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
-}
-
-.recent-icon {
-    background: var(--blue-light);
-    border: 1px solid #DBEAFE;
-    width: 40px; height: 40px;
-    border-radius: var(--radius-sm);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-}
-
-.recent-details h4 {
-    margin: 0;
-    font-size: 0.875rem;
-    color: var(--text-1);
-    font-weight: 600;
-}
-
-.recent-details p {
-    margin: 3px 0 0 0;
-    font-size: 0.78rem;
-    color: var(--text-3);
-}
-
 /* ══════════════════════════════════════════════════════════════
-   HIGHWAY ANIMATION
-   Dark asphalt bar with animated jeepney — decorative only
+   REALISTIC ROUTE STRIP
+   Professional running-bus lane (no cartoon emoji)
 ══════════════════════════════════════════════════════════════ */
-.highway-bar {
+.route-lane {
     width: 100%;
-    height: 72px;
-    background: #0F172A;
-    border-radius: var(--radius-md);
-    margin-bottom: 1.5rem;
+    height: 76px;
+    margin-bottom: 1.1rem;
     position: relative;
     overflow: hidden;
-    border: 1px solid #1E293B;
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+        background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
 }
 
-/* Dashed center-line markings */
-.highway-line {
+.route-lane-markings {
     position: absolute;
-    top: 50%; width: 100%; height: 3px;
+    top: 50%;
+    width: 200%;
+    left: -100%;
+    height: 3px;
     background: repeating-linear-gradient(
         90deg,
-        #F59E0B 0, #F59E0B 28px,
-        transparent 28px, transparent 56px
+        rgba(245, 158, 11, 0.85) 0,
+        rgba(245, 158, 11, 0.85) 34px,
+        transparent 34px,
+        transparent 68px
     );
     transform: translateY(-50%);
-    opacity: 0.5;
+    animation: lane-move 9s linear infinite;
 }
 
-/* Jeepney icon + smoke wrapper */
-.jeep-wrapper {
+.route-bus-wrap {
     position: absolute;
-    bottom: 8px; left: -100px;
-    display: flex;
-    align-items: flex-end;
-    animation: drive-pause-drive 7s infinite cubic-bezier(0.45, 0, 0.55, 1);
+    left: -120px;
+    bottom: 12px;
+    width: 94px;
+    height: 36px;
+    animation: route-bus-run 9s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
-.jeep-icon {
-    font-size: 2.2rem;
-    z-index: 2;
-    filter: drop-shadow(1px 3px 5px rgba(0,0,0,0.6));
-    animation: vibrate 0.14s infinite;
-}
-
-/* Smoke puffs */
-.smoke-emitter {
+.route-bus-shell {
+    width: 94px;
+    height: 28px;
+    border-radius: 6px;
     position: absolute;
-    bottom: 6px; left: -2px;
-    display: flex; gap: 4px;
+    bottom: 8px;
+    left: 0;
+    background: linear-gradient(180deg, #60A5FA 0%, #2563EB 100%);
+    border: 1px solid rgba(15, 23, 42, 0.2);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.34);
 }
 
-.smoke {
-    width: 7px; height: 7px;
-    background: #94A3B8;
+.route-window {
+    position: absolute;
+    top: 6px;
+    width: 14px;
+    height: 7px;
+    border-radius: 2px;
+    background: rgba(241, 245, 249, 0.88);
+}
+
+.route-window-1 { left: 10px; }
+.route-window-2 { left: 29px; }
+.route-window-3 { left: 48px; }
+
+.route-headlight {
+    position: absolute;
+    right: 4px;
+    top: 10px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
+    background: #FDE68A;
+    box-shadow: 0 0 8px rgba(253, 230, 138, 0.85);
+}
+
+.route-brake {
+    position: absolute;
+    left: 2px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(251, 113, 133, 0.35);
+    box-shadow: 0 0 2px rgba(251, 113, 133, 0.25);
+    animation: brake-glow 9s linear infinite;
+}
+
+.route-brake-top { top: 8px; }
+.route-brake-bottom { top: 15px; }
+
+.route-smoke {
+    position: absolute;
+    left: -1px;
+    bottom: 11px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(148, 163, 184, 0.58);
+    filter: blur(1px);
     opacity: 0;
-    filter: blur(3px);
-    animation: puff 0.85s infinite;
+    animation: smoke-rise 1.15s ease-out infinite;
 }
 
-.smoke:nth-child(2) { animation-delay: 0.22s; }
-.smoke:nth-child(3) { animation-delay: 0.44s; }
+.route-smoke-2 { animation-delay: 0.26s; }
+.route-smoke-3 { animation-delay: 0.52s; }
 
-@keyframes puff {
-    0%   { transform: translate(0, 0) scale(1);   opacity: 0.55; }
-    100% { transform: translate(-38px, -18px) scale(3); opacity: 0; }
+.route-wheel {
+    position: absolute;
+    bottom: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #0F172A;
+    border: 2px solid #94A3B8;
+    animation: wheel-spin 9s linear infinite;
 }
 
-@keyframes drive-pause-drive {
-    0%   { left: -100px; }
-    35%  { left: 40%; }
-    50%  { left: 40%; }
-    85%  { left: 110%; }
-    100% { left: 110%; }
+.route-wheel-front { right: 12px; }
+.route-wheel-rear  { left: 12px; }
+
+@keyframes route-bus-run {
+    0%   { left: -120px; }
+    45%  { left: 42%; }
+    78%  { left: 42%; }
+    100% { left: calc(100% + 35px); }
 }
 
-@keyframes vibrate {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-2px); }
+@keyframes lane-move {
+    0%   { transform: translateY(-50%) translateX(0); }
+    45%  { transform: translateY(-50%) translateX(220px); }
+    78%  { transform: translateY(-50%) translateX(220px); }
+    100% { transform: translateY(-50%) translateX(340px); }
+}
+
+@keyframes wheel-spin {
+    0%   { transform: rotate(0deg); }
+    45%  { transform: rotate(1260deg); }
+    78%  { transform: rotate(1260deg); }
+    100% { transform: rotate(1800deg); }
+}
+
+@keyframes brake-glow {
+    0%, 40%, 82%, 100% {
+        background: rgba(251, 113, 133, 0.35);
+        box-shadow: 0 0 2px rgba(251, 113, 133, 0.25);
+    }
+    45%, 62%, 78% {
+        background: #F43F5E;
+        box-shadow: 0 0 9px rgba(244, 63, 94, 0.95);
+    }
+}
+
+@keyframes smoke-rise {
+    0% {
+        transform: translate(0, 0) scale(0.8);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.48;
+    }
+    55% {
+        transform: translate(-18px, -10px) scale(1.45);
+        opacity: 0.42;
+    }
+    100% {
+        transform: translate(-30px, -19px) scale(1.85);
+        opacity: 0;
+    }
 }

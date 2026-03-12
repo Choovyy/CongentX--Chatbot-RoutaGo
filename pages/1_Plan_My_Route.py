@@ -7,7 +7,7 @@ from datetime import datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # --- CUSTOM MODULES ---
 # helpers module contains shared UI components and response formatting logic
-from utils.helpers import load_css, render_sidebar, format_response
+from utils.helpers import load_css, render_sidebar, format_response, inject_dark_mode
 
 load_dotenv()
 
@@ -15,6 +15,7 @@ st.set_page_config(page_title="Plan Route — RoutaGo", page_icon="🗺️", lay
 load_css("assets/styles/main.css")
 load_css("assets/styles/plan.css")
 render_sidebar()
+inject_dark_mode()
 
 # Initialize session state for recent routes
 if "recent_routes" not in st.session_state:
@@ -27,30 +28,35 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 st.markdown("""
 <div class="rg-page-header">
-    <h1>🗺️ Plan My Route</h1>
-    <p>Professional Cebu jeepney navigation and route planning.</p>
+    <h1>Plan My Route</h1>
+    <p>Plan your Cebu commute with clear, practical, stop-by-stop guidance.</p>
 </div>
 """, unsafe_allow_html=True)
 
 # TABBED UI: separates the interactive planning tool from history
-tab1, tab2 = st.tabs(["🔍 Plan Your Route", "🕒 Recent Routes"])
+tab1, tab2 = st.tabs(["Plan Your Route", "Recent Routes"])
 
 with tab1:
     # Card-style container for the route search form
     st.markdown("<div class='rg-form-card'>", unsafe_allow_html=True)
     with st.form("route_form", clear_on_submit=False):
-        # Premium UI element: Animated jeepney on a highway
-        # Smoking Jeepney Highway Animation
         st.markdown("""
-        <div class="highway-bar">
-            <div class="highway-line"></div>
-            <div class="jeep-wrapper">
-                <div class="smoke-emitter">
-                    <span class="smoke"></span>
-                    <span class="smoke"></span>
-                    <span class="smoke"></span>
+        <div class="route-lane" aria-hidden="true">
+            <div class="route-lane-markings"></div>
+            <div class="route-bus-wrap">
+                <span class="route-smoke route-smoke-1"></span>
+                <span class="route-smoke route-smoke-2"></span>
+                <span class="route-smoke route-smoke-3"></span>
+                <div class="route-bus-shell">
+                    <span class="route-window route-window-1"></span>
+                    <span class="route-window route-window-2"></span>
+                    <span class="route-window route-window-3"></span>
+                    <span class="route-headlight"></span>
+                    <span class="route-brake route-brake-top"></span>
+                    <span class="route-brake route-brake-bottom"></span>
                 </div>
-                <div class="jeep-icon">🚌</div>
+                <span class="route-wheel route-wheel-front"></span>
+                <span class="route-wheel route-wheel-rear"></span>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -61,7 +67,7 @@ with tab1:
         with col2:
             destination = st.text_input("Where to?", placeholder="e.g., Colon Street", key="dest_input")
         
-        submitted = st.form_submit_button("Find Best Route →", use_container_width=True)
+        submitted = st.form_submit_button("Find Best Route", use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
     if submitted:

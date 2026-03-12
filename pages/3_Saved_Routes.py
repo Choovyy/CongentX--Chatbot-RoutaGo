@@ -2,12 +2,13 @@ import streamlit as st
 import os, sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.helpers import load_css, render_sidebar
+from utils.helpers import load_css, render_sidebar, inject_dark_mode
 
 st.set_page_config(page_title="Saved Routes — RoutaGo", page_icon="❤️", layout="wide", initial_sidebar_state="expanded")
 load_css("assets/styles/main.css")
 load_css("assets/styles/saved.css")
 render_sidebar()
+inject_dark_mode()
 
 if "saved_routes" not in st.session_state:
     st.session_state.saved_routes = []

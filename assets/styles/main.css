@@ -40,6 +40,9 @@
     --nav-c4-bg:  rgba(249,168,212,0.18);   /* Saved — pink    */
     --nav-c4-bd:  rgba(249,168,212,0.30);
     --nav-c4-ico: %23F9A8D4;
+    --nav-c5-bg:  rgba(167,139,250,0.18);   /* Signage — violet */
+    --nav-c5-bd:  rgba(167,139,250,0.30);
+    --nav-c5-ico: %23A78BFA;
 
     /* Typography */
     --text-1: #0F172A;
@@ -126,17 +129,34 @@ footer           { visibility: hidden !important; }
     position: relative !important;
     display: flex !important;
     transform: none !important;
+    overflow: hidden !important;
+}
+
+[data-testid="stSidebarHeader"] {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 [data-testid="stSidebar"] > div:first-child,
 section[data-testid="stSidebar"] > div {
     background: transparent !important;
-    padding: 1.25rem 1rem !important;
+    padding: 0.45rem 1rem 1rem 1rem !important;
+    overflow-y: auto !important;
+    scrollbar-width: none !important;
+}
+[data-testid="stSidebar"] > div:first-child::-webkit-scrollbar,
+section[data-testid="stSidebar"] > div::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
 }
 
 /* Kill collapse controls */
 [data-testid="stSidebarCollapseButton"]   { display: none !important; }
 [data-testid="stSidebarCollapsedControl"] { display: none !important; }
+[data-testid="stSidebarNav"] { display: none !important; }
 
 /* Default text on blue sidebar */
 [data-testid="stSidebar"] * { color: var(--sb-text) !important; }
@@ -150,12 +170,74 @@ section[data-testid="stSidebar"] > div {
 }
 
 .sb-icon {
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.20);
-    border-radius: 10px;
-    width: 42px; height: 42px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.24);
+    border-radius: 12px;
+    width: 48px; height: 48px;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
+    overflow: hidden;
+}
+
+.sb-logo-link {
+    display: inline-flex;
+    text-decoration: none !important;
+}
+
+.sb-logo-image {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    display: block;
+}
+
+.sb-logo-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: none;
+}
+
+.sb-logo-modal:target {
+    display: block;
+}
+
+.sb-logo-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.58);
+}
+
+.sb-logo-modal-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(90vw, 420px);
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--sh-md);
+    padding: 1rem;
+    text-align: center;
+}
+
+.sb-logo-modal-close {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #64748B;
+    text-decoration: none;
+}
+
+.sb-logo-modal-image {
+    width: min(76vw, 320px);
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0.4rem auto 0.2rem;
 }
 
 .sb-name {
@@ -248,6 +330,24 @@ section[data-testid="stSidebar"] > div {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23F9A8D4' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E");
 }
 
+/* 5 — Important Signage — violet / signpost */
+[data-testid="stSidebarNavLink"]:nth-of-type(5)::before {
+    background-color: var(--nav-c5-bg);
+    border: 1px solid var(--nav-c5-bd);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23A78BFA' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 21V3'/%3E%3Cpath d='M10 4h8l-2 3 2 3h-8'/%3E%3Cpath d='M10 11h6l-1.5 2 1.5 2h-6'/%3E%3C/svg%3E");
+}
+
+/* 5 — Icon-only menu item (hide label text) */
+[data-testid="stSidebarNavLink"]:nth-of-type(5) {
+    justify-content: center !important;
+    padding: 8px !important;
+}
+[data-testid="stSidebarNavLink"]:nth-of-type(5) > div,
+[data-testid="stSidebarNavLink"]:nth-of-type(5) span,
+[data-testid="stSidebarNavLink"]:nth-of-type(5) p {
+    display: none !important;
+}
+
 /* Hover */
 [data-testid="stSidebarNavLink"]:hover {
     background: var(--sb-hover-bg) !important;
@@ -285,7 +385,7 @@ section[data-testid="stSidebar"] > div {
     font-size: 0.62rem !important;
     color: rgba(255,255,255,0.15) !important;
     text-align: center;
-    padding-top: 1.5rem;
+    padding-top: 0.8rem;
     letter-spacing: 0.05em;
 }
 
@@ -350,14 +450,14 @@ section[data-testid="stSidebar"] > div {
    DARK MODE TOGGLE (sidebar)
 ══════════════════════════════════════════════════════════════ */
 
-/* "Dark Mode" label text */
-.sb-dark-label {
-    font-size: 0.8rem !important;
-    color: #BFDBFE !important;
-    display: flex;
-    align-items: center;
-    height: 34px;
-    padding-left: 4px;
+/* Theme title */
+.sb-theme-title {
+    font-size: 0.72rem !important;
+    color: rgba(191,219,254,0.75) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em;
+    margin: 0 0 0.4rem 4px;
+    text-transform: uppercase;
 }
 
 /* Sidebar columns: remove Streamlit's default gap/padding */
@@ -372,41 +472,18 @@ section[data-testid="stSidebar"] > div {
     min-width: 0 !important;
 }
 
-/* The toggle button itself */
-[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] {
-    background: rgba(255,255,255,0.10) !important;
-    border: 1px solid rgba(255,255,255,0.20) !important;
-    border-radius: 8px !important;
-    width: 34px !important;
-    height: 34px !important;
-    min-height: 34px !important;
-    padding: 0 !important;
-    font-size: 0 !important;        /* hide any text/emoji label */
-    line-height: 34px !important;
-    color: transparent !important;
-    transition: background 0.18s ease !important;
+/* Toggle widget placement + sizing */
+[data-testid="stSidebar"] [data-testid="stToggle"] {
     display: flex !important;
+    justify-content: flex-start !important;
+    margin-left: 2px !important;
     align-items: center !important;
-    justify-content: center !important;
-    position: relative !important;
 }
-[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"]:hover {
-    background: rgba(255,255,255,0.22) !important;
-    border-color: rgba(255,255,255,0.35) !important;
+[data-testid="stSidebar"] [data-testid="stToggle"] label {
+    margin: 0 !important;
 }
-/* Crescent moon painted via ::after — no emoji needed */
-[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"]::after {
-    content: "" !important;
-    position: absolute !important;
-    width: 16px !important;
-    height: 16px !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    background-size: 16px 16px !important;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23BFDBFE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E") !important;
+[data-testid="stSidebar"] [data-testid="stToggle"] div[role="switch"] {
+    transform: scale(1.35);
+    transform-origin: left center;
 }
-/* Hide Streamlit's internal label/p/span inside the button */
-[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] p,
-[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] span {
-    display: none !important;
-}
+

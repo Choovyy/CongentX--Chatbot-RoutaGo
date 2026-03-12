@@ -1,5 +1,5 @@
 import streamlit as st
-import os, re, json
+import os, re, json, base64
 
 
 def load_css(filepath: str):
@@ -42,24 +42,48 @@ def icon_map(size=20, color="#2563EB"):
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 def render_sidebar():
     with st.sidebar:
-        st.markdown("""
+        logo_data = ""
+        logo_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "logo.png")
+        if os.path.exists(logo_path):
+            with open(logo_path, "rb") as f:
+                logo_data = base64.b64encode(f.read()).decode("utf-8")
+
+        if "dark_mode" not in st.session_state:
+            st.session_state.dark_mode = False
+
+        current_dark_mode = st.session_state.dark_mode
+        dark_mode_enabled = st.toggle(
+            "Dark mode",
+            value=current_dark_mode,
+            key="theme_mode_toggle",
+            label_visibility="collapsed",
+            help="On = Dark mode, Off = Light mode"
+        )
+        st.session_state.dark_mode = dark_mode_enabled
+
+        st.markdown('<div class="sb-sep" style="margin-top:0.35rem;margin-bottom:0.75rem;"></div>', unsafe_allow_html=True)
+
+        st.markdown(f"""
         <div class="sb-brand">
-            <div class="sb-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                    viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M8 6v6M15 6v6M2 12h19.6M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2
-                        0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/>
-                    <circle cx="7" cy="18" r="2"/>
-                    <path d="M9 18h5"/>
-                    <circle cx="16" cy="18" r="2"/>
-                </svg>
-            </div>
+            <a class="sb-logo-link" href="#rg-logo-modal" aria-label="View RoutaGo logo">
+                <div class="sb-icon">
+                    <img src="data:image/png;base64,{logo_data}" alt="RoutaGo logo" class="sb-logo-image" />
+                </div>
+            </a>
             <div class="sb-brand-text">
                 <span class="sb-name">RoutaGo</span>
                 <span class="sb-sub">Cebu Jeepney Guide</span>
             </div>
         </div>
+
+        <div id="rg-logo-modal" class="sb-logo-modal" aria-hidden="true">
+            <a class="sb-logo-modal-backdrop" href="#" aria-label="Close"></a>
+            <div class="sb-logo-modal-box" role="dialog" aria-modal="true" aria-label="RoutaGo logo full view">
+                <a class="sb-logo-modal-close" href="#" aria-label="Close">&times;</a>
+                <img src="data:image/png;base64,{logo_data}" alt="RoutaGo logo full view" class="sb-logo-modal-image" />
+            </div>
+        </div>
+
         <div class="sb-sep"></div>
         <div class="sb-section-label">MENU</div>
         """, unsafe_allow_html=True)
@@ -68,6 +92,7 @@ def render_sidebar():
         st.page_link("pages/1_Plan_My_Route.py", label="Plan My Route")
         st.page_link("pages/2_Safety_Tips.py",   label="Safety Tips")
         st.page_link("pages/3_Saved_Routes.py",  label="Saved Routes")
+        st.page_link("pages/4_Important_Signage.py", label="Traffic Rules")
 
         st.markdown("""
         <div class="sb-sep"></div>
@@ -76,22 +101,30 @@ def render_sidebar():
             <span class="sb-dot" style="background:#F59E0B;"></span>Cebu City, PH
         </div>
         <div class="sb-info-item">
-            <span class="sb-dot" style="background:#0D9488;"></span>Route 01K available
+            <span class="sb-dot" style="background:#0D9488;"></span>Best in Cebu City routes
+        </div>
+        <div class="sb-info-item">
+            <span class="sb-dot" style="background:#22C55E;"></span>Route 01K available
+        </div>
+        <div class="sb-info-item">
+            <span class="sb-dot" style="background:#F59E0B;"></span>Use landmarks when asking
+        </div>
+        <div class="sb-info-item">
+            <span class="sb-dot" style="background:#A78BFA;"></span><strong>Click images in Traffic Rules and Safety Tips for full view</strong>
+        </div>
+        <div class="sb-info-item">
+            <span class="sb-dot" style="background:#34D399;"></span>"Lugar lang" = Please stop here
+        </div>
+        <div class="sb-info-item">
+            <span class="sb-dot" style="background:#60A5FA;"></span>"Palihug" = Please
+        </div>
+        <div class="sb-info-item">
+            <span class="sb-dot" style="background:#FBBF24;"></span>"Pila plete?" = How much is the fare?
+        </div>
+        <div class="sb-info-item">
+            <span class="sb-dot" style="background:#F472B6;"></span>"Para" = Stop (signal word)
         </div>
         """, unsafe_allow_html=True)
-
-        if "dark_mode" not in st.session_state:
-            st.session_state.dark_mode = False
-
-        st.markdown('<div class="sb-sep" style="margin-top:auto;margin-bottom:0.5rem;"></div>', unsafe_allow_html=True)
-
-        col_label, col_btn = st.columns([3, 1])
-        with col_label:
-            st.markdown('<span class="sb-dark-label">Dark Mode</span>', unsafe_allow_html=True)
-        with col_btn:
-            if st.button("\u200b", key="dark_toggle", help="Toggle dark mode"):
-                st.session_state.dark_mode = not st.session_state.dark_mode
-                st.rerun()
 
         st.markdown('<div class="sb-ver">RoutaGo v1.0.0</div>', unsafe_allow_html=True)
 
@@ -123,26 +156,29 @@ def inject_dark_mode():
         [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) li,
         [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) span,
         [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) div,
-        [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .rg-response-body { color: #CBD5E1 !important; }
-        .rg-response-body { color: #CBD5E1 !important; }
+        [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .rg-response-body { color: #E2E8F0 !important; font-size: 0.95rem !important; line-height: 1.76 !important; }
+        .rg-response-body { color: #E2E8F0 !important; font-size: 0.95rem !important; line-height: 1.76 !important; }
         [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) { background: #162032 !important; border-color: #1E3A5F !important; border-left-color: #3B82F6 !important; }
         [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) p,
         [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) span { color: #93C5FD !important; }
-        .rg-route-card-wrap { color: #CBD5E1 !important; }
+        .rg-route-card-wrap { color: #E2E8F0 !important; }
         .rg-route-header { color: #F1F5F9 !important; }
-        .rg-route-subtitle { color: #64748B !important; }
+        .rg-route-subtitle { color: #94A3B8 !important; }
+        .rg-steps-label { color: #A5B4FC !important; }
+        .rg-step { background: #0F1A2E !important; border-color: #334155 !important; }
         .rg-step-num { background: #1E3A5F !important; border-color: #2563EB !important; color: #93C5FD !important; }
-        .rg-step-text { color: #CBD5E1 !important; }
+        .rg-step-label { color: #BFDBFE !important; }
+        .rg-step-text { color: #E2E8F0 !important; }
         .rg-card-fare { background: #1C1505 !important; border-color: #78350F !important; }
         .rg-card-fare .rg-card-label { color: #FCD34D !important; }
-        .rg-card-fare .rg-card-sub { color: #D97706 !important; }
+        .rg-card-fare .rg-card-sub { color: #F59E0B !important; }
         .rg-fare-amount { color: #FBBF24 !important; }
         .rg-card-dropoff { background: #0F1E3D !important; border-color: #1D4ED8 !important; border-left-color: #3B82F6 !important; }
         .rg-card-dropoff .rg-card-label { color: #93C5FD !important; }
         .rg-card-dropoff .rg-card-body { color: #BFDBFE !important; }
         .rg-card-tips { background: #0A1F12 !important; border-color: #166534 !important; border-left-color: #16A34A !important; }
         .rg-card-tips .rg-card-label { color: #86EFAC !important; }
-        .rg-tip-item { color: #BBF7D0 !important; border-bottom-color: #14532D !important; }
+        .rg-tip-item { color: #DCFCE7 !important; border-bottom-color: #14532D !important; }
         </style>
         <script>
         (function paintBtn() {
@@ -167,6 +203,179 @@ def _badge(text):
     return re.sub(r'\*\*(.*?)\*\*', r"<span class='jeep-code'>\1</span>", text)
 
 
+def _repair_unescaped_quotes(json_like: str) -> str:
+    """
+    Repairs common malformed JSON where quotes inside string values are not escaped.
+    Heuristic: when inside a string, a quote is treated as closing only if the next
+    non-space character is a valid JSON delimiter (: , } ]).
+    """
+    result = []
+    in_string = False
+    escaped = False
+    length = len(json_like)
+
+    for i, char in enumerate(json_like):
+        if not in_string:
+            result.append(char)
+            if char == '"':
+                in_string = True
+                escaped = False
+            continue
+
+        if escaped:
+            result.append(char)
+            escaped = False
+            continue
+
+        if char == "\\":
+            result.append(char)
+            escaped = True
+            continue
+
+        if char == '"':
+            j = i + 1
+            while j < length and json_like[j].isspace():
+                j += 1
+
+            next_char = json_like[j] if j < length else ""
+            if next_char in [":", ",", "}", "]", ""]:
+                result.append(char)
+                in_string = False
+            else:
+                result.append('\\"')
+            continue
+
+        if char in ["\n", "\r"]:
+            result.append("\\n")
+            continue
+
+        result.append(char)
+
+    return "".join(result)
+
+
+def _extract_json_object(raw_text: str) -> str:
+    """Extracts the first top-level JSON object from mixed model text."""
+    text = re.sub(r"```json|```", "", raw_text or "", flags=re.IGNORECASE).strip()
+    text = re.sub(r"^\s*assistant\s*avatar\s*", "", text, flags=re.IGNORECASE)
+
+    start = text.find("{")
+    end = text.rfind("}")
+    if start != -1 and end != -1 and end > start:
+        return text[start:end + 1].strip()
+    return text
+
+
+def _try_parse_json_candidate(candidate: str):
+    if not isinstance(candidate, str):
+        return None
+
+    candidate = candidate.strip()
+    if not candidate:
+        return None
+
+    try:
+        parsed = json.loads(candidate)
+    except Exception:
+        parsed = None
+
+    if isinstance(parsed, dict):
+        return parsed
+
+    if isinstance(parsed, str):
+        nested = _extract_json_object(parsed)
+        try:
+            nested_parsed = json.loads(nested)
+            if isinstance(nested_parsed, dict):
+                return nested_parsed
+        except Exception:
+            pass
+
+    decoder = json.JSONDecoder()
+    for index, char in enumerate(candidate):
+        if char not in ["{", "["]:
+            continue
+        try:
+            parsed_obj, _ = decoder.raw_decode(candidate[index:])
+            if isinstance(parsed_obj, dict):
+                return parsed_obj
+            if isinstance(parsed_obj, str):
+                nested = _extract_json_object(parsed_obj)
+                nested_parsed = _try_parse_json_candidate(nested)
+                if isinstance(nested_parsed, dict):
+                    return nested_parsed
+        except Exception:
+            continue
+
+    return None
+
+
+def _extract_route_object_from_text(raw_text: str):
+    text = raw_text or ""
+    if "route" not in text.lower():
+        return None
+
+    def _field(name: str):
+        pattern = rf'"{name}"\s*:\s*"(.*?)"'
+        match = re.search(pattern, text, flags=re.IGNORECASE | re.DOTALL)
+        return match.group(1).strip() if match else ""
+
+    route_type = _field("type")
+    if route_type and route_type.lower() != "route":
+        return None
+
+    steps_match = re.search(r'"steps"\s*:\s*\[(.*?)\]', text, flags=re.IGNORECASE | re.DOTALL)
+    steps = []
+    if steps_match:
+        raw_steps = steps_match.group(1)
+        steps = [m.strip() for m in re.findall(r'"((?:\\.|[^"\\])*)"', raw_steps)]
+        steps = [s.replace('\\"', '"') for s in steps if s.strip()]
+
+    tips_match = re.search(r'"tips"\s*:\s*\[(.*?)\]', text, flags=re.IGNORECASE | re.DOTALL)
+    tips = []
+    if tips_match:
+        raw_tips = tips_match.group(1)
+        tips = [m.strip() for m in re.findall(r'"((?:\\.|[^"\\])*)"', raw_tips)]
+        tips = [t.replace('\\"', '"') for t in tips if t.strip()]
+
+    route_obj = {
+        "type": "route",
+        "route_code": _field("route_code"),
+        "route_name": _field("route_name"),
+        "origin": _field("origin"),
+        "destination": _field("destination"),
+        "boarding": _field("boarding"),
+        "steps": steps,
+        "fare": _field("fare"),
+        "fare_note": _field("fare_note"),
+        "dropoff": _field("dropoff"),
+        "tips": tips,
+    }
+
+    has_core_content = bool(route_obj["steps"] or route_obj["origin"] or route_obj["destination"] or route_obj["route_name"])
+    return route_obj if has_core_content else None
+
+
+def _parse_llm_json(raw_text: str):
+    """Attempts strict parse first, then lenient repair for malformed JSON."""
+    candidate = _extract_json_object(raw_text)
+    parsed = _try_parse_json_candidate(candidate)
+    if isinstance(parsed, dict):
+        return parsed
+
+    repaired = _repair_unescaped_quotes(candidate)
+    repaired = re.sub(r",\s*([}\]])", r"\1", repaired)
+    parsed_repaired = _try_parse_json_candidate(repaired)
+    if isinstance(parsed_repaired, dict):
+        return parsed_repaired
+
+    heuristic_route = _extract_route_object_from_text(raw_text)
+    if isinstance(heuristic_route, dict):
+        return heuristic_route
+
+    return None
+
+
 def format_response(text: str) -> str:
     """
     Parses JSON from the LLM and renders structured route cards.
@@ -174,14 +383,14 @@ def format_response(text: str) -> str:
     All HTML is built with zero leading whitespace — st.markdown() turns
     4-space-indented lines into code blocks.
     """
-    # Strip any markdown fences the model may have added
-    clean = re.sub(r"```json|```", "", text).strip()
+    data = _parse_llm_json(text)
+    if data is None:
+        clean_fallback = _extract_json_object(text)
+        clean_fallback = re.sub(r"^\s*assistant\s*avatar\s*", "", clean_fallback, flags=re.IGNORECASE)
+        return "<div class='rg-response-body'>" + _badge(clean_fallback).replace("\n", "<br>") + "</div>"
 
-    # Attempt JSON parse
-    try:
-        data = json.loads(clean)
-    except Exception:
-        return "<div class='rg-response-body'>" + _badge(text).replace("\n", "<br>") + "</div>"
+    if not isinstance(data, dict):
+        return "<div class='rg-response-body'>" + _badge(str(data)).replace("\n", "<br>") + "</div>"
 
     # Plain text / greeting / error
     if data.get("type") == "text":
@@ -198,13 +407,24 @@ def format_response(text: str) -> str:
     dropoff     = data.get("dropoff", "")
     tips        = data.get("tips", [])
 
+    def _clean_step_text(step_text: str) -> str:
+        cleaned = (step_text or "").strip()
+        cleaned = re.sub(r"^\s*\d+\s*[\)\].:,-]?\s*", "", cleaned)
+        cleaned = re.sub(r"^\s*step\s*\d+\s*[\)\].:,-]?\s*", "", cleaned, flags=re.IGNORECASE)
+        cleaned = re.sub(r"^\s*[\-–—:]+\s*", "", cleaned)
+        cleaned = re.sub(r"\s+[\-–—]{2,}\s+", " — ", cleaned)
+        return cleaned
+
+    cleaned_steps = [_clean_step_text(s) for s in steps]
+    cleaned_steps = [s for s in cleaned_steps if s and not re.fullmatch(r"\d+", s)]
+
     # Numbered steps
     steps_html = "".join(
         '<div class="rg-step">'
         + f'<div class="rg-step-num">{i}</div>'
-        + f'<div class="rg-step-text">{_badge(s)}</div>'
+        + f'<div class="rg-step-content"><div class="rg-step-label">Step {i}</div><div class="rg-step-text">{_badge(s)}</div></div>'
         + '</div>'
-        for i, s in enumerate(steps, 1)
+        for i, s in enumerate(cleaned_steps, 1)
     )
 
     # Fare card
@@ -244,10 +464,11 @@ def format_response(text: str) -> str:
     return (
         '<div class="rg-route-card-wrap">'
         + '<div class="rg-route-header">'
-       + (f'<span class="jeep-code rg-route-code">{route_code}</span>' if route_code else '')
+       + (f'<span class="jeep-code rg-route-code">{route_code}</span> ' if route_code else '')
         + header
         + '</div>'
-        + '<div class="rg-route-subtitle">Follow these step-by-step directions</div>'
+        + '<div class="rg-route-subtitle">Follow these passenger directions</div>'
+        + '<div class="rg-steps-label">DIRECTIONS</div>'
         + f'<div class="rg-steps">{steps_html}</div>'
         + fare_block
         + dropoff_block

@@ -1,16 +1,16 @@
 import streamlit as st
 from groq import Groq
 from dotenv import load_dotenv
-import os, json, sys
+import os, json, sys, base64
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from utils.helpers import load_css, render_sidebar, format_response, inject_dark_mode, icon_bus, icon_chat
+from utils.helpers import load_css, render_sidebar, format_response, inject_dark_mode, icon_chat
 
 load_dotenv()
 
 st.set_page_config(
     page_title="RoutaGo",
-    page_icon="🚌",
+    page_icon="💬",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -135,6 +135,13 @@ SYSTEM_PROMPT = build_system_prompt(ROUTES)
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+welcome_logo_html = icon_chat(28)
+welcome_logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "logo.png")
+if os.path.exists(welcome_logo_path):
+    with open(welcome_logo_path, "rb") as logo_file:
+        welcome_logo_base64 = base64.b64encode(logo_file.read()).decode("utf-8")
+    welcome_logo_html = f'<img src="data:image/png;base64,{welcome_logo_base64}" alt="RoutaGo logo" class="rg-welcome-logo-image" />'
+
 # ── Page header with SVG icon ──────────────────────────────────────────────
 st.markdown(f"""
 <div class="rg-page-header">
@@ -151,26 +158,19 @@ st.markdown(f"""
 # ── Welcome state ──────────────────────────────────────────────────────────
 if not st.session_state.messages:
     st.markdown(f"""
-    <div class="rg-welcome">
-        <div class="rg-welcome-logo">
-            {icon_bus(28, "#2563EB")}
-        </div>
-        <h2>How can I help you commute?</h2>
-        <p>Tell me where you're starting and where you need to go. I'll give you
-           clear, landmark-based jeepney directions for Cebu City.</p>
-        <div class="rg-chips">
-            <span class="rg-chip">
-                <span class="rg-chip-dot"></span>
-                How do I get from SM City to Colon?
-            </span>
-            <span class="rg-chip">
-                <span class="rg-chip-dot"></span>
-                Padulong ko Parkmall gikan UV
-            </span>
-            <span class="rg-chip">
-                <span class="rg-chip-dot"></span>
-                How much is the fare?
-            </span>
+    <div class="rg-welcome-surface">
+        <div class="rg-welcome">
+            <div class="rg-welcome-logo">
+                {welcome_logo_html}
+            </div>
+            <h2>How can I help you commute?</h2>
+            <p>Tell me where you're starting and where you need to go. I’ll give you
+               clear, landmark-based jeepney directions for Cebu City.</p>
+            <div class="rg-chips">
+                <span class="rg-chip"><span class="rg-chip-dot"></span>How do I get from SM City to Colon?</span>
+                <span class="rg-chip"><span class="rg-chip-dot"></span>Padulong ko Parkmall gikan UV</span>
+                <span class="rg-chip"><span class="rg-chip-dot"></span>How much is the fare?</span>
+            </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
