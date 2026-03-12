@@ -1,79 +1,97 @@
+/* ══════════════════════════════════════════════════════════════
+   SAVED ROUTES PAGE — saved.css
+   Depends on CSS variables in main.css
+══════════════════════════════════════════════════════════════ */
+
+/* ── Empty state ── */
 .rg-empty {
     text-align: center;
-    padding: 5rem 2rem;
-    background: #FFFFFF;
-    border: 1px dashed #CBD5E1;
-    border-radius: 16px;
+    padding: 4.5rem 2rem;
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-lg);
     margin-bottom: 1.5rem;
 }
 
-.rg-empty-icon { font-size: 3rem; opacity: 0.3; margin-bottom: 1rem; }
+.rg-empty-icon {
+    width: 56px; height: 56px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.25rem auto;
+    font-size: 1.5rem; /* emoji fallback */
+    opacity: 0.5;
+}
 
 .rg-empty h3 {
     font-size: 1rem;
     font-weight: 700;
-    color: #1E40AF;
+    color: var(--text-1);
     margin: 0 0 8px 0;
 }
 
 .rg-empty p {
     font-size: 0.85rem;
-    color: #64748B;
+    color: var(--text-3);
     margin: 0 auto;
     max-width: 320px;
-    line-height: 1.6;
+    line-height: 1.65;
 }
 
+/* ── Saved route card ── */
 .rg-route-card {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-left: 3px solid #3B82F6;
-    border-radius: 12px;
-    padding: 16px 20px;
-    margin-bottom: 10px;
-    transition: all 0.2s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--blue);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    margin-bottom: 8px;
+    transition: all 0.18s ease;
+    box-shadow: var(--shadow-sm);
 }
 
 .rg-route-card:hover {
-    background: #F8FAFC;
-    border-color: #BFDBFE;
+    border-color: #93C5FD;
+    border-left-color: var(--blue);
+    box-shadow: var(--shadow-md);
 }
 
 .rg-route-card h4 {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     font-weight: 700;
-    color: #1E40AF;
+    color: var(--text-1);
     margin: 0 0 4px 0;
 }
 
 .rg-route-card p {
     font-size: 0.82rem;
-    color: #475569;
+    color: var(--text-3);
     margin: 0;
 }
 
+/* ── How-to hint box ── */
 .rg-howto {
-    background: #EFF6FF;
+    background: var(--blue-light);
     border: 1px solid #DBEAFE;
-    border-radius: 12px;
-    padding: 20px 24px;
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
     margin-top: 1.5rem;
 }
 
 .rg-howto h4 {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    color: #1E40AF;
-    margin: 0 0 12px 0;
+    color: var(--blue);
+    margin: 0 0 10px 0;
 }
 
 .rg-howto ol {
     margin: 0;
     padding-left: 1.2rem;
-    color: #334155;
-    font-size: 0.875rem;
-    line-height: 2.1;
+    color: var(--text-2);
+    font-size: 0.865rem;
+    line-height: 2;
 }
 
-.rg-howto li strong { color: #1E40AF; }
+.rg-howto li strong { color: var(--blue); }

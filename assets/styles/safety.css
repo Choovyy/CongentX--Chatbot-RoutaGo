@@ -1,42 +1,66 @@
+/* ══════════════════════════════════════════════════════════════
+   SAFETY TIPS PAGE — safety.css
+   Depends on CSS variables in main.css
+══════════════════════════════════════════════════════════════ */
+
+/* ── Tip card ── */
 .tip-card {
     display: flex;
     align-items: flex-start;
     gap: 16px;
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 18px 22px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
     margin-bottom: 10px;
-    transition: all 0.2s ease;
-    cursor: default;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: all 0.18s ease;
+    box-shadow: var(--shadow-sm);
 }
 
 .tip-card:hover {
-    background: #F8FAFC;
-    border-color: #BFDBFE;
+    border-color: #93C5FD;
+    box-shadow: var(--shadow-md);
     transform: translateY(-1px);
 }
 
+/* Icon container — works with both emoji and SVG */
 .tip-icon {
-    font-size: 1.35rem;
-    background: #EFF6FF;
+    background: var(--blue-light);
     border: 1px solid #DBEAFE;
-    border-radius: 10px;
-    width: 48px; height: 48px; min-width: 48px;
+    border-radius: var(--radius-sm);
+    width: 44px; height: 44px; min-width: 44px;
     display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem; /* for emoji fallback */
+    flex-shrink: 0;
+}
+
+/* Teal-tinted icons for variety */
+.tip-icon.teal {
+    background: var(--teal-light);
+    border-color: rgba(13, 148, 136, 0.2);
 }
 
 .tip-body h4 {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     font-weight: 700;
-    color: #1E40AF;
+    color: var(--text-1);
     margin: 0 0 5px 0;
 }
 
 .tip-body p {
-    font-size: 0.85rem;
-    color: #475569;
+    font-size: 0.845rem;
+    color: var(--text-3);
     margin: 0;
-    line-height: 1.6;
+    line-height: 1.65;
+}
+
+/* ── Section header above tips (optional) ── */
+.tips-section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--text-4);
+    text-transform: uppercase;
+    padding: 0 2px 10px 2px;
+    margin-top: 1.25rem;
 }
