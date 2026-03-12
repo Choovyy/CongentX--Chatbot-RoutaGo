@@ -244,7 +244,7 @@ def format_response(text: str) -> str:
     return (
         '<div class="rg-route-card-wrap">'
         + '<div class="rg-route-header">'
-        + f'<span class="jeep-code rg-route-code">{route_code}</span>'
+       + (f'<span class="jeep-code rg-route-code">{route_code}</span>' if route_code else '')
         + header
         + '</div>'
         + '<div class="rg-route-subtitle">Follow these step-by-step directions</div>'
