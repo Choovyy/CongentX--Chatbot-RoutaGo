@@ -3,13 +3,66 @@
    Depends on CSS variables in main.css
 ══════════════════════════════════════════════════════════════ */
 
+/* ── List wrapper ── */
+.rg-saved-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+/* ── Style each expander like the plan/chat result card ── */
+.rg-saved-list [data-testid="stExpander"] {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-left: 3px solid var(--blue) !important;
+    border-radius: var(--r-lg) !important;
+    box-shadow: var(--sh-sm) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    transition: box-shadow 0.18s ease, border-color 0.18s ease !important;
+    overflow: hidden !important;
+}
+
+.rg-saved-list [data-testid="stExpander"]:hover {
+    border-color: #93C5FD !important;
+    border-left-color: var(--blue) !important;
+    box-shadow: var(--sh-md) !important;
+}
+
+/* Summary row (the clickable header) */
+.rg-saved-list [data-testid="stExpander"] summary {
+    padding: 0.85rem 1.1rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: var(--text-1) !important;
+    background: transparent !important;
+    border-radius: var(--r-lg) !important;
+}
+
+.rg-saved-list [data-testid="stExpander"] summary:hover {
+    background: rgba(37,99,235,0.04) !important;
+}
+
+/* Expand chevron icon */
+.rg-saved-list [data-testid="stExpander"] summary svg {
+    color: var(--blue) !important;
+    opacity: 0.7;
+}
+
+/* Expanded content area */
+.rg-saved-list [data-testid="stExpander"] > div[data-testid="stExpanderDetails"] {
+    padding: 0 1rem 1rem 1rem !important;
+    border-top: 1px solid var(--border) !important;
+}
+
 /* ── Empty state ── */
 .rg-empty {
     text-align: center;
     padding: 4.5rem 2rem;
     background: var(--surface);
     border: 1px dashed var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--r-lg);
     margin-bottom: 1.5rem;
 }
 
@@ -20,7 +73,7 @@
     border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
     margin: 0 auto 1.25rem auto;
-    font-size: 1.5rem; /* emoji fallback */
+    font-size: 1.5rem;
     opacity: 0.5;
 }
 
@@ -39,42 +92,11 @@
     line-height: 1.65;
 }
 
-/* ── Saved route card ── */
-.rg-route-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--blue);
-    border-radius: var(--radius-md);
-    padding: 14px 18px;
-    margin-bottom: 8px;
-    transition: all 0.18s ease;
-    box-shadow: var(--shadow-sm);
-}
-
-.rg-route-card:hover {
-    border-color: #93C5FD;
-    border-left-color: var(--blue);
-    box-shadow: var(--shadow-md);
-}
-
-.rg-route-card h4 {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--text-1);
-    margin: 0 0 4px 0;
-}
-
-.rg-route-card p {
-    font-size: 0.82rem;
-    color: var(--text-3);
-    margin: 0;
-}
-
 /* ── How-to hint box ── */
 .rg-howto {
     background: var(--blue-light);
     border: 1px solid #DBEAFE;
-    border-radius: var(--radius-md);
+    border-radius: var(--r-md);
     padding: 18px 22px;
     margin-top: 1.5rem;
 }

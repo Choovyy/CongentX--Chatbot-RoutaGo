@@ -487,3 +487,28 @@ section[data-testid="stSidebar"] > div::-webkit-scrollbar {
     transform-origin: left center;
 }
 
+/* ══════════════════════════════════════════════════════════════
+   SAVE / FLAG BUTTON — compact icon-only style
+   Triggered by .rg-save-wrap sentinel div
+══════════════════════════════════════════════════════════════ */
+.rg-save-wrap ~ div [data-testid="stButton"] > button,
+.rg-save-wrap + div [data-testid="stButton"] > button {
+    background-color: #F0FDF4 !important;
+    color:            #15803D !important;
+    border:           1.5px solid #86EFAC !important;
+    border-radius:    8px !important;
+    font-size:        1.15rem !important;
+    font-weight:      500 !important;
+    padding:          0.32rem 0.65rem !important;
+    letter-spacing:   0 !important;
+    transition:       all 0.18s ease !important;
+    box-shadow:       0 1px 4px rgba(21,128,61,0.15) !important;
+}
+.rg-save-wrap ~ div [data-testid="stButton"] > button:hover,
+.rg-save-wrap + div [data-testid="stButton"] > button:hover {
+    background-color: #15803D !important;
+    color:            #FFFFFF !important;
+    border-color:     #15803D !important;
+    box-shadow:       0 3px 10px rgba(21,128,61,0.30) !important;
+    transform:        translateY(-1px) !important;
+}

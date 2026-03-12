@@ -180,6 +180,7 @@
     bottom: 12px;
     width: 94px;
     height: 36px;
+    overflow: visible;
     animation: route-bus-run 9s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
@@ -311,4 +312,57 @@
         transform: translate(-30px, -19px) scale(1.85);
         opacity: 0;
     }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   LOGO FLAG — trails horizontally behind the bus
+   Flies flat when running, droops when stopped, rises on go
+══════════════════════════════════════════════════════════════ */
+
+/* Logo attached to the rear (left side) of the bus wrap.
+   Bus shell center: bottom=8px + height28/2 = 22px from wrap bottom.
+   Logo 52×36px → bottom = 22-18 = 4px so it is vertically centred.
+   Pivot = right center = the attachment point on the bus rear. */
+.route-flag-logo {
+    position: absolute;
+    left: -54px;          /* 52px logo width + 2px gap from bus rear */
+    bottom: 4px;
+    width: 52px;
+    height: 36px;
+    object-fit: contain;
+    border-radius: 5px;
+    transform-origin: right center;
+    z-index: 9;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.75))
+            brightness(1.08);
+    animation: flag-wave 9s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* Flag animation synced to the 9s bus cycle.
+   rotate(-N) = left end goes UP  → logo streams behind horizontally with wind lift.
+   rotate(+90) = droops straight down when stopped. */
+@keyframes flag-wave {
+    /* ── Bus running: logo streams behind, fluttering ── */
+    0%   { transform: rotate(-8deg);  }
+    6%   { transform: rotate(-16deg); }
+    12%  { transform: rotate(-7deg);  }
+    18%  { transform: rotate(-15deg); }
+    24%  { transform: rotate(-7deg);  }
+    30%  { transform: rotate(-14deg); }
+    36%  { transform: rotate(-7deg);  }
+    42%  { transform: rotate(-12deg); }
+
+    /* ── Braking: loses wind, swings forward and droops ── */
+    45%  { transform: rotate(5deg);   }
+    52%  { transform: rotate(42deg);  }
+    58%  { transform: rotate(74deg);  }
+
+    /* ── Fully drooped / bus stopped ── */
+    63%  { transform: rotate(90deg);  }
+    78%  { transform: rotate(90deg);  }
+
+    /* ── Bus accelerates: logo catches wind and trails back ── */
+    85%  { transform: rotate(36deg);  }
+    92%  { transform: rotate(-4deg);  }
+    100% { transform: rotate(-8deg);  }
 }

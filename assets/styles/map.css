@@ -1,0 +1,146 @@
+/* ── RoutaGo Map page styles ────────────────────────────────────────────── */
+
+/* Tip bar */
+.rg-map-tip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-left: 4px solid var(--blue, #2563EB);
+    border-radius: var(--r-md, 12px);
+    padding: 12px 16px;
+    margin-bottom: 18px;
+    font-size: 0.875rem;
+    color: #1E40AF;
+    line-height: 1.5;
+}
+
+.rg-map-tip-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+/* Badge colour variants */
+.rg-badge-blue {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    color: #2563EB;
+}
+
+.rg-badge-red {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    color: #DC2626;
+}
+
+/* Left-border accent per card type */
+.rg-pin-current {
+    border-left: 4px solid #2563EB !important;
+}
+
+.rg-pin-dest {
+    border-left: 4px solid #DC2626 !important;
+}
+
+.rg-pin-empty {
+    opacity: 0.7;
+}
+
+/* Individual pin card */
+.rg-map-pin-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--surface, #FFFFFF);
+    border: 1px solid var(--border, #E2E8F0);
+    border-radius: var(--r-md, 12px);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: var(--sh-sm, 0 1px 3px rgba(0,0,0,.06));
+    transition: box-shadow 0.18s, border-color 0.18s;
+}
+
+.rg-map-pin-card:hover {
+    border-color: #BFDBFE;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.10);
+}
+
+.rg-map-pin-badge {
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 4px 10px;
+    white-space: nowrap;
+    margin-top: 2px;
+}
+
+.rg-map-pin-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.rg-map-pin-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-1, #0F172A);
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rg-map-pin-full {
+    font-size: 0.82rem;
+    color: var(--text-3, #64748B);
+    line-height: 1.5;
+    margin-bottom: 5px;
+}
+
+.rg-map-pin-coords {
+    font-size: 0.75rem;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    color: #94A3B8;
+}
+
+/* Dark mode overrides */
+.stApp .rg-map-tip {
+    background: rgba(37,99,235,0.12);
+    border-color: rgba(37,99,235,0.35);
+    border-left-color: #3B82F6;
+    color: #93C5FD;
+}
+
+.stApp .rg-map-pin-card {
+    background: #1E293B;
+    border-color: #2D3748;
+}
+
+.stApp .rg-map-pin-card:hover {
+    border-color: #3B82F6;
+}
+
+.stApp .rg-map-pin-name {
+    color: #F1F5F9;
+}
+
+.stApp .rg-map-pin-full {
+    color: #94A3B8;
+}
+
+.stApp .rg-map-pin-coords {
+    color: #64748B;
+}
+
+.stApp .rg-badge-blue {
+    background: rgba(37,99,235,0.18);
+    border-color: rgba(59,130,246,0.35);
+    color: #93C5FD;
+}
+
+.stApp .rg-badge-red {
+    background: rgba(220,38,38,0.15);
+    border-color: rgba(248,113,113,0.35);
+    color: #FCA5A5;
+}

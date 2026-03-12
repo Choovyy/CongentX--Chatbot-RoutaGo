@@ -91,7 +91,7 @@ def render_sidebar():
         st.page_link("RoutaGo.py",               label="Chat Assistant")
         st.page_link("pages/1_Plan_My_Route.py", label="Plan My Route")
         st.page_link("pages/2_Safety_Tips.py",   label="Safety Tips")
-        st.page_link("pages/3_Saved_Routes.py",  label="Saved Routes")
+        st.page_link("pages/3_Cebu_Map.py",      label="Cebu Map")
         st.page_link("pages/4_Important_Signage.py", label="Traffic Rules")
 
         st.markdown("""
