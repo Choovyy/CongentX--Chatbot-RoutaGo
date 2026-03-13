@@ -179,6 +179,16 @@ def inject_dark_mode():
         .rg-card-tips { background: #0A1F12 !important; border-color: #166534 !important; border-left-color: #16A34A !important; }
         .rg-card-tips .rg-card-label { color: #86EFAC !important; }
         .rg-tip-item { color: #DCFCE7 !important; border-bottom-color: #14532D !important; }
+        .rg-map-tip { background: rgba(37,99,235,0.12) !important; border-color: rgba(37,99,235,0.35) !important; border-left-color: #3B82F6 !important; color: #93C5FD !important; }
+        .rg-map-tip strong { color: #93C5FD !important; }
+        .rg-map-tip-icon svg { stroke: #93C5FD !important; }
+        .rg-map-pin-card { background: #1E293B !important; border-color: #2D3748 !important; }
+        .rg-map-pin-card:hover { border-color: #3B82F6 !important; }
+        .rg-map-pin-name { color: #F1F5F9 !important; }
+        .rg-map-pin-full { color: #94A3B8 !important; }
+        .rg-map-pin-coords { color: #64748B !important; }
+        .rg-badge-blue { background: rgba(37,99,235,0.18) !important; border-color: rgba(59,130,246,0.35) !important; color: #93C5FD !important; }
+        .rg-badge-red { background: rgba(220,38,38,0.15) !important; border-color: rgba(248,113,113,0.35) !important; color: #FCA5A5 !important; }
         </style>
         <script>
         (function paintBtn() {

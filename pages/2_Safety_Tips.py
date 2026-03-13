@@ -4,7 +4,7 @@ import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.helpers import load_css, render_sidebar, inject_dark_mode
 
-st.set_page_config(page_title="Safety Tips — RoutaGo", page_icon="🛡️", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Safety Tips — RoutaGo", page_icon="assets/logo.png", layout="wide", initial_sidebar_state="expanded")
 load_css("assets/styles/main.css")
 load_css("assets/styles/safety.css")
 render_sidebar()
@@ -12,8 +12,13 @@ inject_dark_mode()
 
 st.markdown("""
 <div class="rg-page-header">
-    <h1>🛡️ Safety Tips</h1>
-    <p>Guidelines for a safe and comfortable jeepney ride in Cebu.</p>
+    <div class="rg-page-header-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <div class="rg-page-header-text">
+        <h1>Safety Tips</h1>
+        <p>Guidelines for a safe and comfortable jeepney ride in Cebu.</p>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 

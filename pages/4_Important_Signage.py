@@ -4,7 +4,7 @@ import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.helpers import load_css, render_sidebar, inject_dark_mode
 
-st.set_page_config(page_title="Traffic Rules — RoutaGo", page_icon="🚦", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Traffic Rules — RoutaGo", page_icon="assets/logo.png", layout="wide", initial_sidebar_state="expanded")
 load_css("assets/styles/main.css")
 load_css("assets/styles/signage.css")
 render_sidebar()
@@ -12,8 +12,13 @@ inject_dark_mode()
 
 st.markdown("""
 <div class="rg-page-header">
-    <h1>🚦 Traffic Rules</h1>
-    <p>Key road signs and traffic-light rules every jeepney passenger should know.</p>
+    <div class="rg-page-header-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="20" rx="1"/><circle cx="12" cy="7" r="1.5" fill="#DC2626" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="#F59E0B" stroke="none"/><circle cx="12" cy="17" r="1.5" fill="#16A34A" stroke="none"/></svg>
+    </div>
+    <div class="rg-page-header-text">
+        <h1>Traffic Rules</h1>
+        <p>Key road signs and traffic-light rules every jeepney passenger should know.</p>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
