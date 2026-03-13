@@ -10,7 +10,7 @@ load_dotenv()
 
 st.set_page_config(
     page_title="RoutaGo",
-    page_icon="💬",
+    page_icon="assets/logo.png",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -97,13 +97,13 @@ NO EMOJIS anywhere in your response.
 ROUTE DATABASE — only use routes and stops listed below. Never invent stops or routes:
 {json.dumps(routes, indent=2)}
 
-FARE: Base fare P15.00 for first 4km, then P1.80 per km after. Estimate based on number of stops.
+FARE NOTE: The fare field is computed server-side from route data — set "fare":"TBD" and "fare_note":"TBD" in your JSON. Do NOT attempt to calculate the fare yourself.
 
 CRITICAL OUTPUT RULE: You must ALWAYS respond with a single valid JSON object only.
 No text before or after. No markdown code fences. Pure raw JSON only.
 
 For route questions, respond with this JSON (do not include travel_time):
-{{"type":"route","route_code":"01K","route_name":"Urgello to Parkmall","origin":"user origin","destination":"user destination","boarding":"exact boarding spot and nearby landmark","steps":["Step 1 — go to boarding point at LANDMARK","Step 2 — board jeepney **01K** (Urgello to Parkmall)","Step 3 — you will pass LANDMARK","Step 4 — you will pass LANDMARK","...one step per stop between origin and destination"],"fare":"P15.00","fare_note":"Standard fare (approx. Xkm, X stops)","dropoff":"Tell the driver \"Lugar lang!\" when you see LANDMARK. You can also tap a coin on the rail to signal your stop.","tips":["copy each tip from the route tips array exactly as written"]}}
+{{"type":"route","route_code":"01K","route_name":"Urgello to Parkmall","origin":"user origin","destination":"user destination","boarding":"exact boarding spot and nearby landmark","steps":["Step 1 — go to boarding point at LANDMARK","Step 2 — board jeepney **01K** (Urgello to Parkmall)","Step 3 — you will pass LANDMARK","Step 4 — you will pass LANDMARK","...one step per stop between origin and destination"],"fare":"TBD","fare_note":"TBD","dropoff":"Tell the driver \"Lugar lang!\" when you see LANDMARK. You can also tap a coin on the rail to signal your stop.","tips":["copy each tip from the route tips array exactly as written"]}}
 
 STEPS RULE — CRITICAL:
 - Look up the sequence numbers of the origin and destination in the stops array
@@ -320,7 +320,7 @@ for _i, msg in enumerate(st.session_state.messages):
     avatar = AVATAR_BUS if msg["role"] == "assistant" else AVATAR_USER
     with st.chat_message(msg["role"], avatar=avatar):
         if msg["role"] == "assistant":
-            st.markdown(format_response(msg["content"]), unsafe_allow_html=True)
+            st.markdown(format_response(msg["content"], routes=ROUTES), unsafe_allow_html=True)
             _p = _parse_llm_json(msg["content"])
             if isinstance(_p, dict) and _p.get("type") == "route":
                 _show_map_button(_p.get("origin", ""), _p.get("destination", ""), key=f"map_hist_{_i}")
@@ -341,7 +341,7 @@ if prompt := st.chat_input("Ask about jeepney routes in Cebu..."):
                 temperature=0.5,
             )
             reply = response.choices[0].message.content
-            st.markdown(format_response(reply), unsafe_allow_html=True)
+            st.markdown(format_response(reply, routes=ROUTES), unsafe_allow_html=True)
         # Button must be outside the spinner so it persists after the spinner resolves
         _p = _parse_llm_json(reply)
         if isinstance(_p, dict) and _p.get("type") == "route":

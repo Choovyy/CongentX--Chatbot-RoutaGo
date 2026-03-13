@@ -218,7 +218,7 @@ Only use routes and stops from this database. NEVER invent stops or routes.
 NO EMOJIS anywhere in your response.
 User is a PASSENGER — NEVER say Turn left, Turn right, or Continue onto.
 
-FARE: Base fare P15.00 for first 4km, then P1.80 per km after. Estimate based on number of stops.
+FARE NOTE: The fare field is computed server-side — set "fare":"TBD" and "fare_note":"TBD" in your JSON. Do NOT attempt to calculate fare yourself.
 
 ROUTE DATABASE:
 {route_context}
@@ -226,7 +226,7 @@ ROUTE DATABASE:
 CRITICAL OUTPUT RULE: Respond with a single valid JSON object only. No text before or after. No markdown fences. Pure raw JSON.
 
 For route questions (do not include travel_time):
-{{"type":"route","route_code":"CODE","route_name":"route name","origin":"origin","destination":"destination","boarding":"boarding spot + nearby landmark","steps":["Step 1 — go to boarding point at LANDMARK","Step 2 — board **CODE** (route name)","Step 3 — you will pass LANDMARK","...one step per stop between origin and destination in sequence order"],"fare":"P15.00","fare_note":"Standard fare (approx. Xkm, X stops)","dropoff":"Tell the driver \"Lugar lang!\" when you see LANDMARK. Tap a coin on the rail to signal stop.","tips":["copy each tip from the route tips array exactly as written"]}}
+{{"type":"route","route_code":"CODE","route_name":"route name","origin":"origin","destination":"destination","boarding":"boarding spot + nearby landmark","steps":["Step 1 — go to boarding point at LANDMARK","Step 2 — board **CODE** (route name)","Step 3 — you will pass LANDMARK","...one step per stop between origin and destination in sequence order"],"fare":"TBD","fare_note":"TBD","dropoff":"Tell the driver \"Lugar lang!\" when you see LANDMARK. Tap a coin on the rail to signal stop.","tips":["copy each tip from the route tips array exactly as written"]}}
 
 STEPS RULE: Use the sequence numbers in the stops array. Include one step per stop between origin and destination. Never skip stops.
 
@@ -237,7 +237,7 @@ If not found: {{"type":"text","message":"Sorry bai, I don't have that route yet!
                     temperature=0.5,
                 )
                 result = response.choices[0].message.content
-                formatted_result = format_response(result)
+                formatted_result = format_response(result, routes=ROUTES)
                 
                 # Save the planned route to history for the current session
                 st.session_state.recent_routes.insert(0, {
