@@ -281,6 +281,8 @@ html body [data-testid="stChatInputSubmitButton"] button svg path {
 .rg-card-fare .rg-card-label { color: #B45309; }
 .rg-card-fare .rg-card-sub { color: #92400E; }
 .rg-fare-amount { display: block; font-size: 1.5rem; font-weight: 800; color: #D97706; line-height: 1.2; }
+.rg-fare-discounted { display: block; font-size: 0.78rem; color: #92400E; margin-top: 6px; padding-top: 6px; border-top: 1px solid #FDE68A; }
+.rg-fare-discounted strong { color: #B45309; font-weight: 700; }
 .rg-card-dropoff { background: #EFF6FF; border: 1px solid #BFDBFE; border-left: 3px solid #2563EB; }
 .rg-card-dropoff .rg-card-label { color: #1D4ED8; }
 .rg-card-dropoff .rg-card-body { color: #1E3A5F; }

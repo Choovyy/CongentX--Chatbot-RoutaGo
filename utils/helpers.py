@@ -207,6 +207,75 @@ def inject_dark_mode():
         """, unsafe_allow_html=True)
 
 
+# ── LTFRB fare engine ─────────────────────────────────────────────────────────
+def _round_ltfrb(amount: float) -> float:
+    """Round to nearest P0.25 as required by LTFRB."""
+    return round(amount / 0.25) * 0.25
+
+
+def _ltfrb_fare(km: float, passenger_type: str = "regular") -> str:
+    """
+    Compute official LTFRB Aircon Modern PUJ fare (effective Oct 8, 2023).
+    Regular  : P15.00 for first 4 km + P2.20/km after, rounded to nearest P0.25
+    Discounted: P12.00 for first 4 km + P1.76/km after, rounded to nearest P0.25
+    Returns a formatted peso string e.g. 'P17.75'.
+    """
+    if passenger_type == "discounted":
+        base, rate = 12.00, 1.76
+    else:
+        base, rate = 15.00, 2.20
+    if km <= 4.0:
+        raw = base
+    else:
+        raw = base + (km - 4.0) * rate
+    return f"P{_round_ltfrb(raw):.2f}"
+
+
+def _get_stop_km(routes, route_code: str, stop_name: str):
+    """Look up km_from_start for a named stop (case-insensitive partial match)."""
+    route = routes.get(route_code, {})
+    needle = stop_name.lower().strip()
+    for stop in route.get("stops", []):
+        if needle in stop["name"].lower() or stop["name"].lower() in needle:
+            return stop.get("km_from_start")
+    return None
+
+
+def _calculate_fare_from_steps(steps, routes=None,
+                                 origin="", destination="",
+                                 route_code=""):
+    """
+    Derive LTFRB-accurate fare from the step list.
+    Strategy (in priority order):
+      1. If both origin and destination have km_from_start in routes.json,
+         compute exact distance = dest_km - origin_km.
+      2. Otherwise count transit steps and estimate 0.37 km/stop
+         (calibrated to route 01K's 8.13 km / 22 stops).
+    Returns (regular_fare_str, discounted_fare_str, fare_note_str).
+    """
+    # Strategy 1 — coordinate-based exact distance
+    if routes and route_code and origin and destination:
+        origin_km  = _get_stop_km(routes, route_code, origin)
+        dest_km    = _get_stop_km(routes, route_code, destination)
+        if origin_km is not None and dest_km is not None:
+            dist_km = abs(dest_km - origin_km)
+            stops_count = sum(
+                1 for s in steps
+                if re.search(r'\b(pass|arrive|alight|get off|board|stop)\b', s, re.IGNORECASE)
+            ) or max(len(steps) - 1, 1)
+            note = f"approx. {dist_km:.1f}km, {stops_count} stops"
+            return _ltfrb_fare(dist_km), _ltfrb_fare(dist_km, "discounted"), note
+
+    # Strategy 2 — step-count estimate (0.37 km/stop, calibrated to 01K)
+    transit_stops = sum(
+        1 for s in steps
+        if re.search(r'\b(pass|arrive|alight|get off|board|stop)\b', s, re.IGNORECASE)
+    ) or max(len(steps) - 1, 1)
+    dist_km = round(transit_stops * 0.37, 1)
+    note = f"approx. {dist_km:.1f}km, {transit_stops} stops"
+    return _ltfrb_fare(dist_km), _ltfrb_fare(dist_km, "discounted"), note
+
+
 # ── Response formatter ────────────────────────────────────────────────────────
 def _badge(text):
     """Convert **CODE** to a teal monospace badge span."""
@@ -386,10 +455,12 @@ def _parse_llm_json(raw_text: str):
     return None
 
 
-def format_response(text: str) -> str:
+def format_response(text: str, routes=None) -> str:
     """
     Parses JSON from the LLM and renders structured route cards.
     Falls back to plain text with bold badges if JSON is absent/malformed.
+    Pass `routes` (loaded routes.json dict) to enable coordinate-based
+    LTFRB-accurate fare calculation.
     All HTML is built with zero leading whitespace — st.markdown() turns
     4-space-indented lines into code blocks.
     """
@@ -412,10 +483,8 @@ def format_response(text: str) -> str:
     origin      = data.get("origin", "")
     destination = data.get("destination", "")
     steps       = data.get("steps", [])
-    fare        = data.get("fare", "")
-    fare_note   = data.get("fare_note", "")
-    dropoff     = data.get("dropoff", "")
-    tips        = data.get("tips", [])
+    dropoff     = data.get("dropoff", "").replace('\\"', '"').replace("\\'", "'")
+    tips        = [t.replace('\\"', '"').replace("\\'", "'") for t in data.get("tips", [])]
 
     def _clean_step_text(step_text: str) -> str:
         cleaned = (step_text or "").strip()
@@ -428,6 +497,15 @@ def format_response(text: str) -> str:
     cleaned_steps = [_clean_step_text(s) for s in steps]
     cleaned_steps = [s for s in cleaned_steps if s and not re.fullmatch(r"\d+", s)]
 
+    # ── LTFRB-accurate fare (always computed here — never trusted from LLM) ──
+    reg_fare, disc_fare, fare_note = _calculate_fare_from_steps(
+        cleaned_steps,
+        routes=routes,
+        origin=origin,
+        destination=destination,
+        route_code=route_code,
+    )
+
     # Numbered steps
     steps_html = "".join(
         '<div class="rg-step">'
@@ -437,14 +515,15 @@ def format_response(text: str) -> str:
         for i, s in enumerate(cleaned_steps, 1)
     )
 
-    # Fare card
+    # Fare card — shows regular + discounted rows
     fare_block = (
         '<div class="rg-card rg-card-fare">'
         + '<div class="rg-card-label">FARE ESTIMATE</div>'
-        + f'<div class="rg-fare-amount">{fare}</div>'
+        + f'<div class="rg-fare-amount">{reg_fare}</div>'
         + f'<div class="rg-card-sub">{fare_note}</div>'
+        + f'<div class="rg-fare-discounted">Student / Elderly / Disabled: <strong>{disc_fare}</strong></div>'
         + '</div>'
-    ) if fare else ""
+    )
 
     # Drop-off card
     dropoff_block = (
@@ -474,7 +553,7 @@ def format_response(text: str) -> str:
     return (
         '<div class="rg-route-card-wrap">'
         + '<div class="rg-route-header">'
-       + (f'<span class="jeep-code rg-route-code">{route_code}</span> ' if route_code else '')
+        + (f'<span class="jeep-code rg-route-code">{route_code}</span> ' if route_code else '')
         + header
         + '</div>'
         + '<div class="rg-route-subtitle">Follow these passenger directions</div>'

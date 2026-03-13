@@ -3,36 +3,219 @@
     "name": "01K - Urgello to Parkmall",
     "description": "One-way route from Urgello area through Colon, SM City Cebu, North Terminal, and ending at Parkmall PUJ Terminal.",
     "direction": "Urgello → Parkmall",
-    "terminals": ["Urgello St.", "Parkmall PUJ Terminal"],
+    "terminals": [
+      "Urgello St.",
+      "Parkmall PUJ Terminal"
+    ],
     "stops": [
-      { "sequence": 1,  "name": "Urgello St.",                              "area": "Urgello Area",                   "type": "Road" },
-      { "sequence": 2,  "name": "Sacred Heart Hospital",                    "area": "Urgello Area",                   "type": "Health" },
-      { "sequence": 3,  "name": "Southwestern University (SWU)",            "area": "Urgello Area",                   "type": "School" },
-      { "sequence": 4,  "name": "Elizabeth Mall (Emall)",                   "area": "Urgello Area",                   "type": "Mall" },
-      { "sequence": 5,  "name": "Leon Kilat St.",                           "area": "Colon Area",                     "type": "Road" },
-      { "sequence": 6,  "name": "Colon St.",                                "area": "Colon Area",                     "type": "Terminal" },
-      { "sequence": 7,  "name": "Metro Gaisano Colon",                      "area": "Colon Area",                     "type": "Mall" },
-      { "sequence": 8,  "name": "Colonnade Supermarket",                    "area": "Colon Area",                     "type": "Mall" },
-      { "sequence": 9,  "name": "University of the Visayas (UV)",           "area": "Colon Area",                     "type": "School" },
-      { "sequence": 10, "name": "Gaisano Main",                             "area": "Colon Area",                     "type": "Mall" },
-      { "sequence": 11, "name": "Brgy. Parian",                             "area": "Parian / Downtown Area",         "type": "Landmark" },
-      { "sequence": 12, "name": "Zulueta St.",                              "area": "Parian / Downtown Area",         "type": "Road" },
-      { "sequence": 13, "name": "M.J. Cuenco Ave.",                         "area": "Mabolo / North Reclamation Area","type": "Road" },
-      { "sequence": 14, "name": "NSO (National Statistics Office)",         "area": "Mabolo / North Reclamation Area","type": "Landmark" },
-      { "sequence": 15, "name": "General Maxilom Ave.",                     "area": "Mabolo / North Reclamation Area","type": "Road" },
-      { "sequence": 16, "name": "A. Soriano Ave.",                          "area": "SM City Cebu Area",              "type": "Road" },
-      { "sequence": 17, "name": "SM City Cebu",                             "area": "SM City Cebu Area",              "type": "Mall" },
-      { "sequence": 18, "name": "SM Hypermarket",                           "area": "SM City Cebu Area",              "type": "Mall" },
-      { "sequence": 19, "name": "North Bus Terminal",                       "area": "North Terminal Area",            "type": "Terminal" },
-      { "sequence": 20, "name": "Cebu Doctors University",                  "area": "Mandaue Area",                   "type": "School" },
-      { "sequence": 21, "name": "CICC (Cebu International Convention Center)", "area": "Mandaue Area",               "type": "Landmark" },
-      { "sequence": 22, "name": "Parkmall PUJ Terminal",                    "area": "Final Destination",              "type": "Terminal" }
+      {
+        "sequence": 1,
+        "name": "Urgello St.",
+        "area": "Urgello Area",
+        "type": "Road",
+        "lat": 10.301552,
+        "lng": 123.895021,
+        "km_from_start": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Sacred Heart Hospital",
+        "area": "Urgello Area",
+        "type": "Health",
+        "lat": 10.303241,
+        "lng": 123.896135,
+        "km_from_start": 0.224
+      },
+      {
+        "sequence": 3,
+        "name": "Southwestern University (SWU)",
+        "area": "Urgello Area",
+        "type": "School",
+        "lat": 10.302315,
+        "lng": 123.894872,
+        "km_from_start": 0.396
+      },
+      {
+        "sequence": 4,
+        "name": "Elizabeth Mall (Emall)",
+        "area": "Urgello Area",
+        "type": "Mall",
+        "lat": 10.299567,
+        "lng": 123.897345,
+        "km_from_start": 0.804
+      },
+      {
+        "sequence": 5,
+        "name": "Leon Kilat St.",
+        "area": "Colon Area",
+        "type": "Road",
+        "lat": 10.298112,
+        "lng": 123.898876,
+        "km_from_start": 1.037
+      },
+      {
+        "sequence": 6,
+        "name": "Colon St.",
+        "area": "Colon Area",
+        "type": "Terminal",
+        "lat": 10.296543,
+        "lng": 123.899532,
+        "km_from_start": 1.226
+      },
+      {
+        "sequence": 7,
+        "name": "Metro Gaisano Colon",
+        "area": "Colon Area",
+        "type": "Mall",
+        "lat": 10.29521,
+        "lng": 123.901245,
+        "km_from_start": 1.465
+      },
+      {
+        "sequence": 8,
+        "name": "Colonnade Supermarket",
+        "area": "Colon Area",
+        "type": "Mall",
+        "lat": 10.295834,
+        "lng": 123.902567,
+        "km_from_start": 1.625
+      },
+      {
+        "sequence": 9,
+        "name": "University of the Visayas (UV)",
+        "area": "Colon Area",
+        "type": "School",
+        "lat": 10.295543,
+        "lng": 123.903812,
+        "km_from_start": 1.765
+      },
+      {
+        "sequence": 10,
+        "name": "Gaisano Main",
+        "area": "Colon Area",
+        "type": "Mall",
+        "lat": 10.296123,
+        "lng": 123.905098,
+        "km_from_start": 1.92
+      },
+      {
+        "sequence": 11,
+        "name": "Brgy. Parian",
+        "area": "Parian / Downtown Area",
+        "type": "Landmark",
+        "lat": 10.297567,
+        "lng": 123.905843,
+        "km_from_start": 2.1
+      },
+      {
+        "sequence": 12,
+        "name": "Zulueta St.",
+        "area": "Parian / Downtown Area",
+        "type": "Road",
+        "lat": 10.298512,
+        "lng": 123.906534,
+        "km_from_start": 2.23
+      },
+      {
+        "sequence": 13,
+        "name": "M.J. Cuenco Ave.",
+        "area": "Mabolo / North Reclamation Area",
+        "type": "Road",
+        "lat": 10.300187,
+        "lng": 123.907212,
+        "km_from_start": 2.43
+      },
+      {
+        "sequence": 14,
+        "name": "NSO (National Statistics Office)",
+        "area": "Mabolo / North Reclamation Area",
+        "type": "Landmark",
+        "lat": 10.302045,
+        "lng": 123.909567,
+        "km_from_start": 2.76
+      },
+      {
+        "sequence": 15,
+        "name": "General Maxilom Ave.",
+        "area": "Mabolo / North Reclamation Area",
+        "type": "Road",
+        "lat": 10.305512,
+        "lng": 123.914087,
+        "km_from_start": 3.387
+      },
+      {
+        "sequence": 16,
+        "name": "A. Soriano Ave.",
+        "area": "SM City Cebu Area",
+        "type": "Road",
+        "lat": 10.310567,
+        "lng": 123.916023,
+        "km_from_start": 3.988
+      },
+      {
+        "sequence": 17,
+        "name": "SM City Cebu",
+        "area": "SM City Cebu Area",
+        "type": "Mall",
+        "lat": 10.311543,
+        "lng": 123.918567,
+        "km_from_start": 4.287
+      },
+      {
+        "sequence": 18,
+        "name": "SM Hypermarket",
+        "area": "SM City Cebu Area",
+        "type": "Mall",
+        "lat": 10.312512,
+        "lng": 123.919045,
+        "km_from_start": 4.406
+      },
+      {
+        "sequence": 19,
+        "name": "North Bus Terminal",
+        "area": "North Terminal Area",
+        "type": "Terminal",
+        "lat": 10.316087,
+        "lng": 123.921534,
+        "km_from_start": 4.888
+      },
+      {
+        "sequence": 20,
+        "name": "Cebu Doctors University",
+        "area": "Mandaue Area",
+        "type": "School",
+        "lat": 10.319521,
+        "lng": 123.926512,
+        "km_from_start": 5.553
+      },
+      {
+        "sequence": 21,
+        "name": "CICC (Cebu International Convention Center)",
+        "area": "Mandaue Area",
+        "type": "Landmark",
+        "lat": 10.323045,
+        "lng": 123.931087,
+        "km_from_start": 6.189
+      },
+      {
+        "sequence": 22,
+        "name": "Parkmall PUJ Terminal",
+        "area": "Final Destination",
+        "type": "Terminal",
+        "lat": 10.325512,
+        "lng": 123.935043,
+        "km_from_start": 6.701
+      }
     ],
     "fare": {
-      "base_fare": 15,
+      "base_fare_regular": 15.0,
+      "base_fare_discounted": 12.0,
       "base_km": 4,
-      "per_km_after": 1.80,
-      "note": "P15.00 for the first 4km; P1.80 per km after that."
+      "per_km_regular": 2.2,
+      "per_km_discounted": 1.76,
+      "rounding": "nearest 0.25",
+      "note": "LTFRB Aircon Modern PUJ (effective Oct 8, 2023). Discounted rate for Students, Elderly, and PWD.",
+      "total_route_km": 6.701
     },
     "tips": [
       "Board at Urgello St. or any stop along the route going toward Parkmall.",
