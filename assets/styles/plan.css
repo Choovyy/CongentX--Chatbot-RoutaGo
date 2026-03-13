@@ -75,6 +75,11 @@
     background: var(--surface) !important;
 }
 
+.stTextInput input::placeholder {
+    color: #94A3B8 !important;
+    opacity: 1 !important;
+}
+
 .stFormSubmitButton > button {
     background: var(--blue) !important;
     color: #FFFFFF !important;
