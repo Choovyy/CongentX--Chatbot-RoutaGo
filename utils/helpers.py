@@ -142,6 +142,7 @@ def inject_dark_mode():
         [data-testid="stChatInput"] { background: #1E293B !important; border-color: #2D3748 !important; }
         [data-testid="stChatInput"] textarea { color: #F1F5F9 !important; }
         [data-testid="stChatInput"] textarea::placeholder { color: #475569 !important; }
+        .stTextInput input::placeholder { color: #475569 !important; opacity: 1 !important; }
         .rg-page-header { border-bottom: 1px solid #1E293B !important; }
         .rg-page-header-icon { background: rgba(37,99,235,0.2) !important; border-color: rgba(37,99,235,0.35) !important; }
         .rg-page-header-text h1 { color: #F1F5F9 !important; }
