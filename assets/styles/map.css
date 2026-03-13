@@ -7,18 +7,29 @@
     gap: 10px;
     background: #EFF6FF;
     border: 1px solid #BFDBFE;
-    border-left: 4px solid var(--blue, #2563EB);
-    border-radius: var(--r-md, 12px);
+    border-left: 4px solid #2563EB;
+    border-radius: 12px;
     padding: 12px 16px;
     margin-bottom: 18px;
     font-size: 0.875rem;
     color: #1E40AF;
+    font-weight: 500;
     line-height: 1.5;
+}
+
+.rg-map-tip strong {
+    color: #1E40AF;
 }
 
 .rg-map-tip-icon {
     font-size: 1.1rem;
     flex-shrink: 0;
+    color: #1E40AF;
+}
+
+.rg-map-tip-icon svg {
+    display: block;
+    stroke: #1E40AF;
 }
 
 /* Badge colour variants */
@@ -44,7 +55,7 @@
 }
 
 .rg-pin-empty {
-    opacity: 0.7;
+    opacity: 0.75;
 }
 
 /* Individual pin card */
@@ -52,12 +63,12 @@
     display: flex;
     align-items: flex-start;
     gap: 14px;
-    background: var(--surface, #FFFFFF);
-    border: 1px solid var(--border, #E2E8F0);
-    border-radius: var(--r-md, 12px);
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
     padding: 14px 16px;
     margin-bottom: 10px;
-    box-shadow: var(--sh-sm, 0 1px 3px rgba(0,0,0,.06));
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
     transition: box-shadow 0.18s, border-color 0.18s;
 }
 
@@ -84,7 +95,7 @@
 .rg-map-pin-name {
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--text-1, #0F172A);
+    color: #0F172A;
     margin-bottom: 3px;
     white-space: nowrap;
     overflow: hidden;
@@ -93,7 +104,7 @@
 
 .rg-map-pin-full {
     font-size: 0.82rem;
-    color: var(--text-3, #64748B);
+    color: #64748B;
     line-height: 1.5;
     margin-bottom: 5px;
 }
@@ -102,45 +113,4 @@
     font-size: 0.75rem;
     font-family: "JetBrains Mono", "Fira Code", monospace;
     color: #94A3B8;
-}
-
-/* Dark mode overrides */
-.stApp .rg-map-tip {
-    background: rgba(37,99,235,0.12);
-    border-color: rgba(37,99,235,0.35);
-    border-left-color: #3B82F6;
-    color: #93C5FD;
-}
-
-.stApp .rg-map-pin-card {
-    background: #1E293B;
-    border-color: #2D3748;
-}
-
-.stApp .rg-map-pin-card:hover {
-    border-color: #3B82F6;
-}
-
-.stApp .rg-map-pin-name {
-    color: #F1F5F9;
-}
-
-.stApp .rg-map-pin-full {
-    color: #94A3B8;
-}
-
-.stApp .rg-map-pin-coords {
-    color: #64748B;
-}
-
-.stApp .rg-badge-blue {
-    background: rgba(37,99,235,0.18);
-    border-color: rgba(59,130,246,0.35);
-    color: #93C5FD;
-}
-
-.stApp .rg-badge-red {
-    background: rgba(220,38,38,0.15);
-    border-color: rgba(248,113,113,0.35);
-    color: #FCA5A5;
 }

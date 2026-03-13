@@ -17,7 +17,7 @@ from utils.helpers import load_css, render_sidebar, inject_dark_mode
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="Cebu Map — RoutaGo",
-    page_icon="📍",
+    page_icon="assets/logo.png",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -58,7 +58,9 @@ def get_road_route(lat1, lng1, lat2, lng2):
 # ── Page header ───────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="rg-page-header">
-    <div class="rg-page-header-icon">📍</div>
+    <div class="rg-page-header-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    </div>
     <div class="rg-page-header-text">
         <h1>Cebu City Map</h1>
         <p>1st click sets your <strong>Current Location</strong> · 2nd click sets your <strong>Destination</strong></p>
@@ -71,15 +73,15 @@ cur  = st.session_state.current_loc
 dest = st.session_state.dest_loc
 
 if cur is None:
-    tip_msg = "🔵 Click anywhere on the map to set your <strong>Current Location</strong>"
+   tip_msg = "Click anywhere on the map to set your <strong>Current Location</strong>"
 elif dest is None:
-    tip_msg = "🔴 Now click your <strong>Destination</strong> on the map"
+    tip_msg = "Now click your <strong>Destination</strong> on the map"
 else:
-    tip_msg = "✅ Route pinned! Click anywhere to <strong>start over</strong>"
+    tip_msg = "Route pinned. Click anywhere to <strong>start over</strong>"
 
 st.markdown(f"""
 <div class="rg-map-tip">
-    <span class="rg-map-tip-icon">💡</span>
+    <span class="rg-map-tip-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
     <span>{tip_msg}</span>
 </div>
 """, unsafe_allow_html=True)
@@ -242,7 +244,7 @@ with col_a:
             <div class="rg-map-pin-badge rg-badge-blue">🔵 Current</div>
             <div class="rg-map-pin-body">
                 <div class="rg-map-pin-name" style="color:#94A3B8;">Not set yet</div>
-                <div class="rg-map-pin-full" style="color:#CBD5E1;">Click the map to set your current location</div>
+                <div class="rg-map-pin-full" style="color:#94A3B8;">Click the map to set your current location</div>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -266,7 +268,7 @@ with col_b:
             <div class="rg-map-pin-badge rg-badge-red">🔴 Destination</div>
             <div class="rg-map-pin-body">
                 <div class="rg-map-pin-name" style="color:#94A3B8;">Not set yet</div>
-                <div class="rg-map-pin-full" style="color:#CBD5E1;">Click the map to set your destination</div>
+                <div class="rg-map-pin-full" style="color:#94A3B8;">Click the map to set your destination</div>
             </div>
         </div>
         """, unsafe_allow_html=True)

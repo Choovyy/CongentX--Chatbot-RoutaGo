@@ -11,7 +11,7 @@ from utils.helpers import load_css, render_sidebar, format_response, inject_dark
 
 load_dotenv()
 
-st.set_page_config(page_title="Plan Route — RoutaGo", page_icon="🗺️", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Plan Route — RoutaGo", page_icon="assets/logo.png", layout="wide", initial_sidebar_state="expanded")
 load_css("assets/styles/main.css")
 load_css("assets/styles/plan.css")
 render_sidebar()
@@ -140,12 +140,22 @@ def _forward_geocode(place: str):
 with open("routes.json", "r", encoding="utf-8") as f:
     ROUTES = json.load(f)
 
-client = Groq(api_key=st.secrets.get("GROQ_API_KEY") or os.getenv("GROQ_API_KEY"))
+try:
+    api_key = st.secrets.get("GROQ_API_KEY")
+except Exception:
+    api_key = None
+api_key = api_key or os.getenv("GROQ_API_KEY")
+client = Groq(api_key=api_key)
 
 st.markdown("""
 <div class="rg-page-header">
-    <h1>Plan My Route</h1>
-    <p>Plan your Cebu commute with clear, practical, stop-by-stop guidance.</p>
+    <div class="rg-page-header-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+    </div>
+    <div class="rg-page-header-text">
+        <h1>Plan My Route</h1>
+        <p>Plan your Cebu commute with clear, practical, stop-by-stop guidance.</p>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -249,7 +259,7 @@ If not found: {{"type":"text","message":"Sorry bai, I don't have that route yet!
     if st.session_state.last_plan:
         plan = st.session_state.last_plan
         st.markdown(f"<div class='rg-result'>{plan['result']}</div>", unsafe_allow_html=True)
-        if st.button("📍 View on Map", key="plan_view_map"):
+        if st.button("View on Map", key="plan_view_map", icon=":material/location_on:"):
             with st.spinner("Locating places on map…"):
                 cur_coords  = _forward_geocode(plan["origin"])
                 dest_coords = _forward_geocode(plan["destination"])
@@ -268,6 +278,6 @@ with tab2:
     else:
         st.markdown("<div class='recent-container'>", unsafe_allow_html=True)
         for i, route in enumerate(st.session_state.recent_routes):
-            with st.expander(f"📍 {route['origin']} → {route['destination']} ({route['time']})"):
+            with st.expander(f"{route['origin']} → {route['destination']} ({route['time']})"):
                 st.markdown(f"<div class='rg-result' style='margin-top:0;'>{route['result']}</div>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
