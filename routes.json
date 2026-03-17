@@ -223,4 +223,670 @@
       "This is a one-way route — for the return trip, take a different jeepney heading back toward Colon."
     ]
   }
+  ,
+  "01B": {
+    "name": "01B - Sambag 1 to Pier 2 (via Colon St.)",
+    "description": "Route from Sambag 1 through Colon St. and downtown to Pier 2 (via Pier 3 & Pier 4). Point-to-point variations exist.",
+    "direction": "Sambag 1 → Pier 2",
+    "terminals": [
+      "Sambag 1",
+      "Pier 2"
+    ],
+    "fare_code": "TBD",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Sambag 1",
+        "area": "Sambag",
+        "type": "Area",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "University of San Carlos (South Campus)",
+        "area": "Downtown / Sambag",
+        "type": "School",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.25
+      },
+      {
+        "sequence": 3,
+        "name": "Private Subdivision/Area",
+        "area": "Residential",
+        "type": "Area",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.5
+      },
+      {
+        "sequence": 4,
+        "name": "J. Alcantara St.",
+        "area": "Sambag / Downtown",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.75
+      },
+      {
+        "sequence": 5,
+        "name": "Asian College of Technology (ACT)",
+        "area": "Sambag / Colon Corridor",
+        "type": "School",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.0
+      },
+      {
+        "sequence": 6,
+        "name": "Elizabeth Mall (Emall)",
+        "area": "Urgello / Colon",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.25
+      },
+      {
+        "sequence": 7,
+        "name": "Leon Kilat St.",
+        "area": "Colon Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.5
+      },
+      {
+        "sequence": 8,
+        "name": "Gaisano Capital South",
+        "area": "Colon Area",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.75
+      },
+      {
+        "sequence": 9,
+        "name": "Colon St.",
+        "area": "Colon / Downtown",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.0
+      },
+      {
+        "sequence": 10,
+        "name": "Metro Gaisano Colon",
+        "area": "Colon Area",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.25
+      },
+      {
+        "sequence": 11,
+        "name": "Colonnade Mall",
+        "area": "Colon Area",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.5
+      },
+      {
+        "sequence": 12,
+        "name": "University of the Visayas (UV)",
+        "area": "Colon / Parian",
+        "type": "School",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.75
+      },
+      {
+        "sequence": 13,
+        "name": "Gaisano Main",
+        "area": "Colon / Parian",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.0
+      },
+      {
+        "sequence": 14,
+        "name": "Colon Obelisk",
+        "area": "Parian / Downtown",
+        "type": "Landmark",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.25
+      },
+      {
+        "sequence": 15,
+        "name": "Mabini St.",
+        "area": "Parian / Downtown",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.5
+      },
+      {
+        "sequence": 16,
+        "name": "Sandiego-Yap Ancestral House",
+        "area": "Parian / Downtown",
+        "type": "Landmark",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.75
+      },
+      {
+        "sequence": 17,
+        "name": "Brgy. Parian",
+        "area": "Parian / Downtown",
+        "type": "Area",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.0
+      },
+      {
+        "sequence": 18,
+        "name": "A. Bonifacio St.",
+        "area": "Parian / Downtown",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.25
+      },
+      {
+        "sequence": 19,
+        "name": "D. Jakosalem St.",
+        "area": "Downtown / Port Approach",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.5
+      },
+      {
+        "sequence": 20,
+        "name": "P. del Rosario St.",
+        "area": "Downtown / Port Approach",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.75
+      },
+      {
+        "sequence": 21,
+        "name": "T. Padilla St.",
+        "area": "Port Approach",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.0
+      },
+      {
+        "sequence": 22,
+        "name": "Pier 4",
+        "area": "Port / Harbor",
+        "type": "Terminal",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.25
+      },
+      {
+        "sequence": 23,
+        "name": "Sergio Osmena Blvd.",
+        "area": "Port Road",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.5
+      },
+      {
+        "sequence": 24,
+        "name": "V. Sotto St.",
+        "area": "Port / Boulevard",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.75
+      },
+      {
+        "sequence": 25,
+        "name": "Pier 3",
+        "area": "Port / Terminal",
+        "type": "Terminal",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 6.0
+      },
+      {
+        "sequence": 26,
+        "name": "Cebu-Mactan Ferry Terminal",
+        "area": "Port / Terminal",
+        "type": "Terminal",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 6.25
+      },
+      {
+        "sequence": 27,
+        "name": "C. Arellano Blvd.",
+        "area": "Port Road",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 6.5
+      },
+      {
+        "sequence": 28,
+        "name": "Pier 2",
+        "area": "Port / Terminal",
+        "type": "Terminal",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 6.75
+      }
+    ],
+    "tips": [
+      "Route has point-to-point variations (e.g., Sambag 1 ↔ Pier 3 only) — check the jeepney sign.",
+      "Board along Colon St. or at major landmarks like Elizabeth Mall and UV for downtown access.",
+      "Expect route variations — some trips terminate at Pier 3/4 instead of Pier 2."
+    ]
+  },
+  "01C": {
+    "name": "01C - V. Rama Ave. to Pier 3 via Colon",
+    "description": "Route from V. Rama Avenue through USC Girls High, Colon, and ending at Pier 3.",
+    "direction": "V. Rama Ave. → Pier 3",
+    "terminals": [
+      "V. Rama Ave.",
+      "Pier 3"
+    ],
+    "fare_code": "TBD",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "V. Rama Ave.",
+        "area": "V. Rama Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Sambag 1 (USC Girls High)",
+        "area": "Sambag Area",
+        "type": "School",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.3
+      },
+      {
+        "sequence": 3,
+        "name": "J. Alcantara St.",
+        "area": "Sambag Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.6
+      },
+      {
+        "sequence": 4,
+        "name": "Elizabeth Mall (Emall)",
+        "area": "Urgello Area",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.9
+      },
+      {
+        "sequence": 5,
+        "name": "L. Kilat St.",
+        "area": "Colon Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.2
+      },
+      {
+        "sequence": 6,
+        "name": "Colon St.",
+        "area": "Colon Area",
+        "type": "Terminal",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.5
+      },
+      {
+        "sequence": 7,
+        "name": "Metro Colon",
+        "area": "Colon Area",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.8
+      },
+      {
+        "sequence": 8,
+        "name": "Colonnade Supermarket",
+        "area": "Colon Area",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.1
+      },
+      {
+        "sequence": 9,
+        "name": "Gaisano Main",
+        "area": "Colon Area",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.4
+      },
+      {
+        "sequence": 10,
+        "name": "University of the Visayas (UV)",
+        "area": "Colon Area",
+        "type": "School",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.7
+      },
+      {
+        "sequence": 11,
+        "name": "Colon Obelisk",
+        "area": "Colon Area",
+        "type": "Landmark",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.0
+      },
+      {
+        "sequence": 12,
+        "name": "Mabini St.",
+        "area": "Parian / Downtown Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.3
+      },
+      {
+        "sequence": 13,
+        "name": "Zulueta St.",
+        "area": "Parian / Downtown Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.6
+      },
+      {
+        "sequence": 14,
+        "name": "M.J. Cuenco St.",
+        "area": "Mabolo / North Reclamation Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.9
+      },
+      {
+        "sequence": 15,
+        "name": "T. Padilla St.",
+        "area": "Pier Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.2
+      },
+      {
+        "sequence": 16,
+        "name": "B. Benedicto St.",
+        "area": "Pier Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.5
+      },
+      {
+        "sequence": 17,
+        "name": "G. Maxilom Ave. Ext.",
+        "area": "Pier Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.8
+      },
+      {
+        "sequence": 18,
+        "name": "Pier 4",
+        "area": "Pier Area",
+        "type": "Terminal",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.1
+      },
+      {
+        "sequence": 19,
+        "name": "S. Osmena Blvd.",
+        "area": "Pier Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.4
+      },
+      {
+        "sequence": 20,
+        "name": "Pier 3",
+        "area": "Pier Area",
+        "type": "Terminal",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.7
+      }
+    ],
+    "tips": [
+      "Board at V. Rama Ave. or any stop along the route going toward Pier 3.",
+      "Say 'Lugar lang!' loudly or tap a coin on the rail to signal your stop.",
+      "This route passes through USC Girls High and Colon area.",
+      "For the return trip from Pier 3 to V. Rama Ave., look for jeepneys with route 01C heading back."
+    ]
+  },
+  "12L": {
+    "name": "12L - Labangon to Ayala Center Cebu via Fuente",
+    "description": "Route from Labangon/Punta Princesa area through Fuente Osmeña, Mango Avenue, and ending at Ayala Center Cebu.",
+    "direction": "Labangon → Ayala Center Cebu",
+    "terminals": [
+      "Labangon",
+      "Ayala Center Cebu PUJ Terminal"
+    ],
+    "fare_code": "TBD",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Punta Princesa Church",
+        "area": "Punta Princesa",
+        "type": "Landmark",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Tres de Abril",
+        "area": "Punta Princesa",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.3
+      },
+      {
+        "sequence": 3,
+        "name": "Salvador St.",
+        "area": "Punta Princesa",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.6
+      },
+      {
+        "sequence": 4,
+        "name": "Katipunan St.",
+        "area": "Labangon",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.9
+      },
+      {
+        "sequence": 5,
+        "name": "Tres de Abril St.",
+        "area": "Labangon",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.2
+      },
+      {
+        "sequence": 6,
+        "name": "N. Bacalso Ave.",
+        "area": "Labangon",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.5
+      },
+      {
+        "sequence": 7,
+        "name": "V. Rama Ave.",
+        "area": "V. Rama",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.8
+      },
+      {
+        "sequence": 8,
+        "name": "B. Rodriguez Ave.",
+        "area": "Fuente",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.1
+      },
+      {
+        "sequence": 9,
+        "name": "Fuente Osmeña Circle",
+        "area": "Fuente",
+        "type": "Landmark",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.4
+      },
+      {
+        "sequence": 10,
+        "name": "Robinsons Place Cebu (Fuente)",
+        "area": "Fuente",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.7
+      },
+      {
+        "sequence": 11,
+        "name": "Vicente Sotto Hospital",
+        "area": "Fuente",
+        "type": "Health",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.0
+      },
+      {
+        "sequence": 12,
+        "name": "Mango Ave.",
+        "area": "Mango",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.3
+      },
+      {
+        "sequence": 13,
+        "name": "Mango Square Mall",
+        "area": "Mango",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.6
+      },
+      {
+        "sequence": 14,
+        "name": "Gen. Maxilom Ave.",
+        "area": "Mango",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.9
+      },
+      {
+        "sequence": 15,
+        "name": "Gorordo Ave.",
+        "area": "Cebu Business Park",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.2
+      },
+      {
+        "sequence": 16,
+        "name": "Cebu City Police Station",
+        "area": "Cebu Business Park",
+        "type": "Landmark",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.5
+      },
+      {
+        "sequence": 17,
+        "name": "Ayala Road",
+        "area": "Cebu Business Park",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.8
+      },
+      {
+        "sequence": 18,
+        "name": "Metro Ayala",
+        "area": "Ayala",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.1
+      },
+      {
+        "sequence": 19,
+        "name": "Ayala Center Cebu",
+        "area": "Ayala",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.4
+      },
+      {
+        "sequence": 20,
+        "name": "Ayala Center Cebu PUJ Terminal",
+        "area": "Ayala",
+        "type": "Terminal",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.7
+      }
+    ],
+    "tips": [
+      "Board at Punta Princesa Church or Labangon area going toward Ayala.",
+      "Say 'Lugar lang!' loudly or tap a coin on the rail to signal your stop.",
+      "This route passes through Fuente Osmeña and Mango Avenue.",
+      "For the return trip from Ayala to Labangon, look for jeepneys with route 12L heading back."
+    ]
+  }
 }
