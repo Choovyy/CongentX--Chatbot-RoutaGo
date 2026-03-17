@@ -888,5 +888,671 @@
       "This route passes through Fuente Osmeña and Mango Avenue.",
       "For the return trip from Ayala to Labangon, look for jeepneys with route 12L heading back."
     ]
+  },
+  "07B": {
+    "name": "07B - Banawa to Carbon via Fuente & Colon",
+    "description": "Route from Banawa through V. Rama, Fuente Osmeña, Colon, and ending at Carbon Public Market.",
+    "direction": "Banawa → Carbon",
+    "terminals": [
+      "Banawa",
+      "Carbon Public Market"
+    ],
+    "fare_code": "TBD",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Banawa",
+        "area": "Banawa",
+        "type": "Residential",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "R. Duterte St.",
+        "area": "Banawa",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.3
+      },
+      {
+        "sequence": 3,
+        "name": "V. Rama Ave.",
+        "area": "V. Rama",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.6
+      },
+      {
+        "sequence": 4,
+        "name": "B. Rodriguez St.",
+        "area": "Fuente",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.9
+      },
+      {
+        "sequence": 5,
+        "name": "Vicente Sotto Hospital",
+        "area": "Fuente",
+        "type": "Health",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.2
+      },
+      {
+        "sequence": 6,
+        "name": "Fuente Osmeña Circle",
+        "area": "Fuente",
+        "type": "Landmark",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.5
+      },
+      {
+        "sequence": 7,
+        "name": "Robinsons Fuente",
+        "area": "Fuente",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.8
+      },
+      {
+        "sequence": 8,
+        "name": "Crown Regency Hotel",
+        "area": "Fuente",
+        "type": "Hotel",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.1
+      },
+      {
+        "sequence": 9,
+        "name": "Osmeña Blvd.",
+        "area": "Colon Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.4
+      },
+      {
+        "sequence": 10,
+        "name": "Metro Colon",
+        "area": "Colon Area",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.7
+      },
+      {
+        "sequence": 11,
+        "name": "P. Lopez St.",
+        "area": "Colon Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.0
+      },
+      {
+        "sequence": 12,
+        "name": "University of San Jose Recoletos (USJR)",
+        "area": "Magallanes",
+        "type": "School",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.3
+      },
+      {
+        "sequence": 13,
+        "name": "Magallanes St.",
+        "area": "Magallanes",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.6
+      },
+      {
+        "sequence": 14,
+        "name": "Manalili St.",
+        "area": "Carbon Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.9
+      },
+      {
+        "sequence": 15,
+        "name": "Carbon Public Market",
+        "area": "Carbon",
+        "type": "Market",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.2
+      },
+      {
+        "sequence": 16,
+        "name": "Progreso St.",
+        "area": "Carbon Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.5
+      }
+    ],
+    "tips": [
+      "Board at Banawa or any stop along the route going toward Carbon.",
+      "Say 'Lugar lang!' loudly or tap a coin on the rail to signal your stop.",
+      "This route passes through Fuente Osmeña and USJR before reaching Carbon Market.",
+      "Perfect for market-goers and students heading to USJR."
+    ]
+  },
+  "04L": {
+    "name": "04L - Lahug to SM City Cebu via Ayala",
+    "description": "Route from Lahug/JY Square Mall through Gorordo Ave., Cebu Business Park, Ayala Center Cebu, Mabolo, and ending at SM City Cebu.",
+    "direction": "Lahug → SM City Cebu",
+    "terminals": [
+      "Lahug",
+      "SM City Cebu"
+    ],
+    "fare_code": "TBD",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Lahug",
+        "area": "Lahug",
+        "type": "Residential",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "JY Square Mall",
+        "area": "Lahug",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.3
+      },
+      {
+        "sequence": 3,
+        "name": "Gorordo Ave.",
+        "area": "Lahug",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.6
+      },
+      {
+        "sequence": 4,
+        "name": "Corner Sudlon",
+        "area": "Lahug",
+        "type": "Landmark",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.9
+      },
+      {
+        "sequence": 5,
+        "name": "Corner Beverly Hills",
+        "area": "Lahug",
+        "type": "Landmark",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.2
+      },
+      {
+        "sequence": 6,
+        "name": "Corner Dep-ed (Ecotech)",
+        "area": "Lahug",
+        "type": "Landmark",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.5
+      },
+      {
+        "sequence": 7,
+        "name": "Mormons Church (Church of Jesus Christ of Latter-day Saints)",
+        "area": "Lahug",
+        "type": "Church",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.8
+      },
+      {
+        "sequence": 8,
+        "name": "Lahug Barangay Hall",
+        "area": "Lahug",
+        "type": "Landmark",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.1
+      },
+      {
+        "sequence": 9,
+        "name": "University of the Philippines Cebu",
+        "area": "Lahug",
+        "type": "School",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.4
+      },
+      {
+        "sequence": 10,
+        "name": "Sugbo Cultural Center",
+        "area": "Lahug",
+        "type": "Landmark",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.7
+      },
+      {
+        "sequence": 11,
+        "name": "Harolds Hotel",
+        "area": "Lahug",
+        "type": "Hotel",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.0
+      },
+      {
+        "sequence": 12,
+        "name": "Tonross Apartelle",
+        "area": "Lahug",
+        "type": "Hotel",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.3
+      },
+      {
+        "sequence": 13,
+        "name": "The Golden Peak Hotel",
+        "area": "Lahug",
+        "type": "Hotel",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.6
+      },
+      {
+        "sequence": 14,
+        "name": "N. Escario Hotel",
+        "area": "Lahug",
+        "type": "Hotel",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.9
+      },
+      {
+        "sequence": 15,
+        "name": "Philhealth",
+        "area": "Cebu Business Park",
+        "type": "Government",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.2
+      },
+      {
+        "sequence": 16,
+        "name": "Kuya J's Restaurant",
+        "area": "Cebu Business Park",
+        "type": "Restaurant",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.5
+      },
+      {
+        "sequence": 17,
+        "name": "Cebu Parklane Hotel",
+        "area": "Cebu Business Park",
+        "type": "Hotel",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.8
+      },
+      {
+        "sequence": 18,
+        "name": "Grand Cenia Hotel",
+        "area": "Cebu Business Park",
+        "type": "Hotel",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.1
+      },
+      {
+        "sequence": 19,
+        "name": "Hongkong Plaza Hotel",
+        "area": "Cebu Business Park",
+        "type": "Hotel",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.4
+      },
+      {
+        "sequence": 20,
+        "name": "Cebu Business Park",
+        "area": "Cebu Business Park",
+        "type": "Business",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.7
+      },
+      {
+        "sequence": 21,
+        "name": "Mindanao Ave.",
+        "area": "Cebu Business Park",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 6.0
+      },
+      {
+        "sequence": 22,
+        "name": "Pag-ibig Fund",
+        "area": "Cebu Business Park",
+        "type": "Government",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 6.3
+      },
+      {
+        "sequence": 23,
+        "name": "Ayala Center Cebu",
+        "area": "Ayala",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 6.6
+      },
+      {
+        "sequence": 24,
+        "name": "Cardinal Rosales Ave.",
+        "area": "Ayala",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 6.9
+      },
+      {
+        "sequence": 25,
+        "name": "Pope John Paul II Ave.",
+        "area": "Mabolo",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 7.2
+      },
+      {
+        "sequence": 26,
+        "name": "PLDT",
+        "area": "Mabolo",
+        "type": "Business",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 7.5
+      },
+      {
+        "sequence": 27,
+        "name": "Carmelite Monastery",
+        "area": "Mabolo",
+        "type": "Church",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 7.8
+      },
+      {
+        "sequence": 28,
+        "name": "St. Joseph Parish (Mabolo Church)",
+        "area": "Mabolo",
+        "type": "Church",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 8.1
+      },
+      {
+        "sequence": 29,
+        "name": "Andoks Mabolo",
+        "area": "Mabolo",
+        "type": "Restaurant",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 8.4
+      },
+      {
+        "sequence": 30,
+        "name": "SM City Cebu",
+        "area": "SM City Cebu Area",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 8.7
+      }
+    ],
+    "tips": [
+      "Board at Lahug or JY Square Mall going toward SM City Cebu.",
+      "Say 'Lugar lang!' loudly or tap a coin on the rail to signal your stop.",
+      "This route passes through UP Cebu, Cebu Business Park, and Ayala Center.",
+      "Perfect for students (UP Cebu), BPO workers, and mall-goers."
+    ]
+  },
+  "10F": {
+    "name": "10F - Bulacao to Cor. V. Rama Ave. via Pardo, Basak, Mambaling, CIT",
+    "description": "Route from Bulacao through Pardo, Basak, Mambaling, CIT, Cebu South Bus Terminal, Colon, and ending at Cor. V. Rama Ave.",
+    "direction": "Bulacao → Cor. V. Rama Ave.",
+    "terminals": [
+      "Bulacao",
+      "Cor. V. Rama Ave."
+    ],
+    "fare_code": "TBD",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Bulacao",
+        "area": "Bulacao",
+        "type": "Residential",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Pardo",
+        "area": "Pardo",
+        "type": "Residential",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 0.8
+      },
+      {
+        "sequence": 3,
+        "name": "Basak",
+        "area": "Basak",
+        "type": "Residential",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 1.6
+      },
+      {
+        "sequence": 4,
+        "name": "Fooda Basak",
+        "area": "Basak",
+        "type": "Restaurant",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.0
+      },
+      {
+        "sequence": 5,
+        "name": "Shopwise Basak",
+        "area": "Basak",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 2.4
+      },
+      {
+        "sequence": 6,
+        "name": "Mambaling",
+        "area": "Mambaling",
+        "type": "Residential",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 3.2
+      },
+      {
+        "sequence": 7,
+        "name": "CIT (Cebu Institute of Technology)",
+        "area": "Mambaling",
+        "type": "School",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.0
+      },
+      {
+        "sequence": 8,
+        "name": "N. Bacalso Ave. (Hi-way)",
+        "area": "Mambaling",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 4.4
+      },
+      {
+        "sequence": 9,
+        "name": "CCMC (Cebu City Medical Center)",
+        "area": "Urgello Area",
+        "type": "Health",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.2
+      },
+      {
+        "sequence": 10,
+        "name": "Panganiban St.",
+        "area": "Urgello Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 5.6
+      },
+      {
+        "sequence": 11,
+        "name": "Sancianko St.",
+        "area": "Colon Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 6.0
+      },
+      {
+        "sequence": 12,
+        "name": "Borromeo St.",
+        "area": "Colon Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 6.4
+      },
+      {
+        "sequence": 13,
+        "name": "Metro Gaisano Colon",
+        "area": "Colon Area",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 6.8
+      },
+      {
+        "sequence": 14,
+        "name": "Colon St.",
+        "area": "Colon Area",
+        "type": "Terminal",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 7.2
+      },
+      {
+        "sequence": 15,
+        "name": "Junquera St.",
+        "area": "Colon Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 7.6
+      },
+      {
+        "sequence": 16,
+        "name": "University of San Carlos (USC)",
+        "area": "Colon Area",
+        "type": "School",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 8.0
+      },
+      {
+        "sequence": 17,
+        "name": "P. del Rosario St.",
+        "area": "Colon Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 8.4
+      },
+      {
+        "sequence": 18,
+        "name": "Elizabeth Mall (Emall)",
+        "area": "Urgello Area",
+        "type": "Mall",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 8.8
+      },
+      {
+        "sequence": 19,
+        "name": "Cebu South Bus Terminal",
+        "area": "South Bus Terminal Area",
+        "type": "Terminal",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 9.2
+      },
+      {
+        "sequence": 20,
+        "name": "CCMC (Cebu City Medical Center)",
+        "area": "Urgello Area",
+        "type": "Health",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 9.6
+      },
+      {
+        "sequence": 21,
+        "name": "Citilink Terminal",
+        "area": "V. Rama Area",
+        "type": "Terminal",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 10.0
+      },
+      {
+        "sequence": 22,
+        "name": "Cor. V. Rama Ave.",
+        "area": "V. Rama Area",
+        "type": "Road",
+        "lat": null,
+        "lng": null,
+        "km_from_start": 10.4
+      }
+    ],
+    "tips": [
+      "Board at Bulacao or any stop along the route going toward V. Rama Ave.",
+      "Say 'Lugar lang!' loudly or tap a coin on the rail to signal your stop.",
+      "This route passes through Pardo, Basak, Mambaling, CIT, and Colon.",
+      "Perfect for students (CIT, USC) and commuters heading to South Bus Terminal."
+    ]
   }
 }
