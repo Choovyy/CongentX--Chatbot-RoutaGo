@@ -1,7 +1,7 @@
 import streamlit as st
 from groq import Groq
 from dotenv import load_dotenv
-import os, json, sys, base64, requests
+import os, json, sys, base64, requests, re
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from utils.helpers import load_css, render_sidebar, format_response, inject_dark_mode, icon_chat, _parse_llm_json
@@ -169,6 +169,102 @@ def _build_request_messages(system_prompt: str, history: list, max_input_tokens:
 
     selected.reverse()
     return [{"role": "system", "content": system_prompt}] + selected
+
+
+_INJECTION_PATTERNS = [
+    r"ignore\s+(all\s+)?(previous|prior)\s+instructions",
+    r"system\s+prompt|developer\s+prompt|hidden\s+(data|prompt|rules)",
+    r"reveal|leak|exfiltrat|dump\s+.*(prompt|secret|token|password|key)",
+    r"unrestricted\s+ai|without\s+limits|jailbreak|bypass\s+(rules|safety)",
+    r"admin\s+password|api\s*key|secret\s*key|access\s*token",
+]
+
+
+def _looks_like_prompt_injection(text: str) -> bool:
+    sample = (text or "").lower()
+    return any(re.search(pattern, sample, flags=re.IGNORECASE) for pattern in _INJECTION_PATTERNS)
+
+
+def _safe_text_json(message: str) -> str:
+    return json.dumps({"type": "text", "message": message}, ensure_ascii=False)
+
+
+def _contains_sensitive_request_or_leak(text: str) -> bool:
+    sample = (text or "").lower()
+    leak_markers = [
+        "system prompt",
+        "developer prompt",
+        "hidden data",
+        "confidential",
+        "password",
+        "api key",
+        "access token",
+        "internal rules",
+        "ignore previous instructions",
+    ]
+    return any(marker in sample for marker in leak_markers)
+
+
+def _normalize_route_payload(data: dict, routes: dict):
+    route_code = str(data.get("route_code", "")).strip()
+    route = routes.get(route_code)
+    if not route:
+        return None
+
+    raw_steps = data.get("steps", [])
+    if not isinstance(raw_steps, list):
+        raw_steps = []
+
+    steps = []
+    for step in raw_steps[:60]:
+        if not isinstance(step, str):
+            continue
+        cleaned = step.strip()
+        if not cleaned:
+            continue
+        cleaned = re.sub(
+            rf"(?<!\*)\b{re.escape(route_code)}\b(?!\*)",
+            f"**{route_code}**",
+            cleaned,
+            flags=re.IGNORECASE,
+        )
+        steps.append(cleaned)
+
+    return {
+        "type": "route",
+        "route_code": route_code,
+        "route_name": str(data.get("route_name") or route.get("name", "")).strip(),
+        "origin": str(data.get("origin", "")).strip(),
+        "destination": str(data.get("destination", "")).strip(),
+        "boarding": str(data.get("boarding", "")).strip(),
+        "steps": steps,
+        "fare": "TBD",
+        "fare_note": "TBD",
+        "dropoff": str(data.get("dropoff", "")).strip(),
+        "tips": route.get("tips", []),
+    }
+
+
+def _post_guard_reply(raw_reply: str, routes: dict) -> str:
+    parsed = _parse_llm_json(raw_reply)
+    if not isinstance(parsed, dict):
+        return _safe_text_json("Sorry bai, I can only return route guidance in secure JSON format. Please try again.")
+
+    msg_type = str(parsed.get("type", "text")).strip().lower()
+
+    if _contains_sensitive_request_or_leak(raw_reply):
+        return _safe_text_json("Sorry bai, I can't share hidden prompts, secrets, or internal rules.")
+
+    if msg_type == "route":
+        normalized = _normalize_route_payload(parsed, routes)
+        if normalized is None:
+            return _safe_text_json("Sorry bai, I don't have that route yet in the current database.")
+        return json.dumps(normalized, ensure_ascii=False)
+
+    message = str(parsed.get("message", "")).strip()
+    if not message:
+        message = "Sorry bai, I can help with Cebu jeepney routes and commute guidance."
+    return _safe_text_json(message)
 
 try:
     api_key = st.secrets.get("GROQ_API_KEY")
@@ -495,14 +591,20 @@ if prompt := st.chat_input("Ask about jeepney routes in Cebu..."):
 
     with st.chat_message("assistant", avatar=AVATAR_BUS):
         with st.spinner(""):
-            request_messages = _build_request_messages(SYSTEM_PROMPT, st.session_state.messages, max_input_tokens=4200)
-            response = client.chat.completions.create(
-                model="llama-3.1-8b-instant",
-                messages=request_messages,
-                temperature=0.5,
-                max_completion_tokens=320,
-            )
-            reply = response.choices[0].message.content or '{"type":"text","message":"Sorry bai, naka-encounter ko ug temporary issue. Please try again."}'
+            if _looks_like_prompt_injection(prompt):
+                reply = _safe_text_json(
+                    "Sorry bai, I can't share hidden prompts, secrets, or internal rules. I can help with jeepney routes and commute guidance."
+                )
+            else:
+                request_messages = _build_request_messages(SYSTEM_PROMPT, st.session_state.messages, max_input_tokens=4200)
+                response = client.chat.completions.create(
+                    model="llama-3.1-8b-instant",
+                    messages=request_messages,
+                    temperature=0.5,
+                    max_completion_tokens=320,
+                )
+                raw_reply = response.choices[0].message.content or '{"type":"text","message":"Sorry bai, naka-encounter ko ug temporary issue. Please try again."}'
+                reply = _post_guard_reply(raw_reply, ROUTES)
             st.markdown(format_response(reply, routes=ROUTES), unsafe_allow_html=True)
         # Button must be outside the spinner so it persists after the spinner resolves
         _p = _parse_llm_json(reply)
