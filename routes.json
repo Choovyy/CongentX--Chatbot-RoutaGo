@@ -1,30 +1,25 @@
 {
-  "01K": {
-    "name": "01K - NSO / Parkmall to Colon Loop",
-    "description": "Passes through SM City Cebu, North Bus Terminal, Parkmall, Colon, and back.",
-    "terminals": ["SM City Cebu", "Parkmall", "Colon"],
+  "01C": {
+    "name": "01C - USC South Campus to Pier 3",
+    "description": "Route from USC South Campus through downtown Colon commercial district to Pier 3. Passes major landmarks including Gaisano Main, University of Visayas, and the Colon Obelisk.",
+    "terminals": ["USC South Campus", "Pier 3"],
     "stops": [
-      { "name": "National Statistics Office (NSO)", "type": "Landmark" },
-      { "name": "General Maxilom Ave", "type": "Road" },
-      { "name": "A Soriano Ave", "type": "Road" },
-      { "name": "SM City Cebu", "type": "Mall / Terminal" },
-      { "name": "North Bus Terminal", "type": "Terminal" },
-      { "name": "Cebu Doctors University", "type": "School" },
-      { "name": "CICC", "type": "Landmark" },
-      { "name": "Parkmall", "type": "Mall / Terminal" },
-      { "name": "Metro Gaisano", "type": "Mall" },
-      { "name": "Colonnade Supermarket", "type": "Mall / Grocery" },
-      { "name": "University of Visayas (UV)", "type": "School" },
-      { "name": "Gaisano Main", "type": "Mall" },
-      { "name": "Brgy. Parian", "type": "Landmark" },
-      { "name": "Zulueta St", "type": "Road" },
-      { "name": "MJ Cuenca Ave", "type": "Road" },
-      { "name": "V Urgello St", "type": "Road" },
-      { "name": "Sacred Heart Hospital", "type": "Health" },
-      { "name": "Southwestern University (SWU)", "type": "School" },
-      { "name": "Elizabeth Mall (Emall)", "type": "Mall / Grocery" },
+      { "name": "USC South Campus", "type": "School" },
+      { "name": "J Alcantara", "type": "Landmark" },
       { "name": "Leon Kilat St", "type": "Road" },
-      { "name": "Colon", "type": "Terminal" }
+      { "name": "Metro Colon", "type": "Mall" },
+      { "name": "Colonnade Supermarket", "type": "Mall / Grocery" },
+      { "name": "Gaisano Main", "type": "Mall" },
+      { "name": "University of Visayas", "type": "School" },
+      { "name": "Colon Obelisk", "type": "Landmark" },
+      { "name": "Mabini Street", "type": "Road" },
+      { "name": "Zulueta Street", "type": "Road" },
+      { "name": "MJ Cuenca Ave", "type": "Road" },
+      { "name": "Tiburcio Padilla Street", "type": "Road" },
+      { "name": "B Benedicto Street", "type": "Road" },
+      { "name": "General Maxilom Ave Ext", "type": "Road" },
+      { "name": "Pier 4", "type": "Terminal" },
+      { "name": "Pier 3", "type": "Terminal" }
     ],
     "fare_estimate": {
       "base_fare": 13,
@@ -32,9 +27,1884 @@
       "note": "₱13 for the first 4km; additional fare applies per km beyond that."
     },
     "tips": [
-      "Board near SM City Cebu or Parkmall for easy entry points.",
+      "This is a loop route, so it can be used in both directions.",
+      "Board near USC South Campus for easy entry.",
       "Say 'Lugar lang' or tap the rail when approaching your stop.",
-      "The jeepney loops back from Colon toward Metro Gaisano after the terminal."
+      "Route passes through: Leon Kilat, Colon, General Maxilom."
+    ]
+  },
+
+  "01K": {
+  "name": "01K - V Urgello Street to Parkmall",
+  "description": "Route from V Urgello Street through Colon, NSO, and SM City Cebu up to Parkmall.",
+  "terminals": ["V Urgello Street", "Parkmall"],
+  "stops": [
+    { "name": "V Urgello Street", "type": "Road" },
+    { "name": "Sacred Heart Hospital", "type": "Health" },
+    { "name": "Southwestern University", "type": "School" },
+    { "name": "Elizabeth Mall (Emall)", "type": "Mall / Grocery" },
+    { "name": "Leon Kilat Street", "type": "Road" },
+    { "name": "Colon", "type": "Terminal" },
+    { "name": "Metro Gaisano", "type": "Mall" },
+    { "name": "Colonnade Supermarket", "type": "Mall / Grocery" },
+    { "name": "University of Visayas", "type": "School" },
+    { "name": "Gaisano Main", "type": "Mall" },
+    { "name": "Brgy. Parian", "type": "Landmark" },
+    { "name": "Zulueta Street", "type": "Road" },
+    { "name": "MJ Cuenca Ave", "type": "Road" },
+    { "name": "National Statistics Office (NSO)", "type": "Government" },
+    { "name": "General Maxilom Ave", "type": "Road" },
+    { "name": "A Soriano Ave", "type": "Road" },
+    { "name": "SM City Cebu", "type": "Mall" },
+    { "name": "North Bus Terminal", "type": "Terminal" },
+    { "name": "Cebu Doctors University", "type": "School" },
+    { "name": "CICC", "type": "Landmark" },
+    { "name": "Parkmall", "type": "Mall / Terminal" }
+  ],
+  "fare_estimate": {
+    "base_fare": 13,
+    "base_km": 4,
+    "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+  },
+  "tips": [
+    "Board near V Urgello Street for easy entry.",
+    "Say 'Lugar lang' or tap the rail when approaching your stop.",
+    "This route passes through Colon, NSO, SM City Cebu, and North Bus Terminal."
+  ]
+},
+  "02B": {
+    "name": "02B - Cebu City Medical Center to Pier 3",
+    "description": "Essential route from South Bus Terminal through downtown Colon to the port area. Serves intercity travelers, hospital visitors, and port-bound commuters.",
+    "terminals": ["Cebu City Medical Center", "Pier 3"],
+    "stops": [
+      { "name": "Cebu City Medical Center", "type": "Health" },
+      { "name": "Cebu South Bus Terminal (CSBT)", "type": "Terminal" },
+      { "name": "Elizabeth Mall (Emall)", "type": "Mall / Grocery" },
+      { "name": "Leon Kilat Street", "type": "Road" },
+      { "name": "Metro Colon", "type": "Mall" },
+      { "name": "Colonnade Supermarket", "type": "Mall / Grocery" },
+      { "name": "University of Visayas (UV)", "type": "School" },
+      { "name": "Gaisano Main", "type": "Mall" },
+      { "name": "University of Visayas", "type": "School" },
+      { "name": "P Burgos Street", "type": "Road" },
+      { "name": "Legazpi Exit", "type": "Landmark" },
+      { "name": "Pier 1", "type": "Terminal" },
+      { "name": "Pier 2", "type": "Terminal" },
+      { "name": "Pier 3", "type": "Terminal" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "This is a loop route, so it can be used in both directions.",
+      "Board near Cebu City Medical Center for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Elizabeth Mall, Colon, Pier 1."
+    ]
+  },
+  "03A": {
+    "name": "03A - F Cabahug Street to Carbon Public Market",
+    "description": "Residential to market route passing through Mabolo's business corridor and heritage landmarks. Stops at Museo Sugbo (Cebu provincial museum) and Cebu Technological University.",
+    "terminals": ["F Cabahug Street", "Carbon Public Market"],
+    "stops": [
+      { "name": "F Cabahug Street", "type": "Road" },
+      { "name": "Sykes Asia", "type": "Landmark" },
+      { "name": "Citi Park", "type": "Landmark" },
+      { "name": "Sorroso International Hotel", "type": "Hotel" },
+      { "name": "Castle Peak Hotel", "type": "Hotel" },
+      { "name": "Pope John Paul II Ave", "type": "Road" },
+      { "name": "PLDT", "type": "Government" },
+      { "name": "Camelita Monastery", "type": "Church / Religious" },
+      { "name": "St Joseph Parish", "type": "Church / Religious" },
+      { "name": "The Persimmon", "type": "Landmark" },
+      { "name": "Hipodromo", "type": "Landmark" },
+      { "name": "Carreta Cemetery", "type": "Landmark" },
+      { "name": "Imus Ave", "type": "Road" },
+      { "name": "Museo Sugbo", "type": "Landmark" },
+      { "name": "CPILS", "type": "School" },
+      { "name": "Cebu Technological University", "type": "School" },
+      { "name": "Vicente Gullas Street", "type": "Road" },
+      { "name": "Dionisio Jakosalem Street", "type": "Road" },
+      { "name": "Legaspi Street", "type": "Road" },
+      { "name": "Progreso Street", "type": "Road" },
+      { "name": "Carbon Public Market", "type": "Mall / Grocery" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near F Cabahug Street for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "This is a loop route, so it can be used in both directions.",
+      "Route passes through: Hipodromo, Museo Sugbo, Jakosalem."
+    ]
+  },
+  "03B": {
+    "name": "03B - Sindulan Street to Metro Colon",
+    "description": "Alternative Mabolo route through Fuente Osmeña and Mango Avenue corridor. Passes USC North Campus, major residential towers, and Abellana Sports Complex.",
+    "terminals": ["Sindulan Street", "Metro Colon"],
+    "stops": [
+      { "name": "Sindulan Street", "type": "Road" },
+      { "name": "St Joseph Parish", "type": "Church / Religious" },
+      { "name": "The Persimmon", "type": "Landmark" },
+      { "name": "Hipodromo", "type": "Landmark" },
+      { "name": "Carreta Cemetery", "type": "Landmark" },
+      { "name": "USC North Campus", "type": "School" },
+      { "name": "Fooda Saversmart", "type": "Mall / Grocery" },
+      { "name": "Horizons 101", "type": "Landmark" },
+      { "name": "Mango Square Mall", "type": "Mall" },
+      { "name": "Fuente Osmeña Circle", "type": "Landmark" },
+      { "name": "Crown Regency Hotel", "type": "Hotel" },
+      { "name": "Abellana Sports Complex", "type": "Landmark" },
+      { "name": "Social Security System (SSS)", "type": "Government" },
+      { "name": "GV Tower Hotel", "type": "Hotel" },
+      { "name": "Metro Colon", "type": "Mall" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Sindulan Street for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Fuente Osmeña, Mango Square, Abellana.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "03L": {
+    "name": "03L - P Cabantan to Carbon Public Market",
+    "description": "Route from P Cabantan through Mabolo and downtown Jakosalem corridor to Carbon Public Market.",
+    "terminals": ["P Cabantan", "Carbon Public Market"],
+    "stops": [
+      { "name": "P Cabantan", "type": "Road" },
+      { "name": "Waterfront Hotel", "type": "Hotel" },
+      { "name": "San Carlos Seminary Complex", "type": "School" },
+      { "name": "PLDT", "type": "Government" },
+      { "name": "Camelita Monastery", "type": "Church / Religious" },
+      { "name": "St Joseph Parish", "type": "Church / Religious" },
+      { "name": "The Persimmon", "type": "Landmark" },
+      { "name": "Hipodromo", "type": "Landmark" },
+      { "name": "Carreta Cemetery", "type": "Landmark" },
+      { "name": "Imus Ave", "type": "Road" },
+      { "name": "Museo Sugbo", "type": "Landmark" },
+      { "name": "CPILS", "type": "School" },
+      { "name": "Tiburcio Padilla Street", "type": "Road" },
+      { "name": "Commission on Audit (COA)", "type": "Government" },
+      { "name": "Cebu Technological University", "type": "School" },
+      { "name": "Vicente Gullas Street", "type": "Road" },
+      { "name": "Dionisio Jakosalem Street", "type": "Road" },
+      { "name": "Legaspi Street", "type": "Road" },
+      { "name": "Progreso Street", "type": "Road" },
+      { "name": "Carbon Public Market", "type": "Mall / Grocery" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near P Cabantan for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Waterfront, Jakosalem, Carbon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "03Q": {
+    "name": "03Q - Ayala Center Cebu to SM City Cebu",
+    "description": "Short connector between Ayala Center Cebu and SM City Cebu via Juan Luna Avenue.",
+    "terminals": ["Ayala Center Cebu", "SM City Cebu"],
+    "stops": [
+      { "name": "Ayala Center Cebu", "type": "Mall" },
+      { "name": "Landers Superstore Cebu", "type": "Mall / Grocery" },
+      { "name": "Juan Luna Ave", "type": "Road" },
+      { "name": "SM City Cebu", "type": "Mall" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Ayala Center Cebu for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Juan Luna Ave.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "04B": {
+    "name": "04B - Stephenson Street to Carbon Public Market",
+    "description": "Route from Lahug through Gorordo, Capitol, Fuente Osmeña, and City Hall corridor to Carbon Public Market.",
+    "terminals": ["Stephenson Street", "Carbon Public Market"],
+    "stops": [
+      { "name": "Stephenson Street", "type": "Road" },
+      { "name": "Salinas Drive", "type": "Road" },
+      { "name": "JY Square Mall", "type": "Mall" },
+      { "name": "Sudlon", "type": "Landmark" },
+      { "name": "The Church of Jesus Christ of Latter-day Saints Temple", "type": "Church / Religious" },
+      { "name": "Lahug Brgy Hall", "type": "Government" },
+      { "name": "University of the Philippines", "type": "School" },
+      { "name": "Gorordo Ave", "type": "Road" },
+      { "name": "Escario Central Mall", "type": "Mall" },
+      { "name": "Cebu Provincial Capitol", "type": "Government" },
+      { "name": "Cebu Doctors University Hospital", "type": "Health" },
+      { "name": "Fuente Osmeña Circle", "type": "Landmark" },
+      { "name": "Robinsons Place", "type": "Mall" },
+      { "name": "Crown Regency Hotel", "type": "Hotel" },
+      { "name": "Abellana Sports Complex", "type": "Landmark" },
+      { "name": "USC Main Campus", "type": "School" },
+      { "name": "Colonnade Supermarket", "type": "Mall / Grocery" },
+      { "name": "Legaspi Street", "type": "Road" },
+      { "name": "Cebu Metropolitan Cathedral", "type": "Church / Religious" },
+      { "name": "Sto Nino Brgy Hall", "type": "Government" },
+      { "name": "Osmena Blvd", "type": "Road" },
+      { "name": "Metropolitan Cebu Water District", "type": "Government" },
+      { "name": "La Nueva", "type": "Landmark" },
+      { "name": "Cebu City Hall", "type": "Government" },
+      { "name": "Carbon Public Market", "type": "Mall / Grocery" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Stephenson Street for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Lahug, Capitol, City Hall, Carbon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "04H": {
+    "name": "04H - Busay to Carbon Public Market",
+    "description": "Uphill route from Busay down through Lahug and Capitol area to Carbon Public Market.",
+    "terminals": ["Busay", "Carbon Public Market"],
+    "stops": [
+      { "name": "Busay", "type": "Landmark" },
+      { "name": "Cebu Veterans Drive", "type": "Road" },
+      { "name": "Marco Polo Hotel", "type": "Hotel" },
+      { "name": "JY Square Mall", "type": "Mall" },
+      { "name": "Sudlon", "type": "Landmark" },
+      { "name": "The Church of Jesus Christ of Latter-day Saints Temple", "type": "Church / Religious" },
+      { "name": "Lahug Brgy Hall", "type": "Government" },
+      { "name": "University of the Philippines", "type": "School" },
+      { "name": "Harolds Hotel Cebu", "type": "Hotel" },
+      { "name": "Escario Central Mall", "type": "Mall" },
+      { "name": "Cebu Provincial Capitol", "type": "Government" },
+      { "name": "Cebu Doctors University Hospital", "type": "Health" },
+      { "name": "Fuente Osmeña Circle", "type": "Landmark" },
+      { "name": "Robinsons Place", "type": "Mall" },
+      { "name": "Crown Regency Hotel", "type": "Hotel" },
+      { "name": "Abellana Sports Complex", "type": "Landmark" },
+      { "name": "Social Security System (SSS)", "type": "Government" },
+      { "name": "GV Tower Hotel", "type": "Hotel" },
+      { "name": "University of Cebu", "type": "School" },
+      { "name": "Panganiban Street", "type": "Road" },
+      { "name": "Katipunan Lumber", "type": "Landmark" },
+      { "name": "Carbon Public Market", "type": "Mall / Grocery" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Busay for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Busay, Lahug, Capitol, Carbon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "04I": {
+    "name": "04I - Busay to Carbon Public Market (via Progreso)",
+    "description": "Variant of 04H passing via Progreso Street before Carbon Public Market.",
+    "terminals": ["Busay", "Carbon Public Market"],
+    "stops": [
+      { "name": "Busay", "type": "Landmark" },
+      { "name": "Cebu Veterans Drive", "type": "Road" },
+      { "name": "Marco Polo Hotel", "type": "Hotel" },
+      { "name": "JY Square Mall", "type": "Mall" },
+      { "name": "Sudlon", "type": "Landmark" },
+      { "name": "The Church of Jesus Christ of Latter-day Saints Temple", "type": "Church / Religious" },
+      { "name": "Lahug Brgy Hall", "type": "Government" },
+      { "name": "University of the Philippines", "type": "School" },
+      { "name": "Harolds Hotel Cebu", "type": "Hotel" },
+      { "name": "Escario Central Mall", "type": "Mall" },
+      { "name": "Cebu Provincial Capitol", "type": "Government" },
+      { "name": "Cebu Doctors University Hospital", "type": "Health" },
+      { "name": "Fuente Osmeña Circle", "type": "Landmark" },
+      { "name": "Robinsons Place", "type": "Mall" },
+      { "name": "Crown Regency Hotel", "type": "Hotel" },
+      { "name": "Abellana Sports Complex", "type": "Landmark" },
+      { "name": "Social Security System (SSS)", "type": "Government" },
+      { "name": "GV Tower Hotel", "type": "Hotel" },
+      { "name": "University of Cebu", "type": "School" },
+      { "name": "Panganiban Street", "type": "Road" },
+      { "name": "Katipunan Lumber", "type": "Landmark" },
+      { "name": "Progreso Street", "type": "Road" },
+      { "name": "Carbon Public Market", "type": "Mall / Grocery" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Busay for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Busay, Lahug, Progreso, Carbon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "04L": {
+    "name": "04L - Lahug to SM City Cebu",
+    "description": "Route from Lahug through Gorordo and Cebu Business Park down to SM City Cebu.",
+    "terminals": ["Lahug", "SM City Cebu"],
+    "stops": [
+      { "name": "Lahug", "type": "Landmark" },
+      { "name": "JY Square Mall", "type": "Mall" },
+      { "name": "Sudlon", "type": "Landmark" },
+      { "name": "The Church of Jesus Christ of Latter-day Saints Temple", "type": "Church / Religious" },
+      { "name": "Lahug Brgy Hall", "type": "Government" },
+      { "name": "University of the Philippines", "type": "School" },
+      { "name": "Gorordo Ave", "type": "Road" },
+      { "name": "The Golden Peak Hotel", "type": "Hotel" },
+      { "name": "Kuya J's Restaurant", "type": "Landmark" },
+      { "name": "Cebu Parklane Hotel", "type": "Hotel" },
+      { "name": "Pag-ibig Fund Cebu Office", "type": "Government" },
+      { "name": "Standard Chartered Bank", "type": "Government" },
+      { "name": "Insular Life Cebu Business Center", "type": "Landmark" },
+      { "name": "Keppel Tower Cebu Business Park", "type": "Landmark" },
+      { "name": "Pope John Paul II Ave", "type": "Road" },
+      { "name": "PLDT", "type": "Government" },
+      { "name": "Camelita Monastery", "type": "Church / Religious" },
+      { "name": "St Joseph Parish", "type": "Church / Religious" },
+      { "name": "SM City Cebu", "type": "Mall" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Lahug for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Lahug, Gorordo, Cebu Business Park, SM.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "04M": {
+    "name": "04M - JY Square Mall to Ayala PUV Terminal",
+    "description": "Short Lahug connector through IT Park to Ayala PUV Terminal.",
+    "terminals": ["JY Square Mall", "Ayala Public Utility Vehicle Terminal"],
+    "stops": [
+      { "name": "JY Square Mall", "type": "Mall" },
+      { "name": "Salinas Drive", "type": "Road" },
+      { "name": "University of Southern Philippines", "type": "School" },
+      { "name": "IT Park", "type": "Landmark" },
+      { "name": "Waterfront Hotel", "type": "Hotel" },
+      { "name": "Ayala Public Utility Vehicle Terminal", "type": "Terminal" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near JY Square Mall for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Salinas Drive, IT Park, Waterfront.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "06B": {
+    "name": "06B - Guadalupe Church to Osmena Blvd",
+    "description": "Route from Guadalupe through Capitol and Fuente Osmeña to downtown Colon and City Hall area.",
+    "terminals": ["Guadalupe Church", "Osmena Blvd"],
+    "stops": [
+      { "name": "Guadalupe Church", "type": "Church / Religious" },
+      { "name": "Fooda Guadalupe", "type": "Mall / Grocery" },
+      { "name": "Professional Regulations Commission (PRC)", "type": "Government" },
+      { "name": "Cebu Provincial Capitol", "type": "Government" },
+      { "name": "Cebu Doctors University Hospital", "type": "Health" },
+      { "name": "Robinsons Place", "type": "Mall" },
+      { "name": "Crown Regency Hotel", "type": "Hotel" },
+      { "name": "Abellana Sports Complex", "type": "Landmark" },
+      { "name": "Social Security System (SSS)", "type": "Government" },
+      { "name": "GV Tower Hotel", "type": "Hotel" },
+      { "name": "Metro Colon", "type": "Mall" },
+      { "name": "Magallanes Street", "type": "Road" },
+      { "name": "Cebu City Hall", "type": "Government" },
+      { "name": "La Nueva", "type": "Landmark" },
+      { "name": "Osmena Blvd", "type": "Road" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Guadalupe Church for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Guadalupe, Capitol, Colon, City Hall.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "06C": {
+    "name": "06C - Guadalupe Church to Osmena Blvd (via Carbon)",
+    "description": "Guadalupe route via Vicente Sotto and Plaridel Street to Carbon Public Market and City Hall.",
+    "terminals": ["Guadalupe Church", "Osmena Blvd"],
+    "stops": [
+      { "name": "Guadalupe Church", "type": "Church / Religious" },
+      { "name": "Fooda Guadalupe", "type": "Mall / Grocery" },
+      { "name": "Professional Regulations Commission (PRC)", "type": "Government" },
+      { "name": "Vicente Sotto Hospital", "type": "Health" },
+      { "name": "Robinsons Place", "type": "Mall" },
+      { "name": "Crown Regency Hotel", "type": "Hotel" },
+      { "name": "Abellana Sports Complex", "type": "Landmark" },
+      { "name": "Social Security System (SSS)", "type": "Government" },
+      { "name": "Metro Colon", "type": "Mall" },
+      { "name": "Plaridel Street", "type": "Road" },
+      { "name": "Carbon Public Market", "type": "Mall / Grocery" },
+      { "name": "Cebu City Hall", "type": "Government" },
+      { "name": "La Nueva", "type": "Landmark" },
+      { "name": "Metropolitan Cebu Water District", "type": "Government" },
+      { "name": "Osmena Blvd", "type": "Road" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Guadalupe Church for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Guadalupe, Colon, Carbon, City Hall.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "06G": {
+    "name": "06G - Guadalupe Church to R Padilla Street",
+    "description": "Route from Guadalupe through Calamba and USC South Campus to Tabo-an and Pasil market area.",
+    "terminals": ["Guadalupe Church", "R Padilla Street"],
+    "stops": [
+      { "name": "Guadalupe Church", "type": "Church / Religious" },
+      { "name": "Fooda Guadalupe", "type": "Mall / Grocery" },
+      { "name": "Professional Regulations Commission (PRC)", "type": "Government" },
+      { "name": "Securities and Exchange Commission (SEC)", "type": "Government" },
+      { "name": "Calamba Cemetery", "type": "Landmark" },
+      { "name": "USC South Campus", "type": "School" },
+      { "name": "J Alcantara", "type": "Landmark" },
+      { "name": "Tres de Abril Street", "type": "Road" },
+      { "name": "Miller Hospital", "type": "Health" },
+      { "name": "Carlock Street", "type": "Road" },
+      { "name": "Pasil Fish Market", "type": "Mall / Grocery" },
+      { "name": "Don Carlos Gothong High School", "type": "School" },
+      { "name": "R Padilla Street", "type": "Road" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Guadalupe Church for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Guadalupe, USC South, Tabo-an/Pasil.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "06H": {
+    "name": "06H - Guadalupe Church to SM City Cebu",
+    "description": "Route from Guadalupe through Capitol and Ayala area to SM City Cebu.",
+    "terminals": ["Guadalupe Church", "SM City Cebu"],
+    "stops": [
+      { "name": "Guadalupe Church", "type": "Church / Religious" },
+      { "name": "Fooda Guadalupe", "type": "Mall / Grocery" },
+      { "name": "Professional Regulations Commission (PRC)", "type": "Government" },
+      { "name": "Cebu Provincial Capitol", "type": "Government" },
+      { "name": "Escario Central Mall", "type": "Mall" },
+      { "name": "The Golden Peak Hotel", "type": "Hotel" },
+      { "name": "Kuya J's Restaurant", "type": "Landmark" },
+      { "name": "Ayala Center Cebu", "type": "Mall" },
+      { "name": "Keppel Tower Cebu Business Park", "type": "Landmark" },
+      { "name": "Pope John Paul II Ave", "type": "Road" },
+      { "name": "PLDT", "type": "Government" },
+      { "name": "Camelita Monastery", "type": "Church / Religious" },
+      { "name": "St Joseph Parish", "type": "Church / Religious" },
+      { "name": "Cebu Daily News", "type": "Landmark" },
+      { "name": "SM City Cebu", "type": "Mall" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Guadalupe Church for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Guadalupe, Capitol, Ayala, SM.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "07B": {
+    "name": "07B - Court of Appeals to Carbon Public Market",
+    "description": "Banawa route passing Capitol and Fuente area down to Carbon Public Market via Progreso Street.",
+    "terminals": ["Court of Appeals", "Carbon Public Market"],
+    "stops": [
+      { "name": "Court of Appeals", "type": "Government" },
+      { "name": "R Arcenas Street", "type": "Road" },
+      { "name": "Good Shepherd Street", "type": "Road" },
+      { "name": "Jose Fortich Street", "type": "Road" },
+      { "name": "Cebu Provincial Capitol", "type": "Government" },
+      { "name": "Cebu Doctors University Hospital", "type": "Health" },
+      { "name": "Robinsons Place", "type": "Mall" },
+      { "name": "Crown Regency Hotel", "type": "Hotel" },
+      { "name": "Abellana Sports Complex", "type": "Landmark" },
+      { "name": "Social Security System (SSS)", "type": "Government" },
+      { "name": "GV Tower Hotel", "type": "Hotel" },
+      { "name": "Metro Colon", "type": "Mall" },
+      { "name": "Magallanes Street", "type": "Road" },
+      { "name": "Progreso Street", "type": "Road" },
+      { "name": "Carbon Public Market", "type": "Mall / Grocery" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Court of Appeals for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Banawa, Capitol, Colon, Carbon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "08F": {
+    "name": "08F - Alumnos to SM City Cebu",
+    "description": "Route from Alumnos through Pasil and Magallanes corridor to SM City Cebu.",
+    "terminals": ["Alumnos", "SM City Cebu"],
+    "stops": [
+      { "name": "Alumnos", "type": "Landmark" },
+      { "name": "Tagunol Street", "type": "Road" },
+      { "name": "C Padilla Street", "type": "Road" },
+      { "name": "Carlock Street", "type": "Road" },
+      { "name": "Spolarium Street", "type": "Road" },
+      { "name": "Leon Kilat Street", "type": "Road" },
+      { "name": "Magallanes Street", "type": "Road" },
+      { "name": "P Burgos Street", "type": "Road" },
+      { "name": "Legazpi Exit", "type": "Landmark" },
+      { "name": "Sergio Osmeña Jr Blvd", "type": "Road" },
+      { "name": "B Benedicto Street", "type": "Road" },
+      { "name": "JC Veyra Street", "type": "Road" },
+      { "name": "SM City Cebu", "type": "Mall" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Alumnos for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Pasil, Magallanes, SM.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "08G": {
+    "name": "08G - Alumnos to MJ Cuenca Ave",
+    "description": "Route from Alumnos through Pasil and downtown Colon to MJ Cuenca Avenue.",
+    "terminals": ["Alumnos", "MJ Cuenca Ave"],
+    "stops": [
+      { "name": "Alumnos", "type": "Landmark" },
+      { "name": "Tagunol Street", "type": "Road" },
+      { "name": "C Padilla Street", "type": "Road" },
+      { "name": "Carlock Street", "type": "Road" },
+      { "name": "Spolarium Street", "type": "Road" },
+      { "name": "Leon Kilat Street", "type": "Road" },
+      { "name": "Metro Colon", "type": "Mall" },
+      { "name": "Colonnade Supermarket", "type": "Mall / Grocery" },
+      { "name": "Gaisano Main", "type": "Mall" },
+      { "name": "University of Visayas", "type": "School" },
+      { "name": "Colon Obelisk", "type": "Landmark" },
+      { "name": "MJ Cuenca Ave", "type": "Road" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Alumnos for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Pasil, Leon Kilat, Colon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "09C": {
+    "name": "09C - Quiot to Colon Obelisk",
+    "description": "Route from Quiot through Mambaling and the south bus terminal to Colon. Passes CITU, Salazar Colleges, and Cebu City Medical Center. Shorter alternative to 09G ending at the historic Colon Obelisk.",
+    "terminals": ["Quiot", "Colon Obelisk"],
+    "stops": [
+      { "name": "Quiot", "type": "Landmark" },
+      { "name": "Southwestern University Basak Campus", "type": "School" },
+      { "name": "Don Vicente Rama Memorial National High School", "type": "School" },
+      { "name": "Shopwise", "type": "Mall / Grocery" },
+      { "name": "Mambaling Flyover", "type": "Landmark" },
+      { "name": "Cebu Institute of Technology University (CITU)", "type": "School" },
+      { "name": "Salazar Colleges", "type": "School" },
+      { "name": "Cebu City Medical Center", "type": "Health" },
+      { "name": "Cebu South Bus Terminal (CSBT)", "type": "Terminal" },
+      { "name": "University of San Jose Recoletos", "type": "School" },
+      { "name": "Sikatuna Street", "type": "Road" },
+      { "name": "Colon Obelisk", "type": "Landmark" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Quiot for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Mambaling, CSBT, Sikatuna.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "09F": {
+    "name": "09F - Quiot to Cebu Metropolitan Cathedral",
+    "description": "Route from Basak/Quiot through Mambaling and CSBT to the Cathedral and downtown core.",
+    "terminals": ["Quiot", "Cebu Metropolitan Cathedral"],
+    "stops": [
+      { "name": "Quiot", "type": "Landmark" },
+      { "name": "Southwestern University Basak Campus", "type": "School" },
+      { "name": "Don Vicente Rama Memorial National High School", "type": "School" },
+      { "name": "Shopwise", "type": "Mall / Grocery" },
+      { "name": "Mambaling Flyover", "type": "Landmark" },
+      { "name": "Cebu Institute of Technology University (CITU)", "type": "School" },
+      { "name": "Salazar Colleges", "type": "School" },
+      { "name": "Cebu City Medical Center", "type": "Health" },
+      { "name": "Cebu South Bus Terminal (CSBT)", "type": "Terminal" },
+      { "name": "USC Main Campus", "type": "School" },
+      { "name": "Gaisano Main", "type": "Mall" },
+      { "name": "University of Visayas", "type": "School" },
+      { "name": "Zulueta Street", "type": "Road" },
+      { "name": "MJ Cuenca Ave", "type": "Road" },
+      { "name": "Cebu Technological University", "type": "School" },
+      { "name": "Legazpi Exit", "type": "Landmark" },
+      { "name": "Cebu Metropolitan Cathedral", "type": "Church / Religious" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Quiot for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Mambaling, CSBT, Colon, Cathedral.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "09G": {
+    "name": "09G - Quiot to Sto Nino Brgy Hall",
+    "description": "Route from Quiot through Mambaling and the city hall corridor ending at Sto Nino Barangay Hall. Passes SWU Basak Campus, Leon Kilat Street, and key government offices.",
+    "terminals": ["Quiot", "Sto Nino Brgy Hall"],
+    "stops": [
+      { "name": "Quiot", "type": "Landmark" },
+      { "name": "Southwestern University Basak Campus", "type": "School" },
+      { "name": "Don Vicente Rama Memorial National High School", "type": "School" },
+      { "name": "Shopwise", "type": "Mall / Grocery" },
+      { "name": "Mambaling Flyover", "type": "Landmark" },
+      { "name": "C Padilla Street", "type": "Road" },
+      { "name": "R Padilla Street", "type": "Road" },
+      { "name": "Carlock Street", "type": "Road" },
+      { "name": "San Nicolas de Tolentino Parish Church", "type": "Church / Religious" },
+      { "name": "Leon Kilat Street", "type": "Road" },
+      { "name": "University of San Jose Recoletos", "type": "School" },
+      { "name": "Dionisio Jakosalem Street", "type": "Road" },
+      { "name": "Cebu City Hall", "type": "Government" },
+      { "name": "La Nueva", "type": "Landmark" },
+      { "name": "Metropolitan Cebu Water District", "type": "Government" },
+      { "name": "Department of Foreign Affairs (DFA)", "type": "Government" },
+      { "name": "Sto Nino Brgy Hall", "type": "Government" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Quiot for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Mambaling, Jakosalem, Cebu City Hall.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "10F": {
+    "name": "10F - Bulacao to Junquera Street",
+    "description": "Bulacao route through Mambaling and CSBT terminating at Junquera Street near Colon.",
+    "terminals": ["Bulacao", "Junquera Street"],
+    "stops": [
+      { "name": "Bulacao", "type": "Landmark" },
+      { "name": "Pardo", "type": "Landmark" },
+      { "name": "University of San Jose Recoletos", "type": "School" },
+      { "name": "Shopwise", "type": "Mall / Grocery" },
+      { "name": "Mambaling Flyover", "type": "Landmark" },
+      { "name": "Cebu Institute of Technology University (CITU)", "type": "School" },
+      { "name": "Salazar Colleges", "type": "School" },
+      { "name": "Cebu City Medical Center", "type": "Health" },
+      { "name": "Cebu South Bus Terminal (CSBT)", "type": "Terminal" },
+      { "name": "University of San Jose Recoletos", "type": "School" },
+      { "name": "Junquera Street", "type": "Road" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Bulacao for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Bulacao, CSBT, Colon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "10G": {
+    "name": "10G - Pardo to Sto Nino Brgy Hall",
+    "description": "Pardo route via Mambaling and City Hall corridor ending at Sto Nino Barangay Hall.",
+    "terminals": ["Pardo", "Sto Nino Brgy Hall"],
+    "stops": [
+      { "name": "Pardo", "type": "Landmark" },
+      { "name": "University of San Jose Recoletos", "type": "School" },
+      { "name": "Shopwise", "type": "Mall / Grocery" },
+      { "name": "Mambaling Flyover", "type": "Landmark" },
+      { "name": "C Padilla Street", "type": "Road" },
+      { "name": "R Padilla Street", "type": "Road" },
+      { "name": "Carlock Street", "type": "Road" },
+      { "name": "San Nicolas de Tolentino Parish Church", "type": "Church / Religious" },
+      { "name": "Leon Kilat Street", "type": "Road" },
+      { "name": "Dionisio Jakosalem Street", "type": "Road" },
+      { "name": "Cebu City Hall", "type": "Government" },
+      { "name": "La Nueva", "type": "Landmark" },
+      { "name": "Metropolitan Cebu Water District", "type": "Government" },
+      { "name": "Osmena Blvd", "type": "Road" },
+      { "name": "Sto Nino Brgy Hall", "type": "Government" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Pardo for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Pardo, Mambaling, City Hall, Sto Niño.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "10H": {
+    "name": "10H - Bulacao to F Cabahug Street",
+    "description": "Long route from southern Bulacao through the south bus terminal and commercial corridor to SM City Cebu. Passes two USJ-R campuses, CITU, and Cebu City Medical Center.",
+    "terminals": ["Bulacao", "F Cabahug Street"],
+    "stops": [
+      { "name": "Bulacao", "type": "Landmark" },
+      { "name": "Pardo", "type": "Landmark" },
+      { "name": "University of San Jose Recoletos", "type": "School" },
+      { "name": "Shopwise", "type": "Mall / Grocery" },
+      { "name": "Mambaling Flyover", "type": "Landmark" },
+      { "name": "Cebu Institute of Technology University (CITU)", "type": "School" },
+      { "name": "Salazar Colleges", "type": "School" },
+      { "name": "Cebu City Medical Center", "type": "Health" },
+      { "name": "Cebu South Bus Terminal (CSBT)", "type": "Terminal" },
+      { "name": "University of San Jose Recoletos", "type": "School" },
+      { "name": "Tiburcio Padilla Street", "type": "Road" },
+      { "name": "B Benedicto Street", "type": "Road" },
+      { "name": "General Maxilom Ave Ext", "type": "Road" },
+      { "name": "White Gold House", "type": "Landmark" },
+      { "name": "A Soriano Ave", "type": "Road" },
+      { "name": "SM City Cebu", "type": "Mall" },
+      { "name": "F Cabahug Street", "type": "Road" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Bulacao for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Pardo, CSBT, General Maxilom.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "10M": {
+    "name": "10M - Bulacao to SM City Cebu",
+    "description": "Bulacao route via Mambaling and Colon providing direct connection to SM City Cebu.",
+    "terminals": ["Bulacao", "SM City Cebu"],
+    "stops": [
+      { "name": "Bulacao", "type": "Landmark" },
+      { "name": "Pardo", "type": "Landmark" },
+      { "name": "University of San Jose Recoletos", "type": "School" },
+      { "name": "Shopwise", "type": "Mall / Grocery" },
+      { "name": "Mambaling Flyover", "type": "Landmark" },
+      { "name": "Cebu Institute of Technology University (CITU)", "type": "School" },
+      { "name": "Salazar Colleges", "type": "School" },
+      { "name": "Cebu City Medical Center", "type": "Health" },
+      { "name": "Cebu South Bus Terminal (CSBT)", "type": "Terminal" },
+      { "name": "Elizabeth Mall (Emall)", "type": "Mall / Grocery" },
+      { "name": "Leon Kilat Street", "type": "Road" },
+      { "name": "Metro Colon", "type": "Mall" },
+      { "name": "Colonnade Supermarket", "type": "Mall / Grocery" },
+      { "name": "Gaisano Main", "type": "Mall" },
+      { "name": "University of Visayas", "type": "School" },
+      { "name": "Colon Obelisk", "type": "Landmark" },
+      { "name": "Zulueta Street", "type": "Road" },
+      { "name": "MJ Cuenca Ave", "type": "Road" },
+      { "name": "National Statistics Office (NSO)", "type": "Government" },
+      { "name": "Tiburcio Padilla Street", "type": "Road" },
+      { "name": "B Benedicto Street", "type": "Road" },
+      { "name": "General Maxilom Ave Ext", "type": "Road" },
+      { "name": "SM City Cebu", "type": "Mall" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Bulacao for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Bulacao, Mambaling, Colon, SM.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "11A": {
+    "name": "11A - Inayawan Church to University of Visayas",
+    "description": "Route from Inayawan through Pasil and Magallanes corridor to the Colon university area.",
+    "terminals": ["Inayawan Church", "University of Visayas"],
+    "stops": [
+      { "name": "Inayawan Church", "type": "Church / Religious" },
+      { "name": "Rizal Avenue", "type": "Road" },
+      { "name": "Tagunol Street", "type": "Road" },
+      { "name": "C Padilla Street", "type": "Road" },
+      { "name": "Carlock Street", "type": "Road" },
+      { "name": "Pasil Fish Market", "type": "Mall / Grocery" },
+      { "name": "Spolarium Street", "type": "Road" },
+      { "name": "Magallanes Street", "type": "Road" },
+      { "name": "Dionisio Jakosalem Street", "type": "Road" },
+      { "name": "University of Visayas", "type": "School" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Inayawan Church for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Inayawan, Pasil, Magallanes, Colon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "12D": {
+    "name": "12D - Punta Princesa to F Urdaneta Street",
+    "description": "Route from Punta Princesa through Labangon and N. Bacalso to the Colon university belt.",
+    "terminals": ["Punta Princesa", "F Urdaneta Street"],
+    "stops": [
+      { "name": "Punta Princesa", "type": "Landmark" },
+      { "name": "Tisa Elementary School", "type": "School" },
+      { "name": "Tisa National High School", "type": "School" },
+      { "name": "Katipunan Street", "type": "Road" },
+      { "name": "Labangon Public Market", "type": "Mall / Grocery" },
+      { "name": "Labangon Elementary School", "type": "School" },
+      { "name": "Tres de Abril Street", "type": "Road" },
+      { "name": "N Bacalso Ave", "type": "Road" },
+      { "name": "PLDT", "type": "Government" },
+      { "name": "Cebu City Medical Center", "type": "Health" },
+      { "name": "Cebu South Bus Terminal (CSBT)", "type": "Terminal" },
+      { "name": "University of San Jose Recoletos", "type": "School" },
+      { "name": "USC Main Campus", "type": "School" },
+      { "name": "Gaisano Main", "type": "Mall" },
+      { "name": "University of Visayas", "type": "School" },
+      { "name": "Colon Obelisk", "type": "Landmark" },
+      { "name": "Vicente Gullas Street", "type": "Road" },
+      { "name": "University of Southern Philippines Foundation", "type": "School" },
+      { "name": "F Urdaneta Street", "type": "Road" }
+      
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Punta Princesa for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Labangon, N. Bacalso, Colon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "12G": {
+    "name": "12G - Punta Princesa to SM City Cebu",
+    "description": "Route from Punta Princesa through the city hall corridor and port area to SM City Cebu. Passes Taboan Public Market, University of San Jose Recoletos, and all major piers.",
+    "terminals": ["Punta Princesa", "SM City Cebu"],
+    "stops": [
+      { "name": "Punta Princesa", "type": "Landmark" },
+      { "name": "Punta Princesa Elementary School", "type": "School" },
+      { "name": "Miller Hospital", "type": "Health" },
+      { "name": "Cebu Institute of Technology University (CITU)", "type": "School" },
+      { "name": "Carlock Street", "type": "Road" },
+      { "name": "Elizabeth Mall (Emall)", "type": "Mall / Grocery" },
+      { "name": "B Aranas Street", "type": "Road" },
+      { "name": "Taboan Public Market", "type": "Mall / Grocery" },
+      { "name": "Lakandula Street", "type": "Road" },
+      { "name": "Spolarium Street", "type": "Road" },
+      { "name": "University of San Jose Recoletos", "type": "School" },
+      { "name": "Dionisio Jakosalem Street", "type": "Road" },
+      { "name": "Cebu City Hall", "type": "Government" },
+      { "name": "La Nueva", "type": "Landmark" },
+      { "name": "Legazpi Exit", "type": "Landmark" },
+      { "name": "Pier 1", "type": "Terminal" },
+      { "name": "Pier 2", "type": "Terminal" },
+      { "name": "Pier 3", "type": "Terminal" },
+      { "name": "Pier 4", "type": "Terminal" },
+      { "name": "Pier 5", "type": "Terminal" },
+      { "name": "SM City Cebu", "type": "Mall" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Punta Princesa for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Taboan, Jakosalem, Pier 1.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "12I": {
+    "name": "12I - Punta Princesa to SM City Cebu (via Piers)",
+    "description": "Labangon route via N. Bacalso, Colon, and the port area to SM City Cebu.",
+    "terminals": ["Punta Princesa", "SM City Cebu"],
+    "stops": [
+      { "name": "Punta Princesa", "type": "Landmark" },
+      { "name": "Tisa Elementary School", "type": "School" },
+      { "name": "Tisa National High School", "type": "School" },
+      { "name": "Katipunan Street", "type": "Road" },
+      { "name": "Labangon Public Market", "type": "Mall / Grocery" },
+      { "name": "Labangon Elementary School", "type": "School" },
+      { "name": "Tres de Abril Street", "type": "Road" },
+      { "name": "N Bacalso Ave", "type": "Road" },
+      { "name": "PLDT", "type": "Government" },
+      { "name": "Cebu City Medical Center", "type": "Health" },
+      { "name": "Cebu South Bus Terminal (CSBT)", "type": "Terminal" },
+      { "name": "University of San Jose Recoletos", "type": "School" },
+      { "name": "USC Main Campus", "type": "School" },
+      { "name": "Gaisano Main", "type": "Mall" },
+      { "name": "University of Visayas", "type": "School" },
+      { "name": "Colon Obelisk", "type": "Landmark" },
+      { "name": "Vicente Gullas Street", "type": "Road" },
+      { "name": "University of Southern Philippines Foundation", "type": "School" },
+      { "name": "P Burgos Street", "type": "Road" },
+      { "name": "Legazpi Exit", "type": "Landmark" },
+      { "name": "Pier 1", "type": "Terminal" },
+      { "name": "Pier 2", "type": "Terminal" },
+      { "name": "Pier 3", "type": "Terminal" },
+      { "name": "Pier 4", "type": "Terminal" },
+      { "name": "Pier 5", "type": "Terminal" },
+      { "name": "SM City Cebu", "type": "Mall" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Punta Princesa for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Labangon, N. Bacalso, Piers, SM.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "12L": {
+    "name": "12L - Punta Princesa to Ayala Center Cebu",
+    "description": "Labangon route through N. Bacalso and Mango Avenue to Ayala Center Cebu.",
+    "terminals": ["Punta Princesa", "Ayala Center Cebu"],
+    "stops": [
+      { "name": "Punta Princesa", "type": "Landmark" },
+      { "name": "Punta Princesa Elementary School", "type": "School" },
+      { "name": "Miller Hospital", "type": "Health" },
+      { "name": "Labangon Public Market", "type": "Mall / Grocery" },
+      { "name": "Labangon Elementary School", "type": "School" },
+      { "name": "Tres de Abril Street", "type": "Road" },
+      { "name": "N Bacalso Ave", "type": "Road" },
+      { "name": "PLDT", "type": "Government" },
+      { "name": "J Alcantara", "type": "Landmark" },
+      { "name": "USC South Campus", "type": "School" },
+      { "name": "Calamba Cemetery", "type": "Landmark" },
+      { "name": "Vicente Sotto Hospital", "type": "Health" },
+      { "name": "Mango Square Mall", "type": "Mall" },
+      { "name": "Horizons 101", "type": "Landmark" },
+      { "name": "Fooda Saversmart", "type": "Mall / Grocery" },
+      { "name": "USC North Campus", "type": "School" },
+      { "name": "Colegio de la Inmaculada Concepcion", "type": "School" },
+      { "name": "Ayala Center Cebu", "type": "Mall" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Punta Princesa for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Labangon, N. Bacalso, Mango, Ayala.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "13B": {
+    "name": "13B - Tintay to Carbon Public Market",
+    "description": "Long Talamban route through Banilad and Ayala down to Colon and Carbon Public Market.",
+    "terminals": ["Tintay Jeepney Terminal", "Carbon Public Market"],
+    "stops": [
+      { "name": "Tintay Jeepney Terminal", "type": "Terminal" },
+      { "name": "Cebu Mary Immaculate College", "type": "School" },
+      { "name": "Talamban Elementary School", "type": "School" },
+      { "name": "Gaisano Grand Mall", "type": "Mall" },
+      { "name": "Aicila Suites Hotel", "type": "Hotel" },
+      { "name": "USC", "type": "School" },
+      { "name": "Banilad Town Center", "type": "Mall" },
+      { "name": "Gaisano Country Mall", "type": "Mall" },
+      { "name": "University of Cebu Banilad Campus", "type": "School" },
+      { "name": "Paradise Village Road", "type": "Road" },
+      { "name": "Cebu Country Club", "type": "Landmark" },
+      { "name": "Samantabhadra Institute", "type": "School" },
+      { "name": "Waterfront Hotel", "type": "Hotel" },
+      { "name": "P Cabantan", "type": "Road" },
+      { "name": "Pag-ibig", "type": "Government" },
+      { "name": "Standard Chartered Bank", "type": "Government" },
+      { "name": "Insular Life Cebu Business Center", "type": "Landmark" },
+      { "name": "Ayala Center Cebu", "type": "Mall" },
+      { "name": "Hotel Elizabeth Cebu", "type": "Hotel" },
+      { "name": "Asilo De La Milagrosa", "type": "Church / Religious" },
+      { "name": "Colegio de la Inmaculada Concepcion", "type": "School" },
+      { "name": "Gen Echavez Street", "type": "Road" },
+      { "name": "Allsons Inn", "type": "Hotel" },
+      { "name": "Ramos Public Market", "type": "Mall / Grocery" },
+      { "name": "LS Pension House", "type": "Hotel" },
+      { "name": "University of San Carlos Recoletos", "type": "School" },
+      { "name": "Gaisano Main", "type": "Mall" },
+      { "name": "University of Visayas", "type": "School" },
+      { "name": "Colon Obelisk", "type": "Landmark" },
+      { "name": "Vicente Gullas Street", "type": "Road" },
+      { "name": "Dionisio Jakosalem Street", "type": "Road" },
+      { "name": "Legaspi Street", "type": "Road" },
+      { "name": "Progreso Street", "type": "Road" },
+      { "name": "Carbon Public Market", "type": "Mall / Grocery" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Tintay Jeepney Terminal for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Talamban, Banilad, Ayala, Colon, Carbon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "13C": {
+    "name": "13C - Tintay to Colonnade Supermarket",
+    "description": "Long route from Talamban through Banilad's commercial strip and Ayala Center down to Colon. One of the longest PUJ routes in Cebu City.",
+    "terminals": ["Tintay Jeepney Terminal", "Colonnade Supermarket"],
+    "stops": [
+      { "name": "Tintay Jeepney Terminal", "type": "Terminal" },
+      { "name": "Cebu Mary Immaculate College", "type": "School" },
+      { "name": "Talamban Elementary School", "type": "School" },
+      { "name": "Gaisano Grand Mall", "type": "Mall" },
+      { "name": "Aicila Suites Hotel", "type": "Hotel" },
+      { "name": "USC", "type": "School" },
+      { "name": "Banilad Town Center", "type": "Mall" },
+      { "name": "Gaisano Country Mall", "type": "Mall" },
+      { "name": "University of Cebu Banilad Campus", "type": "School" },
+      { "name": "Paradise Village Road", "type": "Road" },
+      { "name": "Samantabhadra Institute", "type": "School" },
+      { "name": "Waterfront Hotel", "type": "Hotel" },
+      { "name": "P Cabantan", "type": "Road" },
+      { "name": "Pag-ibig", "type": "Government" },
+      { "name": "Standard Chartered Bank", "type": "Government" },
+      { "name": "Insular Life Cebu Business Center", "type": "Landmark" },
+      { "name": "Ayala Center Cebu", "type": "Mall" },
+      { "name": "Hotel Elizabeth Cebu", "type": "Hotel" },
+      { "name": "Asilo De La Milagrosa", "type": "Church / Religious" },
+      { "name": "Colegio de la Inmaculada Concepcion", "type": "School" },
+      { "name": "Gen Echavez Street", "type": "Road" },
+      { "name": "Sikatuna Street", "type": "Road" },
+      { "name": "Colon Obelisk", "type": "Landmark" },
+      { "name": "University of Visayas", "type": "School" },
+      { "name": "Gaisano Main", "type": "Mall" },
+      { "name": "Colonnade Supermarket", "type": "Mall / Grocery" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Tintay Jeepney Terminal for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Talamban, Banilad, Ayala Center.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "13H": {
+    "name": "13H - Pitos to New Mandaue Public Market",
+    "description": "Route from Pitos through Banilad and AS Fortuna to the Mandaue public market area.",
+    "terminals": ["Pitos", "New Mandaue Public Market"],
+    "stops": [
+      { "name": "Pitos", "type": "Landmark" },
+      { "name": "Bacayan", "type": "Landmark" },
+      { "name": "Smeag Sparta", "type": "School" },
+      { "name": "Pelish English School", "type": "School" },
+      { "name": "Gaisano Grand Mall", "type": "Mall" },
+      { "name": "Aicila Suites Hotel", "type": "Hotel" },
+      { "name": "USC", "type": "School" },
+      { "name": "Cebu Home and Builders Centre", "type": "Mall" },
+      { "name": "Oftana Suites", "type": "Hotel" },
+      { "name": "Allure Hotel and Suites", "type": "Hotel" },
+      { "name": "Benedicto College", "type": "School" },
+      { "name": "The Orchard Cebu Hotel and Suites", "type": "Hotel" },
+      { "name": "J Centre", "type": "Mall" },
+      { "name": "Mandaue City", "type": "Landmark" },
+      { "name": "Andy Hotel", "type": "Hotel" },
+      { "name": "A Del Rosario Street", "type": "Road" },
+      { "name": "Mandaue Public Market", "type": "Mall / Grocery" },
+      { "name": "Mandaue Colonnade Supermarket", "type": "Mall / Grocery" },
+      { "name": "Mandaue City Sports and Cultural Complex", "type": "Landmark" },
+      { "name": "Bureau of Internal Revenue (BIR)", "type": "Government" },
+      { "name": "New Mandaue Public Market", "type": "Mall / Grocery" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Pitos for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Pitos, Banilad, AS Fortuna, Mandaue.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "14D": {
+    "name": "14D - Ayala Center Cebu to Legaspi Street",
+    "description": "Route from Ayala through Escario and Capitol area to the Colon university belt.",
+    "terminals": ["Ayala Center Cebu", "Legaspi Street"],
+    "stops": [
+      { "name": "Ayala Center Cebu", "type": "Mall" },
+      { "name": "Quest Hotel Cebu", "type": "Hotel" },
+      { "name": "Harolds Hotel Cebu", "type": "Hotel" },
+      { "name": "Escario Central Mall", "type": "Mall" },
+      { "name": "Cebu Provincial Capitol", "type": "Government" },
+      { "name": "Cebu Doctors University Hospital", "type": "Health" },
+      { "name": "Robinsons Place", "type": "Mall" },
+      { "name": "Cebu Institute of Medicine", "type": "School" },
+      { "name": "Cofta Mouldings Corporation", "type": "Landmark" },
+      { "name": "USC Main Campus", "type": "School" },
+      { "name": "Gaisano Main", "type": "Mall" },
+      { "name": "University of Visayas", "type": "School" },
+      { "name": "Colon Obelisk", "type": "Landmark" },
+      { "name": "Vicente Gullas Street", "type": "Road" },
+      { "name": "Dionisio Jakosalem Street", "type": "Road" },
+      { "name": "Legaspi Street", "type": "Road" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Ayala Center Cebu for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Ayala, Escario, Capitol, Colon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "17B": {
+    "name": "17B - Apas to Carbon Public Market (via Capitol)",
+    "description": "Apas route via IT Park, Lahug, and Capitol to Colon and Carbon Public Market.",
+    "terminals": ["Apas", "Carbon Public Market"],
+    "stops": [
+      { "name": "Apas", "type": "Landmark" },
+      { "name": "Camp Lapu Lapu Elementary School", "type": "School" },
+      { "name": "PNP Training Center Field", "type": "Government" },
+      { "name": "IT Park", "type": "Landmark" },
+      { "name": "University of Southern Philippines", "type": "School" },
+      { "name": "Salinas Drive", "type": "Road" },
+      { "name": "Lahug", "type": "Landmark" },
+      { "name": "JY Square Mall", "type": "Mall" },
+      { "name": "Sudlon", "type": "Landmark" },
+      { "name": "The Church of Jesus Christ of Latter-day Saints Temple", "type": "Church / Religious" },
+      { "name": "Lahug Brgy Hall", "type": "Government" },
+      { "name": "University of the Philippines", "type": "School" },
+      { "name": "Harolds Hotel Cebu", "type": "Hotel" },
+      { "name": "Escario Central Mall", "type": "Mall" },
+      { "name": "Cebu Provincial Capitol", "type": "Government" },
+      { "name": "Cebu Doctors University Hospital", "type": "Health" },
+      { "name": "Robinsons Place", "type": "Mall" },
+      { "name": "Crown Regency Hotel", "type": "Hotel" },
+      { "name": "Abellana Sports Complex", "type": "Landmark" },
+      { "name": "Social Security System (SSS)", "type": "Government" },
+      { "name": "GV Tower Hotel", "type": "Hotel" },
+      { "name": "Metro Colon", "type": "Mall" },
+      { "name": "University of San Jose Recoletos", "type": "School" },
+      { "name": "Magallanes Street", "type": "Road" },
+      { "name": "Progreso Street", "type": "Road" },
+      { "name": "Carbon Public Market", "type": "Mall / Grocery" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Apas for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: IT Park, Lahug, Capitol, Carbon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "17C": {
+    "name": "17C - Apas to Carbon Public Market (via Mango)",
+    "description": "Apas route via IT Park, Gorordo, Mango Avenue, and Katipunan Lumber to Carbon Public Market.",
+    "terminals": ["Apas", "Carbon Public Market"],
+    "stops": [
+      { "name": "Apas", "type": "Landmark" },
+      { "name": "Camp Lapu Lapu Elementary School", "type": "School" },
+      { "name": "PNP Training Center Field", "type": "Government" },
+      { "name": "IT Park", "type": "Landmark" },
+      { "name": "University of Southern Philippines", "type": "School" },
+      { "name": "Salinas Drive", "type": "Road" },
+      { "name": "Lahug", "type": "Landmark" },
+      { "name": "JY Square Mall", "type": "Mall" },
+      { "name": "Sudlon", "type": "Landmark" },
+      { "name": "The Church of Jesus Christ of Latter-day Saints Temple", "type": "Church / Religious" },
+      { "name": "Lahug Brgy Hall", "type": "Government" },
+      { "name": "University of the Philippines", "type": "School" },
+      { "name": "Gorordo Ave", "type": "Road" },
+      { "name": "The Golden Peak Hotel", "type": "Hotel" },
+      { "name": "Royal Concourse Gourmet Mall", "type": "Mall" },
+      { "name": "Asilo De La Milagrosa", "type": "Church / Religious" },
+      { "name": "Colegio de la Inmaculada Concepcion", "type": "School" },
+      { "name": "USC North Campus", "type": "School" },
+      { "name": "Fooda Saversmart", "type": "Mall / Grocery" },
+      { "name": "Horizons 101", "type": "Landmark" },
+      { "name": "Mango Square Mall", "type": "Mall" },
+      { "name": "Robinsons Place", "type": "Mall" },
+      { "name": "Cebu Institute of Medicine", "type": "School" },
+      { "name": "Cofta Mouldings Corporation", "type": "Landmark" },
+      { "name": "USC Main Campus", "type": "School" },
+      { "name": "Sogo", "type": "Hotel" },
+      { "name": "GV Tower Hotel", "type": "Hotel" },
+      { "name": "University of Cebu", "type": "School" },
+      { "name": "Panganiban Street", "type": "Road" },
+      { "name": "Katipunan Lumber", "type": "Landmark" },
+      { "name": "University of San Jose Recoletos", "type": "School" },
+      { "name": "Progreso Street", "type": "Road" },
+      { "name": "Carbon Public Market", "type": "Mall / Grocery" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Apas for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: IT Park, Gorordo, Mango, Carbon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "17D": {
+    "name": "17D - Apas to Carbon Public Market (via Taboan)",
+    "description": "Apas route via IT Park, Lahug, and Taboan public market to Carbon Public Market.",
+    "terminals": ["Apas", "Carbon Public Market"],
+    "stops": [
+      { "name": "Apas", "type": "Landmark" },
+      { "name": "Camp Lapu Lapu Elementary School", "type": "School" },
+      { "name": "PNP Training Center Field", "type": "Government" },
+      { "name": "IT Park", "type": "Landmark" },
+      { "name": "University of Southern Philippines", "type": "School" },
+      { "name": "Salinas Drive", "type": "Road" },
+      { "name": "Lahug", "type": "Landmark" },
+      { "name": "JY Square Mall", "type": "Mall" },
+      { "name": "Sudlon", "type": "Landmark" },
+      { "name": "The Church of Jesus Christ of Latter-day Saints Temple", "type": "Church / Religious" },
+      { "name": "Lahug Brgy Hall", "type": "Government" },
+      { "name": "University of the Philippines", "type": "School" },
+      { "name": "Harolds Hotel Cebu", "type": "Hotel" },
+      { "name": "Escario Central Mall", "type": "Mall" },
+      { "name": "Cebu Provincial Capitol", "type": "Government" },
+      { "name": "Cebu Doctors University Hospital", "type": "Health" },
+      { "name": "Robinsons Place", "type": "Mall" },
+      { "name": "Crown Regency Hotel", "type": "Hotel" },
+      { "name": "Abellana Sports Complex", "type": "Landmark" },
+      { "name": "Social Security System (SSS)", "type": "Government" },
+      { "name": "GV Tower Hotel", "type": "Hotel" },
+      { "name": "University of Cebu", "type": "School" },
+      { "name": "Panganiban Street", "type": "Road" },
+      { "name": "Taboan Public Market", "type": "Mall / Grocery" },
+      { "name": "Spolarium Street", "type": "Road" },
+      { "name": "University of San Jose Recoletos", "type": "School" },
+      { "name": "Progreso Street", "type": "Road" },
+      { "name": "Carbon Public Market", "type": "Mall / Grocery" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Apas for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: IT Park, Lahug, Pasil, Carbon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "20A": {
+    "name": "20A - Ayala Center Cebu to Pacific Mall",
+    "description": "Route from Ayala Center Cebu through Mabolo and Subangdaku to Mandaue and Pacific Mall.",
+    "terminals": ["Ayala Center Cebu", "Pacific Mall"],
+    "stops": [
+      { "name": "Ayala Center Cebu", "type": "Mall" },
+      { "name": "Cebu Business Park Waste Water Treatment Facility", "type": "Landmark" },
+      { "name": "Mactan Street", "type": "Road" },
+      { "name": "The Persimmon", "type": "Landmark" },
+      { "name": "St Joseph Parish", "type": "Church / Religious" },
+      { "name": "Express Inn", "type": "Hotel" },
+      { "name": "Microdata Systems and Management Inc", "type": "Landmark" },
+      { "name": "Ginebra San Miguel Inc", "type": "Landmark" },
+      { "name": "Kingdom Resources Corporation", "type": "Landmark" },
+      { "name": "Subangdaku Elementary School", "type": "School" },
+      { "name": "National Telecommunications Office", "type": "Government" },
+      { "name": "Matimco Inc", "type": "Landmark" },
+      { "name": "Macro Tires Goodyear Autocare", "type": "Landmark" },
+      { "name": "Colegio de la Inmaculada Concepcion Mandaue", "type": "School" },
+      { "name": "Hall of Justice", "type": "Government" },
+      { "name": "Cebu International Convention Center", "type": "Landmark" },
+      { "name": "Mandaue Public Market", "type": "Mall / Grocery" },
+      { "name": "Mandaue Colonnade Supermarket", "type": "Mall / Grocery" },
+      { "name": "Mandaue City Sports and Cultural Complex", "type": "Landmark" },
+      { "name": "Bureau of Internal Revenue (BIR)", "type": "Government" },
+      { "name": "New Mandaue Public Market", "type": "Mall / Grocery" },
+      { "name": "Bureau of Immigration", "type": "Government" },
+      { "name": "Mandaue City Hall", "type": "Government" },
+      { "name": "Cortes General Hospital", "type": "Health" },
+      { "name": "SB Cabahug AC Cortes Ave", "type": "Road" },
+      { "name": "Matimco Inc", "type": "Landmark" },
+      { "name": "Department of Foreign Affairs (DFA)", "type": "Government" },
+      { "name": "Pacific Mall", "type": "Mall" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Ayala Center Cebu for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Ayala, Mabolo, Subangdaku, Mandaue.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "21A": {
+    "name": "21A - Royal Oaks International School to P Burgos Street",
+    "description": "Route from Mandaue and J Centre area through SM City Cebu and the port area to the Cathedral vicinity.",
+    "terminals": ["Royal Oaks International School", "P Burgos Street"],
+    "stops": [
+      { "name": "Royal Oaks International School", "type": "School" },
+      { "name": "Kosmos Furniture Designs Philippines Inc", "type": "Landmark" },
+      { "name": "Bridges Town Square", "type": "Mall" },
+      { "name": "Hotel Nenita", "type": "Hotel" },
+      { "name": "Grand Arcade Building", "type": "Landmark" },
+      { "name": "Mandaue Coliseum", "type": "Landmark" },
+      { "name": "STI College", "type": "School" },
+      { "name": "Savemore", "type": "Mall / Grocery" },
+      { "name": "J Centre", "type": "Mall" },
+      { "name": "Mandaue City", "type": "Landmark" },
+      { "name": "Coca-Cola Bottlers Philippines Inc", "type": "Landmark" },
+      { "name": "Macro Tires Goodyear Autocare", "type": "Landmark" },
+      { "name": "Matimco Inc", "type": "Landmark" },
+      { "name": "National Telecommunications Office", "type": "Government" },
+      { "name": "Cebu North Bus Terminal", "type": "Terminal" },
+      { "name": "F Cabahug Street", "type": "Road" },
+      { "name": "SM City Cebu", "type": "Mall" },
+      { "name": "Queen City Memorial Garden", "type": "Landmark" },
+      { "name": "White Gold House", "type": "Landmark" },
+      { "name": "B Benedicto Street", "type": "Road" },
+      { "name": "Pier 3", "type": "Terminal" },
+      { "name": "V Sotto Street", "type": "Road" },
+      { "name": "Commission on Audit (COA)", "type": "Government" },
+      { "name": "Cebu Technological University", "type": "School" },
+      { "name": "P Burgos Street", "type": "Road" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Royal Oaks International School for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: AS Fortuna, Subangdaku, Pier 3, Cathedral.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "22A": {
+    "name": "22A - CM Cabahug to P Burgos Street",
+    "description": "Route from Mandaue City Hall and Subangdaku through Mabolo and Museo Sugbo to the Cathedral vicinity.",
+    "terminals": ["CM Cabahug", "P Burgos Street"],
+    "stops": [
+      { "name": "CM Cabahug", "type": "Road" },
+      { "name": "A Mabini Street", "type": "Road" },
+      { "name": "Mandaue City Central School", "type": "School" },
+      { "name": "Mandaue City Hall", "type": "Government" },
+      { "name": "Gaisano Grand Mall Mandaue", "type": "Mall" },
+      { "name": "A Del Rosario Street", "type": "Road" },
+      { "name": "Colegio de la Inmaculada Concepcion Mandaue", "type": "School" },
+      { "name": "Macro Tires Goodyear Autocare", "type": "Landmark" },
+      { "name": "Matimco Inc", "type": "Landmark" },
+      { "name": "National Telecommunications Office", "type": "Government" },
+      { "name": "Subangdaku Elementary School", "type": "School" },
+      { "name": "Kingdom Resources Corporation", "type": "Landmark" },
+      { "name": "Ginebra San Miguel Inc", "type": "Landmark" },
+      { "name": "Microdata Systems and Management Inc", "type": "Landmark" },
+      { "name": "Express Inn", "type": "Hotel" },
+      { "name": "St Joseph Parish", "type": "Church / Religious" },
+      { "name": "The Persimmon", "type": "Landmark" },
+      { "name": "Hipodromo", "type": "Landmark" },
+      { "name": "Carreta Cemetery", "type": "Landmark" },
+      { "name": "Imus Ave", "type": "Road" },
+      { "name": "Museo Sugbo", "type": "Landmark" },
+      { "name": "CPILS", "type": "School" },
+      { "name": "Tiburcio Padilla Street", "type": "Road" },
+      { "name": "National Statistics Office (NSO)", "type": "Government" },
+      { "name": "Commission on Audit (COA)", "type": "Government" },
+      { "name": "P Burgos Street", "type": "Road" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near CM Cabahug for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Mandaue, Subangdaku, Mabolo, Cathedral.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "22D": {
+    "name": "22D - CM Cabahug to P Burgos Street (variant)",
+    "description": "Variant Mandaue route via Subangdaku and Mabolo to the Cathedral vicinity.",
+    "terminals": ["CM Cabahug", "P Burgos Street"],
+    "stops": [
+      { "name": "CM Cabahug", "type": "Road" },
+      { "name": "A Mabini Street", "type": "Road" },
+      { "name": "Mandaue City Central School", "type": "School" },
+      { "name": "Mandaue City Hall", "type": "Government" },
+      { "name": "Gaisano Grand Mall Mandaue", "type": "Mall" },
+      { "name": "A Del Rosario Street", "type": "Road" },
+      { "name": "Colegio de la Inmaculada Concepcion Mandaue", "type": "School" },
+      { "name": "Macro Tires Goodyear Autocare", "type": "Landmark" },
+      { "name": "Matimco Inc", "type": "Landmark" },
+      { "name": "National Telecommunications Office", "type": "Government" },
+      { "name": "Subangdaku Elementary School", "type": "School" },
+      { "name": "Kingdom Resources Corporation", "type": "Landmark" },
+      { "name": "Ginebra San Miguel Inc", "type": "Landmark" },
+      { "name": "Microdata Systems and Management Inc", "type": "Landmark" },
+      { "name": "Express Inn", "type": "Hotel" },
+      { "name": "St Joseph Parish", "type": "Church / Religious" },
+      { "name": "The Persimmon", "type": "Landmark" },
+      { "name": "Hipodromo", "type": "Landmark" },
+      { "name": "Carreta Cemetery", "type": "Landmark" },
+      { "name": "Imus Ave", "type": "Road" },
+      { "name": "Museo Sugbo", "type": "Landmark" },
+      { "name": "CPILS", "type": "School" },
+      { "name": "Tiburcio Padilla Street", "type": "Road" },
+      { "name": "National Statistics Office (NSO)", "type": "Government" },
+      { "name": "Commission on Audit (COA)", "type": "Government" },
+      { "name": "P Burgos Street", "type": "Road" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near CM Cabahug for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Mandaue, Subangdaku, Mabolo, Cathedral.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "22I": {
+    "name": "22I - New Mandaue Public Market to Gaisano Country Mall",
+    "description": "Route from New Mandaue Public Market through AS Fortuna to Banilad Town Center and Gaisano Country Mall.",
+    "terminals": ["New Mandaue Public Market", "Gaisano Country Mall"],
+    "stops": [
+      { "name": "New Mandaue Public Market", "type": "Mall / Grocery" },
+      { "name": "Bureau of Immigration", "type": "Government" },
+      { "name": "Mandaue City Hall Post Office", "type": "Government" },
+      { "name": "Mandaue City Hall", "type": "Government" },
+      { "name": "Gaisano Grand Mall Mandaue", "type": "Mall" },
+      { "name": "A Del Rosario Street", "type": "Road" },
+      { "name": "Colegio de la Inmaculada Concepcion Mandaue", "type": "School" },
+      { "name": "Coca-Cola", "type": "Landmark" },
+      { "name": "Mandaue City J Centre", "type": "Mall" },
+      { "name": "The Orchard Cebu Hotel and Suites", "type": "Hotel" },
+      { "name": "Benedicto College", "type": "School" },
+      { "name": "Allure Hotel and Suites", "type": "Hotel" },
+      { "name": "Oftana Suites", "type": "Hotel" },
+      { "name": "Cebu Home and Builders Centre", "type": "Mall" },
+      { "name": "Banilad Town Center", "type": "Mall" },
+      { "name": "Gaisano Country Mall", "type": "Mall" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near New Mandaue Public Market for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Mandaue, AS Fortuna, Banilad.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "23D": {
+    "name": "23D - Parkmall to Lapu Lapu City PUJ Terminal",
+    "description": "Route from Parkmall through Mandaue city proper to the Opon/Lapu-Lapu PUJ terminal.",
+    "terminals": ["Parkmall", "Lapu Lapu City PUJ Terminal"],
+    "stops": [
+      { "name": "Parkmall", "type": "Mall" },
+      { "name": "S&R Membership Shopping", "type": "Mall / Grocery" },
+      { "name": "Cebu Doctors University Hospital", "type": "Health" },
+      { "name": "St James Amusement Park", "type": "Landmark" },
+      { "name": "Mandaue City Sports and Cultural Complex", "type": "Landmark" },
+      { "name": "Bureau of Internal Revenue (BIR)", "type": "Government" },
+      { "name": "New Mandaue Public Market", "type": "Mall / Grocery" },
+      { "name": "Mandaue City Hospital", "type": "Health" },
+      { "name": "Norkis Park", "type": "Landmark" },
+      { "name": "Mandaue City Central School", "type": "School" },
+      { "name": "University of Visayas", "type": "School" },
+      { "name": "Hotel Nenita", "type": "Hotel" },
+      { "name": "University of Cebu", "type": "School" },
+      { "name": "Mantawe Road", "type": "Road" },
+      { "name": "Ompad Street", "type": "Road" },
+      { "name": "La Nueva Supermarket Lapu Lapu", "type": "Mall / Grocery" },
+      { "name": "Super Metro Gaisano Lapu-Lapu", "type": "Mall / Grocery" },
+      { "name": "Lapu Lapu City PUJ Terminal", "type": "Terminal" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Parkmall for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Parkmall, Mandaue city proper, Opon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "62B": {
+    "name": "62B - Pitos to Carbon Public Market",
+    "description": "Long route from Pit-os through Banilad and Ayala down to Colon and Carbon Public Market.",
+    "terminals": ["Pitos", "Carbon Public Market"],
+    "stops": [
+      { "name": "Pitos", "type": "Landmark" },
+      { "name": "Bacayan", "type": "Landmark" },
+      { "name": "Smeag Sparta", "type": "School" },
+      { "name": "Pelish English School", "type": "School" },
+      { "name": "Gaisano Grand Mall", "type": "Mall" },
+      { "name": "Aicila Suites Hotel", "type": "Hotel" },
+      { "name": "USC", "type": "School" },
+      { "name": "Gaisano Country Mall", "type": "Mall" },
+      { "name": "University of Cebu Banilad Campus", "type": "School" },
+      { "name": "Paradise Village Road", "type": "Road" },
+      { "name": "Cebu Country Club", "type": "Landmark" },
+      { "name": "Samantabhadra Institute", "type": "School" },
+      { "name": "San Carlos Seminary Complex", "type": "School" },
+      { "name": "Keppel Tower Cebu Business Park", "type": "Landmark" },
+      { "name": "Ayala Center Cebu", "type": "Mall" },
+      { "name": "Hotel Elizabeth Cebu", "type": "Hotel" },
+      { "name": "Asilo De La Milagrosa", "type": "Church / Religious" },
+      { "name": "Colegio de la Inmaculada Concepcion", "type": "School" },
+      { "name": "Gen Echavez Street", "type": "Road" },
+      { "name": "Allsons Inn", "type": "Hotel" },
+      { "name": "Sikatuna Street", "type": "Road" },
+      { "name": "Colon Obelisk", "type": "Landmark" },
+      { "name": "Vicente Gullas Street", "type": "Road" },
+      { "name": "Dionisio Jakosalem Street", "type": "Road" },
+      { "name": "Legaspi Street", "type": "Road" },
+      { "name": "Progreso Street", "type": "Road" },
+      { "name": "Carbon Public Market", "type": "Mall / Grocery" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Pitos for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Pit-os, Banilad, Ayala, Colon, Carbon.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "MI-01A": {
+    "name": "MI-01A - Ompad Street to Punta Engano",
+    "description": "Route from Opon town area through Mactan Marina to the Punta Engano resort strip.",
+    "terminals": ["Ompad Street", "Punta Engano Elementary and High School"],
+    "stops": [
+      { "name": "Ompad Street", "type": "Road" },
+      { "name": "La Nueva Supermarket", "type": "Mall / Grocery" },
+      { "name": "Super Metro Gaisano Lapu-Lapu", "type": "Mall / Grocery" },
+      { "name": "Lapu Lapu City PUJ Terminal", "type": "Terminal" },
+      { "name": "PLDT Mactan", "type": "Government" },
+      { "name": "Gaisano Mactan", "type": "Mall" },
+      { "name": "Goldberry Suites and Hotel", "type": "Hotel" },
+      { "name": "Mactan Marina Mall", "type": "Mall" },
+      { "name": "Savemore", "type": "Mall / Grocery" },
+      { "name": "Ibo Elementary School", "type": "School" },
+      { "name": "EMD Carmelite School", "type": "School" },
+      { "name": "Mactan Shrine", "type": "Landmark" },
+      { "name": "Mares Philippines", "type": "Landmark" },
+      { "name": "Movenpick Hotel Mactan Island Cebu", "type": "Hotel" },
+      { "name": "AITI Native Center", "type": "Landmark" },
+      { "name": "Be Resorts Mactan", "type": "Hotel" },
+      { "name": "Cebu Sea World", "type": "Landmark" },
+      { "name": "Punta Engano Elementary and High School", "type": "School" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Ompad Street for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Opon, Mactan Marina, Punta Engano.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "MI-02B": {
+    "name": "MI-02B - Mandaue to Parkmall",
+    "description": "Short connector from Mandaue city proper to Parkmall.",
+    "terminals": ["Kosmos Furniture Designs Philippines Inc", "Parkmall"],
+    "stops": [
+      { "name": "Kosmos Furniture Designs Philippines Inc", "type": "Landmark" },
+      { "name": "Bridges Town Square", "type": "Mall" },
+      { "name": "Tita Gwapa", "type": "Landmark" },
+      { "name": "Hotel Nenita", "type": "Hotel" },
+      { "name": "Grand Arcade Building", "type": "Landmark" },
+      { "name": "Mandaue Coliseum", "type": "Landmark" },
+      { "name": "STI College", "type": "School" },
+      { "name": "Colegio de la Inmaculada Concepcion Mandaue", "type": "School" },
+      { "name": "Hall of Justice", "type": "Government" },
+      { "name": "Parkmall", "type": "Mall" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Kosmos Furniture Designs Philippines Inc for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Mandaue city proper to Parkmall.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "MI-03A": {
+    "name": "MI-03A - Cordova to Lapu-Lapu City Public Market",
+    "description": "Route from Cordova through Babag area to the Lapu-Lapu city public market.",
+    "terminals": ["Cordova", "Lapu Lapu City Public Market"],
+    "stops": [
+      { "name": "Cordova", "type": "Landmark" },
+      { "name": "Señor San Roque Parish Church", "type": "Church / Religious" },
+      { "name": "Cordova Academy Cooperative School", "type": "School" },
+      { "name": "Cordova Municipal Hall", "type": "Government" },
+      { "name": "Quezon National Hwy", "type": "Road" },
+      { "name": "Babang II Road", "type": "Road" },
+      { "name": "Cattleya Gardens and Memorial Park", "type": "Landmark" },
+      { "name": "Pilipog Elementary School", "type": "School" },
+      { "name": "Takan Public Market Park", "type": "Mall / Grocery" },
+      { "name": "Sr Santo Nino Chapel", "type": "Church / Religious" },
+      { "name": "Babag 2 Elementary School", "type": "School" },
+      { "name": "Mother of Perpetual Help Parish", "type": "Church / Religious" },
+      { "name": "Babag Night High School", "type": "School" },
+      { "name": "Babag National High School", "type": "School" },
+      { "name": "Babag Elementary School", "type": "School" },
+      { "name": "Maria Ernestine School", "type": "School" },
+      { "name": "Tojong Hospital", "type": "Health" },
+      { "name": "Lapu Lapu City Central School", "type": "School" },
+      { "name": "Opon Kindergarten and Nursery School", "type": "School" },
+      { "name": "Lapu Lapu City Public Market", "type": "Mall / Grocery" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Cordova for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Cordova, Babag, Opon town.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "MI-03B": {
+    "name": "MI-03B - MEPZ1 to Sr Santo Nino Chapel",
+    "description": "Loop route from MEPZ1 through Opon town and Cordova, terminating at Sr Santo Nino Chapel.",
+    "terminals": ["MEPZ1 2nd Ave Road", "Sr Santo Nino Chapel"],
+    "stops": [
+      { "name": "MEPZ1 2nd Ave Road", "type": "Road" },
+      { "name": "Savemore", "type": "Mall / Grocery" },
+      { "name": "Mactan Marina Mall", "type": "Mall" },
+      { "name": "The Bellavista Hotel", "type": "Hotel" },
+      { "name": "Gaisano Mactan", "type": "Mall" },
+      { "name": "PLDT Mactan", "type": "Government" },
+      { "name": "Lapu Lapu City PUJ Terminal", "type": "Terminal" },
+      { "name": "Super Metro Gaisano Lapu-Lapu", "type": "Mall / Grocery" },
+      { "name": "Mantawe Road", "type": "Road" },
+      { "name": "BM Dimataga Street", "type": "Road" },
+      { "name": "Opon Plaza", "type": "Landmark" },
+      { "name": "Our Lady of the Rule Parish Church", "type": "Church / Religious" },
+      { "name": "Eastern Christian School", "type": "School" },
+      { "name": "Lapu Lapu City Central School", "type": "School" },
+      { "name": "Tojong Hospital", "type": "Health" },
+      { "name": "Takan Public Market Park", "type": "Mall / Grocery" },
+      { "name": "Pilipog Elementary School", "type": "School" },
+      { "name": "Cattleya Gardens and Memorial Park", "type": "Landmark" },
+      { "name": "Babang II Road", "type": "Road" },
+      { "name": "Cordova Central School", "type": "School" },
+      { "name": "Cordova Municipal Hall", "type": "Government" },
+      { "name": "Cordova Academy Cooperative School", "type": "School" },
+      { "name": "Señor San Roque Parish Church", "type": "Church / Religious" },
+      { "name": "Cordova", "type": "Landmark" },
+      { "name": "Tojong Hospital", "type": "Health" },
+      { "name": "Maria Ernestine School", "type": "School" },
+      { "name": "Babag Elementary School", "type": "School" },
+      { "name": "Babag National High School", "type": "School" },
+      { "name": "Babag Night High School", "type": "School" },
+      { "name": "Mother of Perpetual Help Parish", "type": "Church / Religious" },
+      { "name": "Babag 2 Elementary School", "type": "School" },
+      { "name": "Sr Santo Nino Chapel", "type": "Church / Religious" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near MEPZ1 2nd Ave Road for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Mactan Export Zone, Opon town, Cordova.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "MI-04A": {
+    "name": "MI-04A - J Centre to Tamiya Terminal",
+    "description": "Route from J Centre Mall area to the Tamiya terminal via Mactan access road.",
+    "terminals": ["J Centre", "Tamiya Terminal"],
+    "stops": [
+      { "name": "J Centre", "type": "Mall" },
+      { "name": "Savemore", "type": "Mall / Grocery" },
+      { "name": "STI College", "type": "School" },
+      { "name": "Mandaue Coliseum", "type": "Landmark" },
+      { "name": "Hotel Nenita", "type": "Hotel" },
+      { "name": "University of Cebu", "type": "School" },
+      { "name": "Phoenix Publishing House", "type": "Landmark" },
+      { "name": "Crown Regency Hotel", "type": "Hotel" },
+      { "name": "Pueblo Verde Terminal", "type": "Terminal" },
+      { "name": "Tamiya Terminal", "type": "Terminal" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near J Centre for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: J Centre, Mactan access, MEZ II.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "MI-04B": {
+    "name": "MI-04B - MEPZ1 to Tamiya Terminal",
+    "description": "Route between MEPZ1 area and Tamiya/MEPZ2 via Mactan Marina corridor.",
+    "terminals": ["MEPZ1 2nd Ave Road", "Tamiya Terminal"],
+    "stops": [
+      { "name": "MEPZ1 2nd Ave Road", "type": "Road" },
+      { "name": "Savemore", "type": "Mall / Grocery" },
+      { "name": "Mactan Marina Mall", "type": "Mall" },
+      { "name": "The Bellavista Hotel", "type": "Hotel" },
+      { "name": "Gaisano Mactan", "type": "Mall" },
+      { "name": "PLDT Mactan", "type": "Government" },
+      { "name": "Phoenix Publishing House", "type": "Landmark" },
+      { "name": "Crown Regency Hotel", "type": "Hotel" },
+      { "name": "Robinsons Supermarket", "type": "Mall / Grocery" },
+      { "name": "Tamiya Terminal", "type": "Terminal" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near MEPZ1 2nd Ave Road for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: MEPZ1, Mactan Marina, MEZ II.",
+      "This is a loop route, so it can be used in both directions."
+    ]
+  },
+  "MI-05A": {
+    "name": "MI-05A - Mactan Airport to Cebu Mactan Ferry Terminal",
+    "description": "Route from Mactan Cebu International Airport to the Opon ferry terminal via Mactan Marina.",
+    "terminals": ["Mactan Cebu International Airport", "Cebu Mactan Ferry Terminal"],
+    "stops": [
+      { "name": "Mactan Cebu International Airport", "type": "Terminal" },
+      { "name": "Timex Philippines Incorporated", "type": "Landmark" },
+      { "name": "The Bellavista Hotel", "type": "Hotel" },
+      { "name": "Gaisano Mactan", "type": "Mall" },
+      { "name": "PLDT Mactan", "type": "Government" },
+      { "name": "Lapu Lapu City PUJ Terminal", "type": "Terminal" },
+      { "name": "Super Metro Gaisano Lapu-Lapu", "type": "Mall / Grocery" },
+      { "name": "Mantawe Road", "type": "Road" },
+      { "name": "BM Dimataga Street", "type": "Road" },
+      { "name": "Opon Plaza", "type": "Landmark" },
+      { "name": "Cebu Mactan Ferry Terminal", "type": "Terminal" }
+    ],
+    "fare_estimate": {
+      "base_fare": 13,
+      "base_km": 4,
+      "note": "₱13 for the first 4km; additional fare applies per km beyond that."
+    },
+    "tips": [
+      "Board near Mactan Cebu International Airport for easy entry.",
+      "Say 'Lugar lang' or tap the rail when approaching your stop.",
+      "Route passes through: Airport, Mactan Marina, Opon port.",
+      "This is a loop route, so it can be used in both directions."
     ]
   }
 }
