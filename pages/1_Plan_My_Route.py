@@ -7,7 +7,6 @@ from datetime import datetime
 # Add root to path so we can import from utils
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# IMPORT THE NEW CALCULATOR HERE
 from utils.helpers import load_css, render_sidebar, format_response, calculate_exact_route
 
 load_dotenv()
@@ -26,14 +25,11 @@ with open("routes.json", "r", encoding="utf-8") as f:
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-# STRIPPED DOWN PROMPT: The LLM is now just a friendly formatter
-# ... (Keep your imports, including calculate_exact_route from utils.helpers)
-
-def build_system_prompt(route_data: dict) -> str:
+# THE FUNCTION DEFINITION
+def build_plan_prompt(route_data: dict) -> str:
     return f"""You are RoutaGo, a friendly Cebu jeepney guide.
 The backend system has mathematically calculated the ONLY correct route. 
 You MUST format this EXACT JSON data into a friendly response. 
-DO NOT invent routes. DO NOT add stops not listed in the JSON. DO NOT look at any other database.
 
 SYSTEM ROUTE DATA:
 {json.dumps(route_data, indent=2)}
@@ -42,46 +38,11 @@ If the type is "none", just say: "Sorry bai, I don't have a route covering that 
 
 Otherwise, format it nicely:
 1. Mention the Jeepney Codes in **bold**.
-2. List the "stops_passed" EXACTLY as they appear in the JSON. Do not add or remove any.
+2. List the "stops_passed" EXACTLY as they appear in the JSON.
 3. Mention the standard fare (₱13 first 4km).
 Use light Cebuano flavor (e.g., "Lugar lang!")."""
 
-# ... (Scroll down to your chat input logic)
-
-if prompt := st.chat_input("Ask about jeepney routes in Cebu..."):
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user", avatar="🧑"):
-        st.markdown(prompt)
-
-    with st.chat_message("assistant", avatar="🚌"):
-        with st.spinner(""):
-            
-            # Simple keyword extraction to detect "A to B" queries
-            lower_prompt = prompt.lower()
-            if " to " in lower_prompt:
-                parts = lower_prompt.split(" to ")
-                origin = parts[0].split()[-1] if len(parts[0].split()) > 0 else parts[0]
-                destination = parts[1]
-                
-                # PYTHON DOES THE MATH
-                exact_route = calculate_exact_route(origin, destination, ROUTES)
-            else:
-                exact_route = {"type": "none", "message": "General query"}
-
-            # FEED ONLY THE MATH RESULT TO THE LLM
-            system_prompt = build_system_prompt(exact_route)
-
-            response = client.chat.completions.create(
-                model="llama-3.1-8b-instant",
-                messages=[{"role": "system", "content": system_prompt}] + st.session_state.messages,
-                temperature=0.1, # Extremely low temperature prevents hallucination
-            )
-            reply = response.choices[0].message.content
-            formatted_reply = format_response(reply)
-            st.markdown(formatted_reply, unsafe_allow_html=True)
-
-    st.session_state.messages.append({"role": "assistant", "content": reply})
-    
+# UI Header
 st.markdown("""
 <div class="rg-page-header">
     <h1>🗺️ Plan My Route</h1>
@@ -123,7 +84,7 @@ with tab1:
         else:
             with st.spinner("Calculating route mathematically..."):
                 
-                # 1. PYTHON DOES THE MATH DETERMINISTICALLY
+                # 1. PYTHON DOES THE MATH
                 exact_route = calculate_exact_route(origin, destination, ROUTES)
                 
                 # 2. LLM JUST FORMATS THE PYTHON RESULT
@@ -135,12 +96,13 @@ with tab1:
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": f"How do I go from {origin} to {destination}?"}
                     ],
-                    temperature=0.1, # Extremely low temp so it does not guess or hallucinate
+                    temperature=0.1,
                 )
                 
                 result = response.choices[0].message.content
                 formatted_result = format_response(result)
 
+                # Store in history
                 st.session_state.recent_routes.insert(0, {
                     "origin": origin,
                     "destination": destination,
