@@ -247,3 +247,30 @@
     transform: scale(1.08) !important;
     box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5) !important;
 }
+
+/* ------------------------------
+   GOOGLE-STYLE TRANSLATE BUTTON
+   ------------------------------ */
+.stButton > button:has(div:contains("Translate")) {
+    background: transparent !important;
+    color: #60A5FA !important;
+    border: none !important;
+    padding: 0 !important;
+    font-size: 0.85rem !important;
+    text-align: left !important;
+    height: auto !important;
+    box-shadow: none !important;
+    min-height: unset !important;
+    width: auto !important;
+}
+
+.stButton > button:has(div:contains("Translate")):hover {
+    color: #93C5FD !important;
+    text-decoration: underline !important;
+    background: transparent !important;
+    transform: none !important;
+}
+
+[data-testid="column"] {
+    min-width: unset !important;
+}

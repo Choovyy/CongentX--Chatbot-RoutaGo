@@ -97,6 +97,18 @@ with tab1:
         if not origin or not destination:
             st.warning("Please fill in both fields to plan your commute.")
         else:
+            # Clean up entities
+            def clean_entity(text):
+                if not text: return text
+                import re
+                text = re.sub(r'^(gikan|sa|from|to|padulong|padung|adto)\b\s*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'\s*\b(sa|to|padulong|padung|adto)\b$', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'\bcit-u\b', 'citu', text, flags=re.IGNORECASE)
+                return text.strip()
+
+            origin = clean_entity(origin)
+            destination = clean_entity(destination)
+
             with st.spinner("Calculating route mathematically..."):
                 
                 # 1. PYTHON DOES THE MATH
@@ -116,7 +128,7 @@ with tab1:
                 
                 result = response.choices[0].message.content
 
-                if exact_route.get("type") != "none" and origin and destination:
+                if exact_route.get("type") != "none" and origin and destination and origin.lower() != "none" and destination.lower() != "none":
                     o_q = urllib.parse.quote(f"{origin}, Cebu City")
                     d_q = urllib.parse.quote(f"{destination}, Cebu City")
                     map_url = f"https://www.google.com/maps/dir/?api=1&origin={o_q}&destination={d_q}"
@@ -129,7 +141,8 @@ with tab1:
 </div>
 """
 
-                formatted_result = format_response(result)
+                display_result = result
+                formatted_result = format_response(display_result)
 
                 # Store in history
                 st.session_state.recent_routes.insert(0, {

@@ -108,38 +108,138 @@ def calculate_exact_route(origin_query: str, dest_query: str, routes_data: dict)
     o_q = origin_query.lower().strip()
     d_q = dest_query.lower().strip()
     
-    # Expanded fuzzy mapping
+    def normalize(s):
+        if not s: return ""
+        # Remove common stop words for better matching
+        s = s.lower()
+        s = re.sub(r'\b(mall|university|campus|public|market|street|st|ave|avenue|road|rd|hub|terminal)\b', '', s)
+        return re.sub(r'[^a-z0-9]', '', s)
+
     landmark_map = {
+        # Schools
         "citu": "cebu institute of technology university",
         "cit": "cebu institute of technology university",
+        "cit-u": "cebu institute of technology university",
         "usc": "university of san carlos",
+        "usc main": "university of san carlos main campus",
+        "usc north": "university of san carlos north campus",
+        "usc south": "university of san carlos south campus",
         "uv": "university of visayas",
         "uc": "university of cebu",
         "ctu": "cebu technological university",
+        "usjr": "university of san jose recoletos",
+        "uspf": "university of southern philippines foundation",
+        "swu": "southwestern university",
+        "up": "university of the philippines",
+        "ctu": "cebu technological university",
+        "cim": "cebu institute of medicine",
+        "stc": "st theresa's college",
+        "cicu": "colegio de la inmaculada concepcion",
+        "sti": "sti college",
+        
+        # Malls & Markets
         "sm": "sm city cebu",
+        "sm cebu": "sm city cebu",
+        "sm seaside": "sm seaside city cebu",
         "ayala": "ayala center cebu",
+        "ayala cebu": "ayala center cebu",
         "emall": "elizabeth mall",
-        "csbt": "south bus terminal",
-        "colon": "colon",
+        "e-mall": "elizabeth mall",
+        "country mall": "gaisano country mall",
+        "g-mall": "gaisano grand mall",
+        "grand mall": "gaisano grand mall",
+        "jy": "jy square mall",
+        "jy square": "jy square mall",
+        "j centre": "j centre mall",
+        "pacific mall": "pacific mall",
+        "marina mall": "mactan marina mall",
+        "btc": "banilad town center",
+        "parkmall": "parkmall",
         "carbon": "carbon public market",
+        "taboan": "taboan public market",
+        "pasil": "pasil fish market",
+        "colonnade": "colonnade supermarket",
+        "gaisano main": "gaisano main",
+        "metro colon": "metro colon",
+        "metro gaisano": "metro gaisano",
+        
+        # Terminals & Transport
+        "csbt": "south bus terminal",
+        "south bus": "south bus terminal",
+        "north bus": "north bus terminal",
+        "pier 1": "pier 1",
+        "pier 2": "pier 2",
+        "pier 3": "pier 3",
+        "pier 4": "pier 4",
+        "airport": "mactan cebu international airport",
+        "mcia": "mactan cebu international airport",
         "it park": "it park",
-        "bulacao": "bulacao"
+        "it-park": "it park",
+        "pueblo verde": "pueblo verde terminal",
+        "tamiya": "tamiya terminal",
+        "tintay": "tintay jeepney terminal",
+        
+        # Government & Public
+        "bir": "bureau of internal revenue",
+        "dfa": "department of foreign affairs",
+        "sss": "social security system",
+        "pldt": "pldt",
+        "prc": "professional regulations commission",
+        "coa": "commission on audit",
+        "sec": "securities and exchange commission",
+        "capitol": "cebu provincial capitol",
+        "city hall": "cebu city hall",
+        "hall of justice": "hall of justice",
+        
+        # Hospitals
+        "votto": "vicente sotto hospital",
+        "vsmmc": "vicente sotto memorial medical center",
+        "chong hua": "chong hua hospital",
+        "cebu doc": "cebu doctors university hospital",
+        "miller": "miller hospital",
+        "ccmc": "cebu city medical center",
+        
+        # Major Hubs / Areas
+        "colon": "colon",
+        "guadalupe": "guadalupe",
+        "labangon": "labangon",
+        "banawa": "banawa",
+        "lahug": "lahug",
+        "mabolo": "mabolo",
+        "talamban": "talamban",
+        "bulacao": "bulacao",
+        "pardo": "pardo",
+        "quiot": "quiot",
+        "tisa": "tisa",
+        "apas": "apas",
+        "busay": "busay",
+        "pitos": "pitos",
+        "mandaue": "mandaue",
+        "lapu-lapu": "lapu-lapu city",
+        "cordova": "cordova"
     }
     
+    # Fuzzy match for landmark map
+    o_norm = normalize(o_q)
+    d_norm = normalize(d_q)
+    
     for key, val in landmark_map.items():
-        if o_q == key: o_q = val
-        if d_q == key: d_q = val
+        if o_norm == normalize(key): o_q = val
+        if d_norm == normalize(key): d_q = val
 
     def is_match(query, target):
-        q = query.lower()
-        t = target.lower()
-        # Basic contains or common word match
-        if q in t or t in q: return True
+        q_norm = normalize(query)
+        t_norm = normalize(target)
+        if not q_norm or not t_norm: return False
+        
+        # Basic normalized match
+        if q_norm in t_norm or t_norm in q_norm: return True
         
         # Intersection match for major hubs
-        hubs = ["colon", "sm city", "ayala", "parkmall", "it park", "taboan", "carbon", "pier"]
+        hubs = ["colon", "smcity", "ayala", "parkmall", "itpark", "taboan", "carbon", "pier", "citu", "cit"]
         for hub in hubs:
-            if hub in q and hub in t: return True
+            h_norm = normalize(hub)
+            if h_norm in q_norm and h_norm in t_norm: return True
         return False
 
     # 1. DIRECT ROUTES
