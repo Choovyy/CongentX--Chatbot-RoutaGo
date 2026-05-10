@@ -38,7 +38,7 @@
     padding: 2.5rem;
     margin-top: 1.5rem;
     font-size: 0.95rem;
-    line-height: 1.8;
+    line-height: 1.9;
     color: #E2E8F0;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.05);
     position: relative;
@@ -59,7 +59,29 @@
 .rg-result p,
 .rg-result li {
     color: #CBD5E1 !important;
-    margin: 0.8rem 0;
+    margin: 1.2rem 0;
+}
+
+.rg-result strong {
+    color: #A78BFA;
+    font-weight: 700;
+}
+
+.rg-result ul,
+.rg-result ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+}
+
+.rg-result li {
+    margin: 0.7rem 0;
+}
+
+.rg-result h3 {
+    color: #F8FAFC;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 1.8rem 0 0.8rem 0;
 }
 
 /* ── Jeepney Code Formatting ── */

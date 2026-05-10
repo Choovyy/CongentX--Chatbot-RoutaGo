@@ -55,6 +55,13 @@ STRICT RULES:
 4. List the stops EXACTLY as they appear in the JSON.
 5. Using your internal knowledge of Cebu geography, ESTIMATE the driving distance in kilometers between the origin and destination.
 6. Calculate the fare using this strict formula: ₱13.00 for the first 4km, plus ₱1.80 for every succeeding kilometer. State BOTH the estimated distance and the exact calculated fare amount directly in your response! (For transfers, remember to calculate the total fare for BOTH rides).
+7. FORMAT YOUR RESPONSE CLEARLY:
+   - Start with a friendly greeting and route explanation
+   - **Distance:** Show the estimated distance on a separate line
+   - **Fare:** Show the calculated fare on a separate line  
+   - **Route:** Show the jeepney codes and transfer info
+   - **Stops:** List the stops clearly
+   - End with helpful tips
 Use light Cebuano flavor (e.g., "Lugar lang!")."""
 
 # UI Header

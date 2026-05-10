@@ -5,7 +5,7 @@ import os, json, sys, base64
 from PIL import Image
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from utils.helpers import load_css, render_sidebar, format_response, page_loader
+from utils.helpers import load_css, render_sidebar, format_response, page_loader, parse_agent_response
 from utils.agent import run_agent
 
 load_dotenv()
@@ -35,6 +35,7 @@ logo_b64 = get_logo_b64()
 
 load_css("assets/styles/main.css")
 load_css("assets/styles/chat.css")
+load_css("assets/styles/cards.css")
 render_sidebar()
 
 with open("routes.json", "r", encoding="utf-8") as f:
@@ -68,10 +69,11 @@ if not st.session_state.messages:
     <div class="rg-welcome">
         <span class="rg-welcome-logo">🚌</span>
         <h2>How can I help you commute?</h2>
-        <p>Tell me where you're starting and where you need to go. I'll give you clear, landmark-based jeepney directions.</p>
+        <p>Tell me where you're starting and where you need to go. I'll give you clear, landmark-based jeepney directions with fares and routes.</p>
         <div class="rg-chips">
-            <span class="rg-chip">💡 from Parkmall to CIT-U</span>
-            <span class="rg-chip">🗺️ from SM City to Colon</span>
+            <span class="rg-chip">💡 Parkmall to CIT-U</span>
+            <span class="rg-chip">🗺️ SM City to Colon</span>
+            <span class="rg-chip">🚌 Student discount routes</span>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -83,13 +85,13 @@ for msg in st.session_state.messages:
         else:
             st.markdown(msg["content"])
 
-if prompt := st.chat_input("Ask about jeepney routes in Cebu... (e.g., 'Parkmall to CIT-U')"):
+if prompt := st.chat_input("🚌 Ask about jeepney routes... (e.g., 'Parkmall to CIT-U', 'SM City to Colon')"):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user", avatar="🧑"):
         st.markdown(prompt)
 
     with st.chat_message("assistant", avatar="🚌"):
-        with st.spinner("🤖 Agent is thinking..."):
+        with st.spinner("🤖 RoutaGo is thinking..."):
             try:
                 # Run the agent loop - it handles tool calling internally
                 reply = run_agent(

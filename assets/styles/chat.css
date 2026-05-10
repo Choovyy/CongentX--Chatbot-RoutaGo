@@ -84,11 +84,11 @@
 }
 
 .rg-chip:hover {
-    background: rgba(139, 92, 246, 0.2);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.25));
     border-color: #8B5CF6;
     color: #F8FAFC;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(139, 92, 246, 0.4);
 }
 
 /* ══════════════════════════════

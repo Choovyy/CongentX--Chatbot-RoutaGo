@@ -1,6 +1,7 @@
 import streamlit as st
 import re
 import json
+from typing import Any, Dict, List, Optional, cast
 
 def page_loader():
     # A lightweight, non-blocking CSS-only loader
@@ -141,14 +142,74 @@ def format_response(text):
 
     text = remove_json_toolcalls(text)
 
+    # Remove ALL HTML tags from LLM response (both opening and closing)
+    text = re.sub(r'<[^>]+>', '', text)
+
     # Bold route codes like 01K, 13B, etc.
     formatted = re.sub(r'(\b\d+[A-Z]\b)', r'**\1**', text)
+
+    # Add line breaks after sentences
+    formatted = re.sub(r'([.!?])\s+([A-Z])', r'\1\n\n\2', formatted)
+
+    # Convert numbered lists to markdown bullets
+    formatted = re.sub(r'^\s*(\d+)[.)]\s+', r'- ', formatted, flags=re.MULTILINE)
 
     # Clean up extra whitespace
     formatted = re.sub(r'\n\s*\n\s*\n+', '\n\n', formatted)
     formatted = re.sub(r'^\s+|\s+$', '', formatted, flags=re.MULTILINE)
 
     return formatted.strip()
+
+def parse_agent_response(text: str) -> Dict[str, Any]:
+    """Parse agent response to extract structured route and fare data."""
+    data: Dict[str, Any] = {
+        "text": text,
+        "route_info": None,
+        "fare_info": None,
+        "distance": None,
+        "stops": []
+    }
+
+    # Extract route codes (like 01K, 13B)
+    route_codes = re.findall(r'\b(\d+[A-Z])\b', text)
+    if route_codes:
+        data["route_info"] = {"codes": list(set(route_codes))}  # Unique codes
+
+    # Extract fare amounts (PHP XXX.XX or PHP XX)
+    fare_match = re.search(r'PHP\s*([\d,]+\.?\d*)', text)
+    if fare_match:
+        fare_amount = fare_match.group(1).replace(',', '')
+        data["fare_info"] = {"amount": float(fare_amount)}
+
+    # Extract distance (X kilometers or X km)
+    distance_match = re.search(r'([\d.]+)\s*(?:kilometers|km)', text)
+    if distance_match:
+        data["distance"] = f"{distance_match.group(1)} km"
+
+    # Extract transfer point if mentioned
+    transfer_match = re.search(r'[Tt]ransfer\s+(?:at|to)\s+([^\n,.]+)', text)
+    if transfer_match:
+        if data["route_info"] is None:
+            data["route_info"] = {}
+        if isinstance(data["route_info"], dict):
+            transfer_location = transfer_match.group(1).strip()
+            # Clean up any stray HTML tags
+            transfer_location = re.sub(r'</?\w+[^>]*>', '', transfer_location)
+            data["route_info"]["transfer_at"] = transfer_location
+
+    # Extract stops from numbered lists
+    stop_lines: List[str] = re.findall(r'^\s*\d+\.\s+([^\n]+)', text, re.MULTILINE)
+    if stop_lines:
+        # Clean up stray HTML tags from stops
+        cleaned_stops = []
+        for s in stop_lines:
+            s_clean = s.strip()
+            s_clean = re.sub(r'</?\w+[^>]*>', '', s_clean)
+            if len(s_clean) > 2:
+                cleaned_stops.append(s_clean)
+        data["stops"] = cast(List[Any], cleaned_stops)
+
+    return data
 
 def calculate_exact_route(origin_query: str, dest_query: str, routes_data: dict) -> dict:
     o_q = origin_query.lower().strip()

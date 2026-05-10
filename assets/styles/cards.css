@@ -1,0 +1,332 @@
+/* ══════════════════════════════
+   INFO CARDS STYLING
+══════════════════════════════ */
+
+.rg-info-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.3), transparent);
+    margin: 1.5rem 0;
+    border: none;
+}
+
+/* Info Cards Container */
+.rg-info-card {
+    background: rgba(30, 41, 59, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Animated gradient background on hover */
+.rg-info-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.rg-info-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+    transform: translateY(-8px);
+}
+
+.rg-info-card:hover::before {
+    opacity: 1;
+}
+
+/* Card Header */
+.rg-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.rg-card-icon {
+    font-size: 1.6rem;
+    display: block;
+    filter: drop-shadow(0 2px 8px rgba(139, 92, 246, 0.3));
+}
+
+.rg-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #F8FAFC;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+/* Card Content */
+.rg-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Value Badges */
+.rg-value-badge,
+.rg-route-badge {
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 20px 16px;
+    border-radius: 12px;
+    color: white;
+    letter-spacing: -0.5px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.rg-value-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Route Card Specific */
+.rg-route-card {
+    background: rgba(30, 41, 59, 0.5);
+    border-color: rgba(255, 107, 53, 0.15);
+}
+
+.rg-route-card:hover {
+    border-color: rgba(255, 107, 53, 0.3);
+    box-shadow: 0 12px 48px rgba(255, 107, 53, 0.15);
+}
+
+.rg-route-badge {
+    background: linear-gradient(135deg, #FF6B35 0%, #FFA500 100%);
+}
+
+/* Distance Card Specific */
+.rg-distance-card {
+    background: rgba(30, 41, 59, 0.5);
+    border-color: rgba(0, 126, 182, 0.15);
+}
+
+.rg-distance-card:hover {
+    border-color: rgba(0, 126, 182, 0.3);
+    box-shadow: 0 12px 48px rgba(0, 126, 182, 0.15);
+}
+
+.rg-distance-card .rg-value-badge {
+    background: linear-gradient(135deg, #004E89 0%, #0077B6 100%);
+}
+
+/* Fare Card Specific */
+.rg-fare-card {
+    background: rgba(30, 41, 59, 0.5);
+    border-color: rgba(42, 157, 143, 0.15);
+}
+
+.rg-fare-card:hover {
+    border-color: rgba(42, 157, 143, 0.3);
+    box-shadow: 0 12px 48px rgba(42, 157, 143, 0.15);
+}
+
+.rg-fare-card .rg-value-badge {
+    background: linear-gradient(135deg, #2A9D8F 0%, #26A089 100%);
+}
+
+/* Transfer Info */
+.rg-transfer-info {
+    text-align: center;
+    padding: 12px 14px;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: #CBD5E1;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+}
+
+.rg-transfer-info:hover {
+    background: rgba(139, 92, 246, 0.15);
+    border-color: rgba(139, 92, 246, 0.4);
+}
+
+.rg-transfer-location {
+    display: block;
+    font-weight: 600;
+    color: #A78BFA;
+    margin-top: 4px;
+}
+
+/* ══════════════════════════════
+   ROUTE STOPS SECTION
+══════════════════════════════ */
+
+.rg-stops-container {
+    background: rgba(30, 41, 59, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.rg-stops-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.rg-stops-icon {
+    font-size: 1.4rem;
+    filter: drop-shadow(0 2px 8px rgba(139, 92, 246, 0.3));
+}
+
+.rg-stops-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #F8FAFC;
+    letter-spacing: -0.3px;
+}
+
+.rg-stops-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.rg-stop-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(139, 92, 246, 0.08);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    border-radius: 10px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideIn 0.4s ease-out forwards;
+}
+
+.rg-stop-item:nth-child(1) { animation-delay: 0.05s; }
+.rg-stop-item:nth-child(2) { animation-delay: 0.1s; }
+.rg-stop-item:nth-child(3) { animation-delay: 0.15s; }
+.rg-stop-item:nth-child(4) { animation-delay: 0.2s; }
+.rg-stop-item:nth-child(5) { animation-delay: 0.25s; }
+.rg-stop-item:nth-child(n+6) { animation-delay: 0.3s; }
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.rg-stop-item:hover {
+    background: rgba(139, 92, 246, 0.15);
+    border-color: rgba(139, 92, 246, 0.3);
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+}
+
+.rg-stop-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #60A5FA, #8B5CF6);
+    color: white;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.rg-stop-text {
+    color: #E2E8F0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+/* ══════════════════════════════
+   RESPONSIVE ADJUSTMENTS
+══════════════════════════════ */
+
+@media (max-width: 768px) {
+    .rg-info-card {
+        min-height: 160px;
+        padding: 1.25rem;
+    }
+
+    .rg-value-badge,
+    .rg-route-badge {
+        font-size: 1.5rem;
+        padding: 16px 12px;
+    }
+
+    .rg-stops-list {
+        grid-template-columns: 1fr;
+    }
+
+    .rg-card-header {
+        margin-bottom: 1rem;
+    }
+
+    .rg-card-icon {
+        font-size: 1.4rem;
+    }
+
+    .rg-card-title {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .rg-info-card {
+        min-height: 150px;
+        padding: 1rem;
+    }
+
+    .rg-value-badge,
+    .rg-route-badge {
+        font-size: 1.3rem;
+        padding: 14px 10px;
+    }
+
+    .rg-stops-container {
+        padding: 1.25rem;
+    }
+
+    .rg-card-icon {
+        font-size: 1.2rem;
+    }
+
+    .rg-card-title {
+        font-size: 0.85rem;
+    }
+}
