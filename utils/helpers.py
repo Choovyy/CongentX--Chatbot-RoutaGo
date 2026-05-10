@@ -1,7 +1,5 @@
 import streamlit as st
 import re
-import time
-import os
 
 def page_loader():
     # A lightweight, non-blocking CSS-only loader

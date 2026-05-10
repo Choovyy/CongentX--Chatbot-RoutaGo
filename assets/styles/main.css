@@ -283,6 +283,7 @@ section[data-testid="stSidebar"]>div::-webkit-scrollbar {
 
 .rg-gradient-text {
     background: linear-gradient(to right, #60A5FA, #A78BFA);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;

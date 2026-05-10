@@ -126,7 +126,7 @@ with tab1:
                     temperature=0.1,
                 )
                 
-                result = response.choices[0].message.content
+                result = response.choices[0].message.content or ""
 
                 if exact_route.get("type") != "none" and origin and destination and origin.lower() != "none" and destination.lower() != "none":
                     o_q = urllib.parse.quote(f"{origin}, Cebu City")
