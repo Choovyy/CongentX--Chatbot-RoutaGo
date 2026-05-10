@@ -2,8 +2,8 @@
 .stTabs [data-baseweb="tab-list"] {
     gap: 2rem;
     background-color: transparent;
-    border-bottom: 2px solid #E2E8F0;
-    margin-bottom: 2rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 2.5rem;
     padding: 0 0.5rem;
 }
 
@@ -14,30 +14,33 @@
     font-size: 0.95rem;
     font-weight: 600;
     color: #64748B !important;
-    padding: 0 0.25rem 0.75rem 0.25rem !important;
-    transition: all 0.2s ease;
+    padding: 0 0.5rem 0.75rem 0.5rem !important;
+    transition: all 0.3s ease;
 }
 
 .stTabs [data-baseweb="tab"]:hover {
-    color: #2563EB !important;
+    color: #A78BFA !important;
+    text-shadow: 0 0 12px rgba(167, 139, 250, 0.4);
 }
 
 .stTabs [aria-selected="true"] {
-    color: #2563EB !important;
-    border-bottom: 3px solid #2563EB !important;
+    color: #A78BFA !important;
+    border-bottom: 3px solid #8B5CF6 !important;
 }
 
-/* ── Result Card ── */
+/* ── Result Card (Glassmorphism) ── */
 .rg-result {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 16px;
-    padding: 2rem;
+    background: rgba(30, 41, 59, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem;
     margin-top: 1.5rem;
     font-size: 0.95rem;
     line-height: 1.8;
-    color: #334155;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+    color: #E2E8F0;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.05);
     position: relative;
     overflow: hidden;
 }
@@ -49,148 +52,127 @@
     left: 0;
     width: 4px;
     height: 100%;
-    background: linear-gradient(to bottom, #2563EB, #3B82F6);
+    background: linear-gradient(to bottom, #60A5FA, #8B5CF6);
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
 }
 
-.rg-result p {
-    color: #334155 !important;
+.rg-result p,
+.rg-result li {
+    color: #CBD5E1 !important;
     margin: 0.8rem 0;
 }
 
 /* ── Jeepney Code Formatting ── */
-/* Specifically styles the jeepney route codes for readability */
 .jeep-code {
     font-weight: 800 !important;
-    text-decoration: underline !important;
-    text-underline-offset: 3px !important;
-    text-decoration-thickness: 2px !important;
-    color: #1E40AF !important;
-    background: rgba(30, 64, 175, 0.05);
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    color: #A78BFA !important;
+    background: rgba(139, 92, 246, 0.15);
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 1px;
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.2);
 }
 
 /* ── Recent Routes ── */
 .recent-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
 }
 
 .recent-item {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
+    background: rgba(30, 41, 59, 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
     padding: 1.25rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
 .recent-item:hover {
-    border-color: #2563EB;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    transform: translateY(-2px);
+    border-color: #8B5CF6;
+    background: rgba(30, 41, 59, 0.6);
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.15);
+    transform: translateY(-3px);
 }
 
-.recent-icon {
-    font-size: 1.5rem;
-    background: rgba(37, 99, 235, 0.08);
-    width: 45px;
-    height: 45px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.recent-details h4 {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #0F172A;
-    font-weight: 600;
-}
-
-.recent-details p {
-    margin: 4px 0 0 0;
-    font-size: 0.8rem;
-    color: #64748B;
-}
-
-/* ── Existing Highway & Jeepney styles refined ── */
+/* ── Form Card ── */
 .rg-form-card {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 16px;
-    padding: 2rem 2.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
-    margin-bottom: 1.5rem;
+    background: rgba(19, 27, 44, 0.5);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.03) !important;
+    margin-bottom: 2rem;
 }
 
 .stTextInput>label {
     font-size: 0.8rem !important;
     font-weight: 600 !important;
-    color: #475569 !important;
-    letter-spacing: 0.02em !important;
+    color: #94A3B8 !important;
+    letter-spacing: 0.05em !important;
     text-transform: uppercase !important;
-    margin-bottom: 6px !important;
+    margin-bottom: 8px !important;
 }
 
 .stTextInput input {
-    background: #FFFFFF !important;
-    border: 1px solid #E2E8F0 !important;
-    border-radius: 10px !important;
-    padding: 0.72rem 1rem !important;
-    font-size: 0.92rem !important;
-    color: #0F172A !important;
-    font-family: 'Inter', sans-serif !important;
-    transition: all 0.2s !important;
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 0.8rem 1.2rem !important;
+    font-size: 0.95rem !important;
+    color: #F8FAFC !important;
+    transition: all 0.3s ease !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
 }
 
 .stTextInput input:focus {
-    border-color: #3B82F6 !important;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+    border-color: #8B5CF6 !important;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
     outline: none !important;
-    background: #FFFFFF !important;
+    background: rgba(15, 23, 42, 0.9) !important;
 }
 
 .stFormSubmitButton>button {
-    background: #2563EB !important;
+    background: linear-gradient(135deg, #3B82F6, #8B5CF6) !important;
     color: #FFFFFF !important;
     border: none !important;
-    border-radius: 10px !important;
-    padding: 0.75rem 2rem !important;
-    font-size: 0.9rem !important;
-    font-weight: 600 !important;
-    font-family: 'Inter', sans-serif !important;
+    border-radius: 12px !important;
+    padding: 0.9rem 2rem !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
     width: 100% !important;
-    margin-top: 0.75rem !important;
+    margin-top: 1rem !important;
     cursor: pointer !important;
-    transition: all 0.2s ease !important;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3) !important;
 }
 
 .stFormSubmitButton>button:hover {
-    background: #1D4ED8 !important;
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3) !important;
-    transform: translateY(-1px) !important;
+    background: linear-gradient(135deg, #2563EB, #7C3AED) !important;
+    box-shadow: 0 12px 28px rgba(139, 92, 246, 0.5) !important;
+    transform: translateY(-2px) !important;
 }
 
 /* ── Highway Animation Section ── */
-/* Creates a dark asphalt background for the animated jeepney */
 .highway-bar {
     width: 100%;
     height: 80px;
-    background: #1E293B;
-    border-radius: 12px;
-    margin-bottom: 1.5rem;
+    background: #020617;
+    border-radius: 16px;
+    margin-bottom: 2rem;
     position: relative;
     overflow: hidden;
-    border: 2px solid #334155;
-    box-shadow: inset 0 10px 20px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
 .highway-line {
@@ -200,14 +182,13 @@
     height: 4px;
     background: repeating-linear-gradient(90deg, #FDE047 0, #FDE047 30px, transparent 30px, transparent 60px);
     transform: translateY(-50%);
-    opacity: 0.6;
+    opacity: 0.8;
+    box-shadow: 0 0 10px rgba(253, 224, 71, 0.4);
 }
 
-/* ── Jeepney Wrapper & Animation ── */
-/* Handles the movement and smoke effect of the jeepney icon */
 .jeep-wrapper {
     position: absolute;
-    bottom: 10px;
+    bottom: 12px;
     left: -100px;
     display: flex;
     align-items: flex-end;
@@ -215,50 +196,83 @@
 }
 
 .jeep-icon {
-    font-size: 2.4rem;
+    font-size: 2.8rem;
     z-index: 2;
-    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.2));
 }
 
 .smoke-emitter {
     position: absolute;
-    bottom: 5px;
-    left: 0;
+    bottom: 8px;
+    left: -5px;
     display: flex;
     gap: 4px;
 }
 
 .smoke {
-    width: 8px;
-    height: 8px;
-    background: #CBD5E1;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     opacity: 0;
-    filter: blur(4px);
+    filter: blur(3px);
     animation: puff 0.8s infinite;
 }
 
-.smoke:nth-child(2) { animation-delay: 0.2s; }
-.smoke:nth-child(3) { animation-delay: 0.4s; }
+.smoke:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.smoke:nth-child(3) {
+    animation-delay: 0.4s;
+}
 
 @keyframes puff {
-    0%   { transform: translate(0, 0) scale(1); opacity: 0.6; }
-    100% { transform: translate(-40px, -20px) scale(3); opacity: 0; }
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translate(-50px, -20px) scale(3);
+        opacity: 0;
+    }
 }
 
 @keyframes drive-pause-drive {
-    0%   { left: -100px; }
-    35%  { left: 40%; }
-    50%  { left: 40%; }
-    85%  { left: 110%; }
-    100% { left: 110%; }
+    0% {
+        left: -100px;
+    }
+
+    35% {
+        left: 40%;
+    }
+
+    50% {
+        left: 40%;
+    }
+
+    85% {
+        left: 110%;
+    }
+
+    100% {
+        left: 110%;
+    }
 }
 
 @keyframes vibrate {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-2px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-2px);
+    }
 }
 
 .jeep-wrapper .jeep-icon {
-    animation: vibrate 0.15s infinite;
+    animation: vibrate 0.12s infinite;
 }

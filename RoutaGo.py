@@ -4,16 +4,25 @@ from dotenv import load_dotenv
 import os, json, sys, base64, re
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from utils.helpers import load_css, render_sidebar, format_response, calculate_exact_route
+from utils.helpers import load_css, render_sidebar, format_response, calculate_exact_route, page_loader
 
 load_dotenv()
 
+from PIL import Image
+
+try:
+    logo_img = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "logo.png"))
+except Exception:
+    logo_img = "🚌"
+
 st.set_page_config(
     page_title="RoutaGo",
-    page_icon="🚌",
+    page_icon=logo_img,
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+page_loader()
 
 def get_logo_b64(path="assets/logo.png"):
     try:
@@ -43,12 +52,16 @@ BACKEND JSON DATA:
 
 STRICT RULES:
 1. If the JSON says "type": "none", reply EXACTLY with: "Sorry bai, I don't have a route covering that trip yet."
-2. DO NOT add any jeepney codes, stops, or landmarks that are not explicitly written in the JSON.
-3. Start with a friendly Cebuano greeting and acknowledge where they want to go.
-4. Use bold text for the jeepney codes (e.g., **01K**).
-5. List the 'stops_passed' exactly as they appear in the data.
-6. When telling the user to alight or transfer, tell them to say "Lugar lang!".
-7. Always end by reminding them of the fare: "₱13 for the first 4km." """
+2. If the JSON says "type": "transfer", explain that they need to take TWO jeepneys. 
+   - Tell them to take the first jeepney (**first_jeep**) until **transfer_at**.
+   - Then tell them to transfer to the second jeepney (**second_jeep**) to reach their destination.
+3. DO NOT add any jeepney codes, stops, or landmarks that are not explicitly written in the JSON.
+4. Start with a friendly Cebuano greeting and acknowledge where they want to go.
+5. Use bold text for the jeepney codes (e.g., **01K**).
+6. List the 'stops_passed' (or leg stops) exactly as they appear in the data.
+7. When telling the user to alight or transfer, tell them to say "Lugar lang!".
+8. Using your internal knowledge of Cebu geography, ESTIMATE the driving distance in kilometers between the user's origin and destination.
+9. Calculate the fare using this strict formula: ₱13.00 for the first 4km, plus ₱1.80 for every succeeding kilometer. State BOTH the estimated distance and the exact calculated fare amount directly in your response! (For transfers, remember to calculate the total fare for BOTH rides)."""
 
 api_key = os.getenv("GROQ_API_KEY")
 
@@ -66,7 +79,7 @@ st.markdown(f"""
 <div class="rg-page-header">
     <img src="data:image/png;base64,{logo_b64}" class="rg-header-logo" style="width: 50px; height: 50px;" />
     <div>
-        <h1>RoutaGo</h1>
+        <h1><span class="rg-gradient-text">RoutaGo</span></h1>
         <p>Ask me anything about getting around Cebu by jeepney.</p>
     </div>
 </div>
@@ -140,6 +153,20 @@ if prompt := st.chat_input("Ask about jeepney routes in Cebu... (e.g., 'Parkmall
                 temperature=0.0,
             )
             reply = response.choices[0].message.content
+
+            if exact_route.get("type") != "none" and origin and destination:
+                safe_origin = origin.replace(" ", "+")
+                safe_dest = destination.replace(" ", "+")
+                map_url = f"https://www.google.com/maps/dir/?api=1&origin={safe_origin},+Cebu&destination={safe_dest},+Cebu&travelmode=transit"
+                embed_url = f"https://maps.google.com/maps?saddr={safe_origin},+Cebu&daddr={safe_dest},+Cebu&output=embed"
+                
+                reply += f"\n\n[🗺️ **Open Full Map**]({map_url})"
+                reply += f"""
+<div style="margin-top: 1.5rem; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+    <iframe width="100%" height="320" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{embed_url}"></iframe>
+</div>
+"""
+
             formatted_reply = format_response(reply)
             st.markdown(formatted_reply, unsafe_allow_html=True)
 

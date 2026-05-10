@@ -7,11 +7,22 @@ from datetime import datetime
 # Add root to path so we can import from utils
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from utils.helpers import load_css, render_sidebar, format_response, calculate_exact_route
+from utils.helpers import load_css, render_sidebar, format_response, calculate_exact_route, page_loader
 
 load_dotenv()
 
-st.set_page_config(page_title="Plan Route — RoutaGo", page_icon="🗺️", layout="wide", initial_sidebar_state="expanded")
+from PIL import Image
+
+try:
+    logo_img = Image.open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "logo.png"))
+except Exception:
+    logo_img = "🗺️"
+
+if "recent_routes" not in st.session_state:
+    st.session_state.recent_routes = []
+
+st.set_page_config(page_title="Plan Route — RoutaGo", page_icon=logo_img, layout="wide", initial_sidebar_state="expanded")
+page_loader()
 load_css("assets/styles/main.css")
 load_css("assets/styles/plan.css")
 render_sidebar()
@@ -34,18 +45,21 @@ You MUST format this EXACT JSON data into a friendly response.
 SYSTEM ROUTE DATA:
 {json.dumps(route_data, indent=2)}
 
-If the type is "none", just say: "Sorry bai, I don't have a route covering that trip yet."
-
-Otherwise, format it nicely:
-1. Mention the Jeepney Codes in **bold**.
-2. List the "stops_passed" EXACTLY as they appear in the JSON.
-3. Mention the standard fare (₱13 first 4km).
+STRICT RULES:
+1. If the JSON says "type": "none", reply EXACTLY with: "Sorry bai, I don't have a route covering that trip yet."
+2. If the JSON says "type": "transfer", explain that they need to take TWO jeepneys. 
+   - Tell them to take the first jeepney (**first_jeep**) until **transfer_at**.
+   - Then tell them to transfer to the second jeepney (**second_jeep**) to reach their destination.
+3. Mention the Jeepney Codes in **bold**.
+4. List the stops EXACTLY as they appear in the JSON.
+5. Using your internal knowledge of Cebu geography, ESTIMATE the driving distance in kilometers between the origin and destination.
+6. Calculate the fare using this strict formula: ₱13.00 for the first 4km, plus ₱1.80 for every succeeding kilometer. State BOTH the estimated distance and the exact calculated fare amount directly in your response! (For transfers, remember to calculate the total fare for BOTH rides).
 Use light Cebuano flavor (e.g., "Lugar lang!")."""
 
 # UI Header
 st.markdown("""
 <div class="rg-page-header">
-    <h1>🗺️ Plan My Route</h1>
+    <h1>🗺️ <span class="rg-gradient-text">Plan My Route</span></h1>
     <p>Professional Cebu jeepney navigation and route planning.</p>
 </div>
 """, unsafe_allow_html=True)
@@ -100,6 +114,20 @@ with tab1:
                 )
                 
                 result = response.choices[0].message.content
+
+                if exact_route.get("type") != "none" and origin and destination:
+                    safe_origin = origin.replace(" ", "+")
+                    safe_dest = destination.replace(" ", "+")
+                    map_url = f"https://www.google.com/maps/dir/?api=1&origin={safe_origin},+Cebu&destination={safe_dest},+Cebu&travelmode=transit"
+                    embed_url = f"https://maps.google.com/maps?saddr={safe_origin},+Cebu&daddr={safe_dest},+Cebu&output=embed"
+                    
+                    result += f"\n\n[🗺️ **Open Full Map**]({map_url})"
+                    result += f"""
+<div style="margin-top: 1.5rem; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+    <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{embed_url}"></iframe>
+</div>
+"""
+
                 formatted_result = format_response(result)
 
                 # Store in history
