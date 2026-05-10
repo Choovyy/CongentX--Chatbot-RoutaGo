@@ -1,14 +1,13 @@
 import streamlit as st
 from groq import Groq
 from dotenv import load_dotenv
-import os, json, sys, base64, re
+import os, json, sys, base64, re, urllib.parse
+from PIL import Image
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from utils.helpers import load_css, render_sidebar, format_response, calculate_exact_route, page_loader
 
 load_dotenv()
-
-from PIL import Image
 
 try:
     logo_img = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "logo.png"))
@@ -52,16 +51,17 @@ BACKEND JSON DATA:
 
 STRICT RULES:
 1. If the JSON says "type": "none", reply EXACTLY with: "Sorry bai, I don't have a route covering that trip yet."
-2. If the JSON says "type": "transfer", explain that they need to take TWO jeepneys. 
+2. If the JSON says "type": "full_route", explain the WHOLE route of this jeepney. Mention its terminals and major stops.
+3. If the JSON says "type": "transfer", explain that they need to take TWO jeepneys. 
    - Tell them to take the first jeepney (**first_jeep**) until **transfer_at**.
    - Then tell them to transfer to the second jeepney (**second_jeep**) to reach their destination.
-3. DO NOT add any jeepney codes, stops, or landmarks that are not explicitly written in the JSON.
-4. Start with a friendly Cebuano greeting and acknowledge where they want to go.
-5. Use bold text for the jeepney codes (e.g., **01K**).
-6. List the 'stops_passed' (or leg stops) exactly as they appear in the data.
-7. When telling the user to alight or transfer, tell them to say "Lugar lang!".
-8. Using your internal knowledge of Cebu geography, ESTIMATE the driving distance in kilometers between the user's origin and destination.
-9. Calculate the fare using this strict formula: ₱13.00 for the first 4km, plus ₱1.80 for every succeeding kilometer. State BOTH the estimated distance and the exact calculated fare amount directly in your response! (For transfers, remember to calculate the total fare for BOTH rides)."""
+4. DO NOT add any jeepney codes, stops, or landmarks that are not explicitly written in the JSON.
+5. Start with a friendly Cebuano greeting and acknowledge where they want to go.
+6. Use bold text for the jeepney codes (e.g., **01K**).
+7. List the 'stops_passed' (or leg stops) exactly as they appear in the data.
+8. When telling the user to alight or transfer, tell them to say "Lugar lang!".
+9. Using your internal knowledge of Cebu geography, ESTIMATE the driving distance in kilometers.
+10. Calculate the fare using this strict formula: ₱13.00 for the first 4km, plus ₱1.80 for every succeeding kilometer. State BOTH the estimated distance and the exact calculated fare amount directly in your response!"""
 
 api_key = os.getenv("GROQ_API_KEY")
 
@@ -70,9 +70,6 @@ if not api_key or api_key == "your_actual_api_key_here":
     st.stop()
 
 client = Groq(api_key=api_key)
-
-if "messages" not in st.session_state:
-    st.session_state.messages = []
 
 # Header
 st.markdown(f"""
@@ -86,6 +83,9 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # Welcome state
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
 if not st.session_state.messages:
     st.markdown("""
     <div class="rg-welcome">
@@ -99,7 +99,6 @@ if not st.session_state.messages:
     </div>
     """, unsafe_allow_html=True)
 
-# Chat history
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar="🚌" if msg["role"] == "assistant" else "🧑"):
         if msg["role"] == "assistant":
@@ -107,67 +106,73 @@ for msg in st.session_state.messages:
         else:
             st.markdown(msg["content"])
 
-# Input
-# Input
 if prompt := st.chat_input("Ask about jeepney routes in Cebu... (e.g., 'Parkmall to CIT-U')"):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user", avatar="🧑"):
         st.markdown(prompt)
 
     with st.chat_message("assistant", avatar="🚌"):
-        with st.spinner("Calculating route..."):
-            
+        with st.spinner("Searching..."):
             lower_prompt = prompt.lower()
             
-            clean_prompt = lower_prompt.replace("how do i go ", "").replace("how to go ", "").replace("commute ", "").replace("route for ", "")
+            # Check for direct Jeepney Code (e.g., "01K")
+            code_match = re.search(r"\b(\d{1,2}[A-Z])\b", prompt.upper())
             
-            match = re.search(r"from\s+(.+?)\s+to\s+(.+)", clean_prompt)
+            origin, destination, exact_route = None, None, {"type": "none"}
             
-            if match:
-                origin = match.group(1).strip()
-                destination = match.group(2).replace("?", "").strip()
-            elif " to " in clean_prompt:
-                # 3. THE FIX: If no "from", take the ENTIRE left side of " to " as the origin!
-                parts = clean_prompt.rsplit(" to ", 1)
-                origin = parts[0].strip()
-                destination = parts[1].replace("?", "").strip()
-            else:
-                origin, destination = None, None
-
-            if origin and destination:
-                exact_route = calculate_exact_route(origin, destination, ROUTES)
+            if code_match:
+                code = code_match.group(1)
+                if code in ROUTES:
+                    route_data = ROUTES[code]
+                    origin = route_data['terminals'][0]
+                    destination = route_data['terminals'][1]
+                    exact_route = {
+                        "type": "full_route",
+                        "jeepney_code": code,
+                        "description": route_data.get('description', ''),
+                        "terminals": route_data['terminals'],
+                        "stops_passed": [s['name'] for s in route_data.get('stops', [])]
+                    }
+            
+            # If not a direct code, try from/to logic
+            if exact_route["type"] == "none":
+                clean_prompt = lower_prompt.replace("how do i go ", "").replace("how to go ", "").replace("commute ", "").replace("route for ", "")
+                match = re.search(r"from\s+(.+?)\s+to\s+(.+)", clean_prompt)
                 
-                # DEBUG PRINT: Verify what Python actually extracted!
-                print(f"\n--- EXTRACTED: Origin='{origin}', Dest='{destination}' ---")
-                print(json.dumps(exact_route, indent=2))
-                print("-----------------------------------------------------------\n")
-            else:
-                exact_route = {"type": "none", "message": "General query or unformatted route request."}
+                if match:
+                    origin = match.group(1).strip()
+                    destination = match.group(2).replace("?", "").strip()
+                elif " to " in clean_prompt:
+                    parts = clean_prompt.rsplit(" to ", 1)
+                    origin = parts[0].strip()
+                    destination = parts[1].replace("?", "").strip()
+                
+                if origin and destination:
+                    exact_route = calculate_exact_route(origin, destination, ROUTES)
 
-            # FEED ONLY THE MATH RESULT TO THE LLM
             system_prompt = build_system_prompt(exact_route)
-
-            response = client.chat.completions.create(
-                model="llama-3.1-8b-instant",
-                messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": prompt}],
-                temperature=0.0,
-            )
-            reply = response.choices[0].message.content
-
-            if exact_route.get("type") != "none" and origin and destination:
-                safe_origin = origin.replace(" ", "+")
-                safe_dest = destination.replace(" ", "+")
-                map_url = f"https://www.google.com/maps/dir/?api=1&origin={safe_origin},+Cebu&destination={safe_dest},+Cebu&travelmode=transit"
-                embed_url = f"https://maps.google.com/maps?saddr={safe_origin},+Cebu&daddr={safe_dest},+Cebu&output=embed"
+            
+            try:
+                response = client.chat.completions.create(
+                    model="llama-3.1-8b-instant",
+                    messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": prompt}],
+                    temperature=0.0,
+                )
+                reply = response.choices[0].message.content
                 
-                reply += f"\n\n[🗺️ **Open Full Map**]({map_url})"
-                reply += f"""
+                if exact_route.get("type") != "none" and origin and destination:
+                    o_q = urllib.parse.quote(f"{origin}, Cebu City")
+                    d_q = urllib.parse.quote(f"{destination}, Cebu City")
+                    map_url = f"https://www.google.com/maps/dir/?api=1&origin={o_q}&destination={d_q}"
+                    embed_url = f"https://www.google.com/maps?saddr={o_q}&daddr={d_q}&output=embed"
+                    
+                    reply += f"\n\n[🗺️ **Open Full Directions**]({map_url})"
+                    reply += f"""
 <div style="margin-top: 1.5rem; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
-    <iframe width="100%" height="320" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{embed_url}"></iframe>
+    <iframe width="100%" height="320" frameborder="0" scrolling="no" src="{embed_url}"></iframe>
 </div>
 """
-
-            formatted_reply = format_response(reply)
-            st.markdown(formatted_reply, unsafe_allow_html=True)
-
-    st.session_state.messages.append({"role": "assistant", "content": reply})
+                st.session_state.messages.append({"role": "assistant", "content": reply})
+                st.markdown(format_response(reply), unsafe_allow_html=True)
+            except Exception as e:
+                st.error(f"Error: {e}")

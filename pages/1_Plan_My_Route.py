@@ -1,7 +1,7 @@
 import streamlit as st
 from groq import Groq
 from dotenv import load_dotenv
-import os, json, sys
+import os, json, sys, urllib.parse
 from datetime import datetime
 
 # Add root to path so we can import from utils
@@ -116,10 +116,10 @@ with tab1:
                 result = response.choices[0].message.content
 
                 if exact_route.get("type") != "none" and origin and destination:
-                    safe_origin = origin.replace(" ", "+")
-                    safe_dest = destination.replace(" ", "+")
-                    map_url = f"https://www.google.com/maps/dir/?api=1&origin={safe_origin},+Cebu&destination={safe_dest},+Cebu&travelmode=transit"
-                    embed_url = f"https://maps.google.com/maps?saddr={safe_origin},+Cebu&daddr={safe_dest},+Cebu&output=embed"
+                    o_q = urllib.parse.quote(f"{origin}, Cebu City")
+                    d_q = urllib.parse.quote(f"{destination}, Cebu City")
+                    map_url = f"https://www.google.com/maps/dir/?api=1&origin={o_q}&destination={d_q}"
+                    embed_url = f"https://www.google.com/maps?saddr={o_q}&daddr={d_q}&output=embed"
                     
                     result += f"\n\n[🗺️ **Open Full Map**]({map_url})"
                     result += f"""
