@@ -55,6 +55,7 @@ STRICT RULES:
 3. If the JSON says "type": "transfer", explain that they need to take TWO jeepneys. 
    - Tell them to take the first jeepney (**first_jeep**) until **transfer_at**.
    - Then tell them to transfer to the second jeepney (**second_jeep**) to reach their destination.
+   - For transfers, PROVIDE A FARE BREAKDOWN (e.g., "Ride 1: ₱13.00, Ride 2: ₱13.00, Total: ₱26.00").
 4. DO NOT add any jeepney codes, stops, or landmarks that are not explicitly written in the JSON.
 5. Start with a friendly Cebuano greeting and acknowledge where they want to go.
 6. Use bold text for the jeepney codes (e.g., **01K**).
@@ -112,13 +113,31 @@ if prompt := st.chat_input("Ask about jeepney routes in Cebu... (e.g., 'Parkmall
         st.markdown(prompt)
 
     with st.chat_message("assistant", avatar="🚌"):
-        with st.spinner("Searching..."):
-            lower_prompt = prompt.lower()
+        with st.spinner("Processing your request..."):
             
+            # STEP 1: AI GRAMMAR FIXER / ENTITY EXTRACTOR
+            # This handles messy user input like "coming from parkmall then go to citu"
+            extract_prompt = f"Extract the 'Origin' and 'Destination' from this user request: '{prompt}'. Return ONLY in the format: 'Origin | Destination'. Use 'None' if not found. Example: 'Parkmall | CITU'."
+            try:
+                extract_res = client.chat.completions.create(
+                    model="llama-3.1-8b-instant",
+                    messages=[{"role": "system", "content": extract_prompt}],
+                    temperature=0.0
+                )
+                extracted = extract_res.choices[0].message.content.strip()
+                if " | " in extracted:
+                    parts = extracted.split(" | ")
+                    origin = parts[0].strip()
+                    destination = parts[1].strip()
+                else:
+                    origin, destination = None, None
+            except:
+                origin, destination = None, None
+
             # Check for direct Jeepney Code (e.g., "01K")
             code_match = re.search(r"\b(\d{1,2}[A-Z])\b", prompt.upper())
             
-            origin, destination, exact_route = None, None, {"type": "none"}
+            exact_route = {"type": "none"}
             
             if code_match:
                 code = code_match.group(1)
@@ -134,22 +153,11 @@ if prompt := st.chat_input("Ask about jeepney routes in Cebu... (e.g., 'Parkmall
                         "stops_passed": [s['name'] for s in route_data.get('stops', [])]
                     }
             
-            # If not a direct code, try from/to logic
-            if exact_route["type"] == "none":
-                clean_prompt = lower_prompt.replace("how do i go ", "").replace("how to go ", "").replace("commute ", "").replace("route for ", "")
-                match = re.search(r"from\s+(.+?)\s+to\s+(.+)", clean_prompt)
-                
-                if match:
-                    origin = match.group(1).strip()
-                    destination = match.group(2).replace("?", "").strip()
-                elif " to " in clean_prompt:
-                    parts = clean_prompt.rsplit(" to ", 1)
-                    origin = parts[0].strip()
-                    destination = parts[1].replace("?", "").strip()
-                
-                if origin and destination:
-                    exact_route = calculate_exact_route(origin, destination, ROUTES)
+            # If not a direct code, calculate route using the AI-extracted origin/dest
+            if exact_route["type"] == "none" and origin and destination and origin.lower() != "none":
+                exact_route = calculate_exact_route(origin, destination, ROUTES)
 
+            # STEP 2: FINAL RESPONSE GENERATION
             system_prompt = build_system_prompt(exact_route)
             
             try:
@@ -160,7 +168,7 @@ if prompt := st.chat_input("Ask about jeepney routes in Cebu... (e.g., 'Parkmall
                 )
                 reply = response.choices[0].message.content
                 
-                if exact_route.get("type") != "none" and origin and destination:
+                if exact_route.get("type") != "none" and origin and destination and origin.lower() != "none":
                     o_q = urllib.parse.quote(f"{origin}, Cebu City")
                     d_q = urllib.parse.quote(f"{destination}, Cebu City")
                     map_url = f"https://www.google.com/maps/dir/?api=1&origin={o_q}&destination={d_q}"

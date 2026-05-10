@@ -50,6 +50,7 @@ STRICT RULES:
 2. If the JSON says "type": "transfer", explain that they need to take TWO jeepneys. 
    - Tell them to take the first jeepney (**first_jeep**) until **transfer_at**.
    - Then tell them to transfer to the second jeepney (**second_jeep**) to reach their destination.
+   - For transfers, PROVIDE A FARE BREAKDOWN (e.g., "Ride 1: ₱13.00, Ride 2: ₱13.00, Total: ₱26.00").
 3. Mention the Jeepney Codes in **bold**.
 4. List the stops EXACTLY as they appear in the JSON.
 5. Using your internal knowledge of Cebu geography, ESTIMATE the driving distance in kilometers between the origin and destination.
