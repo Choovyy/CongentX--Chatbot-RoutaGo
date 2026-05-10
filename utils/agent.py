@@ -90,30 +90,28 @@ def parse_tool_call(reply: str) -> dict:
             clean = clean.split("```json")[1].split("```")[0].strip()
         elif "```" in clean:
             clean = clean.split("```")[1].split("```")[0].strip()
-        else:
-            # Try to find JSON object in the response even without code fences
-            # Look for the first { and match it with the closing }
-            start_idx = clean.find("{")
-            if start_idx != -1:
-                # Find the matching closing brace
-                brace_count = 0
-                end_idx = start_idx
-                for i in range(start_idx, len(clean)):
-                    if clean[i] == "{":
-                        brace_count += 1
-                    elif clean[i] == "}":
-                        brace_count -= 1
-                        if brace_count == 0:
-                            end_idx = i + 1
-                            break
-                
-                if brace_count == 0:
-                    clean = clean[start_idx:end_idx]
+
+        # Always try to extract JSON by brace-matching
+        start_idx = clean.find("{")
+        if start_idx != -1:
+            brace_count = 0
+            end_idx = start_idx
+            for i in range(start_idx, len(clean)):
+                if clean[i] == "{":
+                    brace_count += 1
+                elif clean[i] == "}":
+                    brace_count -= 1
+                    if brace_count == 0:
+                        end_idx = i + 1
+                        break
+
+            if brace_count == 0:
+                clean = clean[start_idx:end_idx]
 
         parsed = json.loads(clean)
         if "tool" in parsed and "params" in parsed:
             return parsed
-    except (json.JSONDecodeError, KeyError, IndexError):
+    except (json.JSONDecodeError, KeyError, IndexError, ValueError):
         pass
 
     return None
@@ -127,6 +125,8 @@ def run_agent(user_message: str, routes: dict, client: Groq, max_steps: int = 3)
     - Executes them
     - Returns final answer
     """
+    from utils.helpers import format_response
+
     system_prompt = build_agent_system_prompt(TOOL_SCHEMAS)
 
     # Conversation history for this agent run
@@ -150,7 +150,7 @@ def run_agent(user_message: str, routes: dict, client: Groq, max_steps: int = 3)
 
             # If no tool call, this is the final answer
             if tool_call is None:
-                return reply
+                return format_response(reply)
 
             # Execute the tool
             tool_name = tool_call["tool"]
@@ -179,6 +179,6 @@ def run_agent(user_message: str, routes: dict, client: Groq, max_steps: int = 3)
             messages=messages,
             temperature=0.0,
         )
-        return final.choices[0].message.content.strip()
+        return format_response(final.choices[0].message.content.strip())
     except Exception as e:
         return f"Error generating final answer: {str(e)}"

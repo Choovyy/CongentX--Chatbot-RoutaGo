@@ -1,5 +1,6 @@
 import streamlit as st
 import re
+import json
 
 def page_loader():
     # A lightweight, non-blocking CSS-only loader
@@ -99,8 +100,55 @@ def render_sidebar():
         load_css("assets/styles/light.css")
 
 def format_response(text):
+    # Remove tool call JSON in various formats
+    # Pattern 1: Complete JSON tool calls {"tool": "...", "params": {...}}
+    # Uses a more robust brace-matching approach for nested objects
+    def remove_json_toolcalls(s):
+        result = []
+        i = 0
+        while i < len(s):
+            if s[i] == '{':
+                # Try to extract a complete JSON object
+                brace_count = 0
+                start = i
+                for j in range(i, len(s)):
+                    if s[j] == '{':
+                        brace_count += 1
+                    elif s[j] == '}':
+                        brace_count -= 1
+                        if brace_count == 0:
+                            json_str = s[start:j+1]
+                            try:
+                                obj = json.loads(json_str)
+                                if "tool" in obj and "params" in obj:
+                                    # Skip this tool call
+                                    i = j + 1
+                                    break
+                                else:
+                                    result.append(s[i])
+                                    i += 1
+                            except:
+                                result.append(s[i])
+                                i += 1
+                            break
+                else:
+                    result.append(s[i])
+                    i += 1
+            else:
+                result.append(s[i])
+                i += 1
+        return ''.join(result)
+
+    text = remove_json_toolcalls(text)
+
+    # Bold route codes like 01K, 13B, etc.
     formatted = re.sub(r'(\b\d+[A-Z]\b)', r'**\1**', text)
-    return formatted
+
+    # Clean up extra whitespace
+    formatted = re.sub(r'\n\s*\n\s*\n+', '\n\n', formatted)
+    formatted = re.sub(r'^\s+|\s+$', '', formatted, flags=re.MULTILINE)
+
+    return formatted.strip()
 
 def calculate_exact_route(origin_query: str, dest_query: str, routes_data: dict) -> dict:
     o_q = origin_query.lower().strip()
