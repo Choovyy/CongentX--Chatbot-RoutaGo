@@ -9,3 +9,6 @@ venv/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# RAG Vector Database Storage
+chroma_store/

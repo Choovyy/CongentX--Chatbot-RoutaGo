@@ -1,6 +1,5 @@
 streamlit
 groq
 python-dotenv
-folium
-streamlit-folium
-requests
+chromadb
+sentence-transformers

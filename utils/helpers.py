@@ -1,567 +1,399 @@
 import streamlit as st
-import os, re, json, base64
+import re
+import json
+from typing import Any, Dict, List, Optional, cast
 
+def page_loader():
+    # A lightweight, non-blocking CSS-only loader
+    loader_html = """
+    <div class="bus-loader-container">
+        <div class="bus-loader-track">
+            <div class="bus-loader-icon">🚌</div>
+            <div class="bus-loader-road"></div>
+        </div>
+        <p class="bus-loader-text">ROUTAGO IS ON THE WAY...</p>
+    </div>
+    <style>
+        .bus-loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #0B0F19;
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            animation: fade-out 0.3s forwards;
+            animation-delay: 1s;
+        }
+        .bus-loader-track {
+            position: relative;
+            width: 260px;
+            height: 80px;
+            overflow: hidden;
+            border-bottom: 2px solid rgba(255,255,255,0.05);
+        }
+        .bus-loader-icon {
+            position: absolute;
+            bottom: 5px;
+            left: -60px;
+            font-size: 3rem;
+            animation: drive 1.2s infinite linear;
+        }
+        .bus-loader-road {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, #FDE047 0, #FDE047 15px, transparent 15px, transparent 30px);
+            animation: road 0.3s infinite linear;
+        }
+        .bus-loader-text {
+            color: #F8FAFC;
+            margin-top: 1rem;
+            font-family: sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        @keyframes drive {
+            0% { left: -60px; }
+            100% { left: 260px; }
+        }
+        @keyframes road {
+            from { background-position: 0 0; }
+            to { background-position: -30px 0; }
+        }
+        @keyframes fade-out {
+            0% { opacity: 1; visibility: visible; }
+            99% { opacity: 0; visibility: visible; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+    </style>
+    """
+    st.markdown(loader_html, unsafe_allow_html=True)
 
-def load_css(filepath: str):
-    base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    full_path = os.path.join(base, filepath)
-    with open(full_path, "r", encoding="utf-8") as f:
-        css = f.read()
-    st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+def load_css(file_name):
+    try:
+        with open(file_name, "r", encoding="utf-8") as f:
+            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    except FileNotFoundError:
+        pass
 
-
-# ── SVG helpers ───────────────────────────────────────────────────────────────
-def icon_bus(size=20, color="#0D9488"):
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}"
-        viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round">
-        <path d="M8 6v6M15 6v6M2 12h19.6M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2
-            0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/>
-        <circle cx="7" cy="18" r="2"/>
-        <path d="M9 18h5"/>
-        <circle cx="16" cy="18" r="2"/>
-    </svg>"""
-
-def icon_chat(size=20, color="#2563EB"):
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}"
-        viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-    </svg>"""
-
-def icon_map(size=20, color="#2563EB"):
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}"
-        viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/>
-        <line x1="9" y1="3" x2="9" y2="18"/>
-        <line x1="15" y1="6" x2="15" y2="21"/>
-    </svg>"""
-
-
-# ── Sidebar ───────────────────────────────────────────────────────────────────
 def render_sidebar():
     with st.sidebar:
-        logo_data = ""
-        logo_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "logo.png")
-        if os.path.exists(logo_path):
-            with open(logo_path, "rb") as f:
-                logo_data = base64.b64encode(f.read()).decode("utf-8")
+        if "theme" not in st.session_state:
+            st.session_state.theme = "Light Mode"
+            
+        is_dark = st.session_state.theme == "Dark Mode"
+        new_theme = st.toggle(" ", value=is_dark)
+        
+        if new_theme != is_dark:
+            st.session_state.theme = "Dark Mode" if new_theme else "Light Mode"
+            st.rerun()
 
-        if "dark_mode" not in st.session_state:
-            st.session_state.dark_mode = False
+    if st.session_state.get("theme") == "Light Mode":
+        load_css("assets/styles/light.css")
 
-        current_dark_mode = st.session_state.dark_mode
-        dark_mode_enabled = st.toggle(
-            "Dark mode",
-            value=current_dark_mode,
-            key="theme_mode_toggle",
-            label_visibility="collapsed",
-            help="On = Dark mode, Off = Light mode"
-        )
-        st.session_state.dark_mode = dark_mode_enabled
-
-        st.markdown('<div class="sb-sep" style="margin-top:0.35rem;margin-bottom:0.75rem;"></div>', unsafe_allow_html=True)
-
-        st.markdown(f"""
-        <div class="sb-brand">
-            <a class="sb-logo-link" href="#rg-logo-modal" aria-label="View RoutaGo logo">
-                <div class="sb-icon">
-                    <img src="data:image/png;base64,{logo_data}" alt="RoutaGo logo" class="sb-logo-image" />
-                </div>
-            </a>
-            <div class="sb-brand-text">
-                <span class="sb-name">RoutaGo</span>
-                <span class="sb-sub">Cebu Jeepney Guide</span>
-            </div>
-        </div>
-
-        <div id="rg-logo-modal" class="sb-logo-modal" aria-hidden="true">
-            <a class="sb-logo-modal-backdrop" href="#" aria-label="Close"></a>
-            <div class="sb-logo-modal-box" role="dialog" aria-modal="true" aria-label="RoutaGo logo full view">
-                <a class="sb-logo-modal-close" href="#" aria-label="Close">&times;</a>
-                <img src="data:image/png;base64,{logo_data}" alt="RoutaGo logo full view" class="sb-logo-modal-image" />
-            </div>
-        </div>
-
-        <div class="sb-sep"></div>
-        <div class="sb-section-label">MENU</div>
-        """, unsafe_allow_html=True)
-
-        st.page_link("RoutaGo.py",               label="Chat Assistant")
-        st.page_link("pages/1_Plan_My_Route.py", label="Plan My Route")
-        st.page_link("pages/2_Safety_Tips.py",   label="Safety Tips")
-        st.page_link("pages/3_Cebu_Map.py",      label="Cebu Map")
-        st.page_link("pages/4_Important_Signage.py", label="Traffic Rules")
-
-        st.markdown("""
-        <div class="sb-sep"></div>
-        <div class="sb-section-label">INFO</div>
-        <div class="sb-info-item">
-            <span class="sb-dot" style="background:#F59E0B;"></span>Cebu City, PH
-        </div>
-        <div class="sb-info-item">
-            <span class="sb-dot" style="background:#0D9488;"></span>Best in Cebu City routes
-        </div>
-        <div class="sb-info-item">
-            <span class="sb-dot" style="background:#22C55E;"></span>Route 01K available
-        </div>
-        <div class="sb-info-item">
-            <span class="sb-dot" style="background:#F59E0B;"></span>Use landmarks when asking
-        </div>
-        <div class="sb-info-item">
-            <span class="sb-dot" style="background:#A78BFA;"></span><strong>Click images in Traffic Rules and Safety Tips for full view</strong>
-        </div>
-        <div class="sb-info-item">
-            <span class="sb-dot" style="background:#34D399;"></span>"Lugar lang" = Please stop here
-        </div>
-        <div class="sb-info-item">
-            <span class="sb-dot" style="background:#60A5FA;"></span>"Palihug" = Please
-        </div>
-        <div class="sb-info-item">
-            <span class="sb-dot" style="background:#FBBF24;"></span>"Pila plete?" = How much is the fare?
-        </div>
-        <div class="sb-info-item">
-            <span class="sb-dot" style="background:#F472B6;"></span>"Para" = Stop (signal word)
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.markdown('<div class="sb-ver">RoutaGo v1.0.0</div>', unsafe_allow_html=True)
-
-
-# ── Dark mode ─────────────────────────────────────────────────────────────────
-def inject_dark_mode():
-    if st.session_state.get("dark_mode", False):
-        st.markdown("""
-        <style>
-        html, body, .stApp { background-color: #0F172A !important; color: #F1F5F9 !important; }
-        .main .block-container { background: transparent !important; padding-top: 1.5rem !important; }
-        .stApp { --bg: #0F172A; --surface: #1E293B; --border: #2D3748; --text-1: #F1F5F9; --text-2: #CBD5E1; --text-3: #94A3B8; --text-4: #475569; --blue-light: rgba(37,99,235,0.15); --teal-light: rgba(13,148,136,0.15); }
-        [data-testid="stAppViewContainer"], [data-testid="stAppViewContainer"] > .main { background-color: #0F172A !important; }
-        [data-testid="stBottom"], [data-testid="stBottom"] > div, [data-testid="stBottom"] > div > div { background-color: #0F172A !important; }
-        [data-testid="stChatInput"] { background: #1E293B !important; border-color: #2D3748 !important; }
-        [data-testid="stChatInput"] textarea { color: #F1F5F9 !important; }
-        [data-testid="stChatInput"] textarea::placeholder { color: #475569 !important; }
-        .stTextInput input::placeholder { color: #475569 !important; opacity: 1 !important; }
-        .rg-page-header { border-bottom: 1px solid #1E293B !important; }
-        .rg-page-header-icon { background: rgba(37,99,235,0.2) !important; border-color: rgba(37,99,235,0.35) !important; }
-        .rg-page-header-text h1 { color: #F1F5F9 !important; }
-        .rg-page-header-text p { color: #64748B !important; }
-        .rg-welcome h2 { color: #F1F5F9 !important; }
-        .rg-welcome p { color: #64748B !important; }
-        .rg-welcome-logo { background: #1E293B !important; border-color: #2D3748 !important; }
-        .rg-chip { background: #1E293B !important; border-color: #2D3748 !important; color: #94A3B8 !important; box-shadow: none !important; }
-        .rg-chip:hover { background: #1E3A5F !important; border-color: #3B82F6 !important; color: #93C5FD !important; }
-        [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) { background: #1E293B !important; border-color: #2D3748 !important; color: #CBD5E1 !important; }
-        [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) p,
-        [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) li,
-        [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) span,
-        [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) div,
-        [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .rg-response-body { color: #E2E8F0 !important; font-size: 0.95rem !important; line-height: 1.76 !important; }
-        .rg-response-body { color: #E2E8F0 !important; font-size: 0.95rem !important; line-height: 1.76 !important; }
-        [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) { background: #162032 !important; border-color: #1E3A5F !important; border-left-color: #3B82F6 !important; }
-        [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) p,
-        [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) span { color: #93C5FD !important; }
-        .rg-route-card-wrap { color: #E2E8F0 !important; }
-        .rg-route-header { color: #F1F5F9 !important; }
-        .rg-route-subtitle { color: #94A3B8 !important; }
-        .rg-steps-label { color: #A5B4FC !important; }
-        .rg-step { background: #0F1A2E !important; border-color: #334155 !important; }
-        .rg-step-num { background: #1E3A5F !important; border-color: #2563EB !important; color: #93C5FD !important; }
-        .rg-step-label { color: #BFDBFE !important; }
-        .rg-step-text { color: #E2E8F0 !important; }
-        .rg-card-fare { background: #1C1505 !important; border-color: #78350F !important; }
-        .rg-card-fare .rg-card-label { color: #FCD34D !important; }
-        .rg-card-fare .rg-card-sub { color: #F59E0B !important; }
-        .rg-fare-amount { color: #FBBF24 !important; }
-        .rg-card-dropoff { background: #0F1E3D !important; border-color: #1D4ED8 !important; border-left-color: #3B82F6 !important; }
-        .rg-card-dropoff .rg-card-label { color: #93C5FD !important; }
-        .rg-card-dropoff .rg-card-body { color: #BFDBFE !important; }
-        .rg-card-tips { background: #0A1F12 !important; border-color: #166534 !important; border-left-color: #16A34A !important; }
-        .rg-card-tips .rg-card-label { color: #86EFAC !important; }
-        .rg-tip-item { color: #DCFCE7 !important; border-bottom-color: #14532D !important; }
-        .rg-map-tip { background: rgba(37,99,235,0.12) !important; border-color: rgba(37,99,235,0.35) !important; border-left-color: #3B82F6 !important; color: #93C5FD !important; }
-        .rg-map-tip strong { color: #93C5FD !important; }
-        .rg-map-tip-icon svg { stroke: #93C5FD !important; }
-        .rg-map-pin-card { background: #1E293B !important; border-color: #2D3748 !important; }
-        .rg-map-pin-card:hover { border-color: #3B82F6 !important; }
-        .rg-map-pin-name { color: #F1F5F9 !important; }
-        .rg-map-pin-full { color: #94A3B8 !important; }
-        .rg-map-pin-coords { color: #64748B !important; }
-        .rg-badge-blue { background: rgba(37,99,235,0.18) !important; border-color: rgba(59,130,246,0.35) !important; color: #93C5FD !important; }
-        .rg-badge-red { background: rgba(220,38,38,0.15) !important; border-color: rgba(248,113,113,0.35) !important; color: #FCA5A5 !important; }
-        </style>
-        <script>
-        (function paintBtn() {
-            const btn = window.parent.document.querySelector('[data-testid="stChatInputSubmitButton"] button');
-            if (btn) {
-                btn.style.setProperty('background', '#2563EB', 'important');
-                btn.style.setProperty('background-color', '#2563EB', 'important');
-                btn.style.setProperty('border', 'none', 'important');
-                btn.style.setProperty('border-radius', '10px', 'important');
-                btn.style.setProperty('opacity', '0.88', 'important');
-                btn.onmouseenter = () => btn.style.setProperty('background','#1D4ED8','important');
-                btn.onmouseleave = () => btn.style.setProperty('background','#2563EB','important');
-            } else { setTimeout(paintBtn, 100); }
-        })();
-        </script>
-        """, unsafe_allow_html=True)
-
-
-# ── LTFRB fare engine ─────────────────────────────────────────────────────────
-def _round_ltfrb(amount: float) -> float:
-    """Round to nearest P0.25 as required by LTFRB."""
-    return round(amount / 0.25) * 0.25
-
-
-def _ltfrb_fare(km: float, passenger_type: str = "regular") -> str:
-    """
-    Compute official LTFRB Aircon Modern PUJ fare (effective Oct 8, 2023).
-    Regular  : P15.00 for first 4 km + P2.20/km after, rounded to nearest P0.25
-    Discounted: P12.00 for first 4 km + P1.76/km after, rounded to nearest P0.25
-    Returns a formatted peso string e.g. 'P17.75'.
-    """
-    if passenger_type == "discounted":
-        base, rate = 12.00, 1.76
-    else:
-        base, rate = 15.00, 2.20
-    if km <= 4.0:
-        raw = base
-    else:
-        raw = base + (km - 4.0) * rate
-    return f"P{_round_ltfrb(raw):.2f}"
-
-
-def _get_stop_km(routes, route_code: str, stop_name: str):
-    """Look up km_from_start for a named stop (case-insensitive partial match)."""
-    route = routes.get(route_code, {})
-    needle = stop_name.lower().strip()
-    for stop in route.get("stops", []):
-        if needle in stop["name"].lower() or stop["name"].lower() in needle:
-            return stop.get("km_from_start")
-    return None
-
-
-def _calculate_fare_from_steps(steps, routes=None,
-                                 origin="", destination="",
-                                 route_code=""):
-    """
-    Derive LTFRB-accurate fare from the step list.
-    Strategy (in priority order):
-      1. If both origin and destination have km_from_start in routes.json,
-         compute exact distance = dest_km - origin_km.
-      2. Otherwise count transit steps and estimate 0.37 km/stop
-         (calibrated to route 01K's 8.13 km / 22 stops).
-    Returns (regular_fare_str, discounted_fare_str, fare_note_str).
-    """
-    # Strategy 1 — coordinate-based exact distance
-    if routes and route_code and origin and destination:
-        origin_km  = _get_stop_km(routes, route_code, origin)
-        dest_km    = _get_stop_km(routes, route_code, destination)
-        if origin_km is not None and dest_km is not None:
-            dist_km = abs(dest_km - origin_km)
-            stops_count = sum(
-                1 for s in steps
-                if re.search(r'\b(pass|arrive|alight|get off|board|stop)\b', s, re.IGNORECASE)
-            ) or max(len(steps) - 1, 1)
-            note = f"approx. {dist_km:.1f}km, {stops_count} stops"
-            return _ltfrb_fare(dist_km), _ltfrb_fare(dist_km, "discounted"), note
-
-    # Strategy 2 — step-count estimate (0.37 km/stop, calibrated to 01K)
-    transit_stops = sum(
-        1 for s in steps
-        if re.search(r'\b(pass|arrive|alight|get off|board|stop)\b', s, re.IGNORECASE)
-    ) or max(len(steps) - 1, 1)
-    dist_km = round(transit_stops * 0.37, 1)
-    note = f"approx. {dist_km:.1f}km, {transit_stops} stops"
-    return _ltfrb_fare(dist_km), _ltfrb_fare(dist_km, "discounted"), note
-
-
-# ── Response formatter ────────────────────────────────────────────────────────
-def _badge(text):
-    """Convert **CODE** to a teal monospace badge span."""
-    return re.sub(r'\*\*(.*?)\*\*', r"<span class='jeep-code'>\1</span>", text)
-
-
-def _repair_unescaped_quotes(json_like: str) -> str:
-    """
-    Repairs common malformed JSON where quotes inside string values are not escaped.
-    Heuristic: when inside a string, a quote is treated as closing only if the next
-    non-space character is a valid JSON delimiter (: , } ]).
-    """
-    result = []
-    in_string = False
-    escaped = False
-    length = len(json_like)
-
-    for i, char in enumerate(json_like):
-        if not in_string:
-            result.append(char)
-            if char == '"':
-                in_string = True
-                escaped = False
-            continue
-
-        if escaped:
-            result.append(char)
-            escaped = False
-            continue
-
-        if char == "\\":
-            result.append(char)
-            escaped = True
-            continue
-
-        if char == '"':
-            j = i + 1
-            while j < length and json_like[j].isspace():
-                j += 1
-
-            next_char = json_like[j] if j < length else ""
-            if next_char in [":", ",", "}", "]", ""]:
-                result.append(char)
-                in_string = False
+def format_response(text):
+    # Remove tool call JSON in various formats
+    # Pattern 1: Complete JSON tool calls {"tool": "...", "params": {...}}
+    # Uses a more robust brace-matching approach for nested objects
+    def remove_json_toolcalls(s):
+        result = []
+        i = 0
+        while i < len(s):
+            if s[i] == '{':
+                # Try to extract a complete JSON object
+                brace_count = 0
+                start = i
+                for j in range(i, len(s)):
+                    if s[j] == '{':
+                        brace_count += 1
+                    elif s[j] == '}':
+                        brace_count -= 1
+                        if brace_count == 0:
+                            json_str = s[start:j+1]
+                            try:
+                                obj = json.loads(json_str)
+                                if "tool" in obj and "params" in obj:
+                                    # Skip this tool call
+                                    i = j + 1
+                                    break
+                                else:
+                                    result.append(s[i])
+                                    i += 1
+                            except:
+                                result.append(s[i])
+                                i += 1
+                            break
+                else:
+                    result.append(s[i])
+                    i += 1
             else:
-                result.append('\\"')
-            continue
+                result.append(s[i])
+                i += 1
+        return ''.join(result)
 
-        if char in ["\n", "\r"]:
-            result.append("\\n")
-            continue
+    text = remove_json_toolcalls(text)
 
-        result.append(char)
+    # Remove ALL HTML tags from LLM response (both opening and closing)
+    text = re.sub(r'<[^>]+>', '', text)
 
-    return "".join(result)
+    # Bold route codes like 01K, 13B, etc.
+    formatted = re.sub(r'(\b\d+[A-Z]\b)', r'**\1**', text)
 
+    # Add line breaks after sentences
+    formatted = re.sub(r'([.!?])\s+([A-Z])', r'\1\n\n\2', formatted)
 
-def _extract_json_object(raw_text: str) -> str:
-    """Extracts the first top-level JSON object from mixed model text."""
-    text = re.sub(r"```json|```", "", raw_text or "", flags=re.IGNORECASE).strip()
-    text = re.sub(r"^\s*assistant\s*avatar\s*", "", text, flags=re.IGNORECASE)
+    # Convert numbered lists to markdown bullets
+    formatted = re.sub(r'^\s*(\d+)[.)]\s+', r'- ', formatted, flags=re.MULTILINE)
 
-    start = text.find("{")
-    end = text.rfind("}")
-    if start != -1 and end != -1 and end > start:
-        return text[start:end + 1].strip()
-    return text
+    # Clean up extra whitespace
+    formatted = re.sub(r'\n\s*\n\s*\n+', '\n\n', formatted)
+    formatted = re.sub(r'^\s+|\s+$', '', formatted, flags=re.MULTILINE)
 
+    return formatted.strip()
 
-def _try_parse_json_candidate(candidate: str):
-    if not isinstance(candidate, str):
-        return None
-
-    candidate = candidate.strip()
-    if not candidate:
-        return None
-
-    try:
-        parsed = json.loads(candidate)
-    except Exception:
-        parsed = None
-
-    if isinstance(parsed, dict):
-        return parsed
-
-    if isinstance(parsed, str):
-        nested = _extract_json_object(parsed)
-        try:
-            nested_parsed = json.loads(nested)
-            if isinstance(nested_parsed, dict):
-                return nested_parsed
-        except Exception:
-            pass
-
-    decoder = json.JSONDecoder()
-    for index, char in enumerate(candidate):
-        if char not in ["{", "["]:
-            continue
-        try:
-            parsed_obj, _ = decoder.raw_decode(candidate[index:])
-            if isinstance(parsed_obj, dict):
-                return parsed_obj
-            if isinstance(parsed_obj, str):
-                nested = _extract_json_object(parsed_obj)
-                nested_parsed = _try_parse_json_candidate(nested)
-                if isinstance(nested_parsed, dict):
-                    return nested_parsed
-        except Exception:
-            continue
-
-    return None
-
-
-def _extract_route_object_from_text(raw_text: str):
-    text = raw_text or ""
-    if "route" not in text.lower():
-        return None
-
-    def _field(name: str):
-        pattern = rf'"{name}"\s*:\s*"(.*?)"'
-        match = re.search(pattern, text, flags=re.IGNORECASE | re.DOTALL)
-        return match.group(1).strip() if match else ""
-
-    route_type = _field("type")
-    if route_type and route_type.lower() != "route":
-        return None
-
-    steps_match = re.search(r'"steps"\s*:\s*\[(.*?)\]', text, flags=re.IGNORECASE | re.DOTALL)
-    steps = []
-    if steps_match:
-        raw_steps = steps_match.group(1)
-        steps = [m.strip() for m in re.findall(r'"((?:\\.|[^"\\])*)"', raw_steps)]
-        steps = [s.replace('\\"', '"') for s in steps if s.strip()]
-
-    tips_match = re.search(r'"tips"\s*:\s*\[(.*?)\]', text, flags=re.IGNORECASE | re.DOTALL)
-    tips = []
-    if tips_match:
-        raw_tips = tips_match.group(1)
-        tips = [m.strip() for m in re.findall(r'"((?:\\.|[^"\\])*)"', raw_tips)]
-        tips = [t.replace('\\"', '"') for t in tips if t.strip()]
-
-    route_obj = {
-        "type": "route",
-        "route_code": _field("route_code"),
-        "route_name": _field("route_name"),
-        "origin": _field("origin"),
-        "destination": _field("destination"),
-        "boarding": _field("boarding"),
-        "steps": steps,
-        "fare": _field("fare"),
-        "fare_note": _field("fare_note"),
-        "dropoff": _field("dropoff"),
-        "tips": tips,
+def parse_agent_response(text: str) -> Dict[str, Any]:
+    """Parse agent response to extract structured route and fare data."""
+    data: Dict[str, Any] = {
+        "text": text,
+        "route_info": None,
+        "fare_info": None,
+        "distance": None,
+        "stops": []
     }
 
-    has_core_content = bool(route_obj["steps"] or route_obj["origin"] or route_obj["destination"] or route_obj["route_name"])
-    return route_obj if has_core_content else None
+    # Extract route codes (like 01K, 13B)
+    route_codes = re.findall(r'\b(\d+[A-Z])\b', text)
+    if route_codes:
+        data["route_info"] = {"codes": list(set(route_codes))}  # Unique codes
 
+    # Extract fare amounts (PHP XXX.XX or PHP XX)
+    fare_match = re.search(r'PHP\s*([\d,]+\.?\d*)', text)
+    if fare_match:
+        fare_amount = fare_match.group(1).replace(',', '')
+        data["fare_info"] = {"amount": float(fare_amount)}
 
-def _parse_llm_json(raw_text: str):
-    """Attempts strict parse first, then lenient repair for malformed JSON."""
-    candidate = _extract_json_object(raw_text)
-    parsed = _try_parse_json_candidate(candidate)
-    if isinstance(parsed, dict):
-        return parsed
+    # Extract distance (X kilometers or X km)
+    distance_match = re.search(r'([\d.]+)\s*(?:kilometers|km)', text)
+    if distance_match:
+        data["distance"] = f"{distance_match.group(1)} km"
 
-    repaired = _repair_unescaped_quotes(candidate)
-    repaired = re.sub(r",\s*([}\]])", r"\1", repaired)
-    parsed_repaired = _try_parse_json_candidate(repaired)
-    if isinstance(parsed_repaired, dict):
-        return parsed_repaired
+    # Extract transfer point if mentioned
+    transfer_match = re.search(r'[Tt]ransfer\s+(?:at|to)\s+([^\n,.]+)', text)
+    if transfer_match:
+        if data["route_info"] is None:
+            data["route_info"] = {}
+        if isinstance(data["route_info"], dict):
+            transfer_location = transfer_match.group(1).strip()
+            # Clean up any stray HTML tags
+            transfer_location = re.sub(r'</?\w+[^>]*>', '', transfer_location)
+            data["route_info"]["transfer_at"] = transfer_location
 
-    heuristic_route = _extract_route_object_from_text(raw_text)
-    if isinstance(heuristic_route, dict):
-        return heuristic_route
+    # Extract stops from numbered lists
+    stop_lines: List[str] = re.findall(r'^\s*\d+\.\s+([^\n]+)', text, re.MULTILINE)
+    if stop_lines:
+        # Clean up stray HTML tags from stops
+        cleaned_stops = []
+        for s in stop_lines:
+            s_clean = s.strip()
+            s_clean = re.sub(r'</?\w+[^>]*>', '', s_clean)
+            if len(s_clean) > 2:
+                cleaned_stops.append(s_clean)
+        data["stops"] = cast(List[Any], cleaned_stops)
 
-    return None
+    return data
 
+def calculate_exact_route(origin_query: str, dest_query: str, routes_data: dict) -> dict:
+    o_q = origin_query.lower().strip()
+    d_q = dest_query.lower().strip()
+    
+    def normalize(s):
+        if not s: return ""
+        # Remove common stop words for better matching
+        s = s.lower()
+        s = re.sub(r'\b(mall|university|campus|public|market|street|st|ave|avenue|road|rd|hub|terminal)\b', '', s)
+        return re.sub(r'[^a-z0-9]', '', s)
 
-def format_response(text: str, routes=None) -> str:
-    """
-    Parses JSON from the LLM and renders structured route cards.
-    Falls back to plain text with bold badges if JSON is absent/malformed.
-    Pass `routes` (loaded routes.json dict) to enable coordinate-based
-    LTFRB-accurate fare calculation.
-    All HTML is built with zero leading whitespace — st.markdown() turns
-    4-space-indented lines into code blocks.
-    """
-    data = _parse_llm_json(text)
-    if data is None:
-        clean_fallback = _extract_json_object(text)
-        clean_fallback = re.sub(r"^\s*assistant\s*avatar\s*", "", clean_fallback, flags=re.IGNORECASE)
-        return "<div class='rg-response-body'>" + _badge(clean_fallback).replace("\n", "<br>") + "</div>"
+    landmark_map = {
+        # Schools
+        "citu": "cebu institute of technology university",
+        "cit": "cebu institute of technology university",
+        "cit-u": "cebu institute of technology university",
+        "usc": "university of san carlos",
+        "usc main": "university of san carlos main campus",
+        "usc north": "university of san carlos north campus",
+        "usc south": "university of san carlos south campus",
+        "uv": "university of visayas",
+        "uc": "university of cebu",
+        "ctu": "cebu technological university",
+        "usjr": "university of san jose recoletos",
+        "uspf": "university of southern philippines foundation",
+        "swu": "southwestern university",
+        "up": "university of the philippines",
+        "ctu": "cebu technological university",
+        "cim": "cebu institute of medicine",
+        "stc": "st theresa's college",
+        "cicu": "colegio de la inmaculada concepcion",
+        "sti": "sti college",
+        
+        # Malls & Markets
+        "sm": "sm city cebu",
+        "sm cebu": "sm city cebu",
+        "sm seaside": "sm seaside city cebu",
+        "ayala": "ayala center cebu",
+        "ayala cebu": "ayala center cebu",
+        "emall": "elizabeth mall",
+        "e-mall": "elizabeth mall",
+        "country mall": "gaisano country mall",
+        "g-mall": "gaisano grand mall",
+        "grand mall": "gaisano grand mall",
+        "jy": "jy square mall",
+        "jy square": "jy square mall",
+        "j centre": "j centre mall",
+        "pacific mall": "pacific mall",
+        "marina mall": "mactan marina mall",
+        "btc": "banilad town center",
+        "parkmall": "parkmall",
+        "carbon": "carbon public market",
+        "taboan": "taboan public market",
+        "pasil": "pasil fish market",
+        "colonnade": "colonnade supermarket",
+        "gaisano main": "gaisano main",
+        "metro colon": "metro colon",
+        "metro gaisano": "metro gaisano",
+        
+        # Terminals & Transport
+        "csbt": "south bus terminal",
+        "south bus": "south bus terminal",
+        "north bus": "north bus terminal",
+        "pier 1": "pier 1",
+        "pier 2": "pier 2",
+        "pier 3": "pier 3",
+        "pier 4": "pier 4",
+        "airport": "mactan cebu international airport",
+        "mcia": "mactan cebu international airport",
+        "it park": "it park",
+        "it-park": "it park",
+        "pueblo verde": "pueblo verde terminal",
+        "tamiya": "tamiya terminal",
+        "tintay": "tintay jeepney terminal",
+        
+        # Government & Public
+        "bir": "bureau of internal revenue",
+        "dfa": "department of foreign affairs",
+        "sss": "social security system",
+        "pldt": "pldt",
+        "prc": "professional regulations commission",
+        "coa": "commission on audit",
+        "sec": "securities and exchange commission",
+        "capitol": "cebu provincial capitol",
+        "city hall": "cebu city hall",
+        "hall of justice": "hall of justice",
+        
+        # Hospitals
+        "votto": "vicente sotto hospital",
+        "vsmmc": "vicente sotto memorial medical center",
+        "chong hua": "chong hua hospital",
+        "cebu doc": "cebu doctors university hospital",
+        "miller": "miller hospital",
+        "ccmc": "cebu city medical center",
+        
+        # Major Hubs / Areas
+        "colon": "colon",
+        "guadalupe": "guadalupe",
+        "labangon": "labangon",
+        "banawa": "banawa",
+        "lahug": "lahug",
+        "mabolo": "mabolo",
+        "talamban": "talamban",
+        "bulacao": "bulacao",
+        "pardo": "pardo",
+        "quiot": "quiot",
+        "tisa": "tisa",
+        "apas": "apas",
+        "busay": "busay",
+        "pitos": "pitos",
+        "mandaue": "mandaue",
+        "lapu-lapu": "lapu-lapu city",
+        "cordova": "cordova"
+    }
+    
+    # Fuzzy match for landmark map
+    o_norm = normalize(o_q)
+    d_norm = normalize(d_q)
+    
+    for key, val in landmark_map.items():
+        if o_norm == normalize(key): o_q = val
+        if d_norm == normalize(key): d_q = val
 
-    if not isinstance(data, dict):
-        return "<div class='rg-response-body'>" + _badge(str(data)).replace("\n", "<br>") + "</div>"
+    def is_match(query, target):
+        q_norm = normalize(query)
+        t_norm = normalize(target)
+        if not q_norm or not t_norm: return False
+        
+        # Basic normalized match
+        if q_norm in t_norm or t_norm in q_norm: return True
+        
+        # Intersection match for major hubs
+        hubs = ["colon", "smcity", "ayala", "parkmall", "itpark", "taboan", "carbon", "pier", "citu", "cit"]
+        for hub in hubs:
+            h_norm = normalize(hub)
+            if h_norm in q_norm and h_norm in t_norm: return True
+        return False
 
-    # Plain text / greeting / error
-    if data.get("type") == "text":
-        msg = data.get("message", "")
-        return "<div class='rg-response-body'>" + _badge(msg).replace("\n", "<br>") + "</div>"
+    # 1. DIRECT ROUTES
+    for code, data in routes_data.items():
+        stops = [s["name"] for s in data.get("stops", [])]
+        o_idx, d_idx = -1, -1
+        for i, s in enumerate(stops):
+            if is_match(o_q, s): o_idx = i
+            if is_match(d_q, s): d_idx = i
+        
+        if o_idx != -1 and d_idx != -1:
+            if o_idx < d_idx:
+                return {"type": "direct", "jeepney_code": code, "stops_passed": stops[o_idx:d_idx+1]}
+            else:
+                return {"type": "direct_reverse", "jeepney_code": code, "stops_passed": stops[d_idx:o_idx+1][::-1]}
 
-    # Route card
-    route_code  = data.get("route_code", "")
-    origin      = data.get("origin", "")
-    destination = data.get("destination", "")
-    steps       = data.get("steps", [])
-    dropoff     = data.get("dropoff", "").replace('\\"', '"').replace("\\'", "'")
-    tips        = [t.replace('\\"', '"').replace("\\'", "'") for t in data.get("tips", [])]
+    # 2. 1-TRANSFER ROUTES
+    for code1, data1 in routes_data.items():
+        stops1 = [s["name"] for s in data1.get("stops", [])]
+        o_idx = -1
+        for i, s in enumerate(stops1):
+            if is_match(o_q, s): o_idx = i; break
+        
+        if o_idx != -1:
+            for t_idx, stop_info in enumerate(data1.get("stops", [])):
+                if t_idx == o_idx: continue
+                transfer_point = stop_info["name"]
+                
+                for code2, data2 in routes_data.items():
+                    if code1 == code2: continue
+                    stops2 = [s["name"] for s in data2.get("stops", [])]
+                    
+                    t_idx2, d_idx2 = -1, -1
+                    for i, s in enumerate(stops2):
+                        if is_match(transfer_point, s): t_idx2 = i
+                        if is_match(d_q, s): d_idx2 = i
+                    
+                    if t_idx2 != -1 and d_idx2 != -1:
+                        leg1 = stops1[o_idx:t_idx+1] if o_idx < t_idx else stops1[t_idx:o_idx+1][::-1]
+                        leg2 = stops2[t_idx2:d_idx2+1] if t_idx2 < d_idx2 else stops2[d_idx2:t_idx2+1][::-1]
+                        return {
+                            "type": "transfer",
+                            "first_jeep": code1,
+                            "transfer_at": transfer_point,
+                            "second_jeep": code2,
+                            "first_leg_stops": leg1,
+                            "second_leg_stops": leg2
+                        }
 
-    def _clean_step_text(step_text: str) -> str:
-        cleaned = (step_text or "").strip()
-        cleaned = re.sub(r"^\s*\d+\s*[\)\].:,-]?\s*", "", cleaned)
-        cleaned = re.sub(r"^\s*step\s*\d+\s*[\)\].:,-]?\s*", "", cleaned, flags=re.IGNORECASE)
-        cleaned = re.sub(r"^\s*[\-–—:]+\s*", "", cleaned)
-        cleaned = re.sub(r"\s+[\-–—]{2,}\s+", " — ", cleaned)
-        return cleaned
-
-    cleaned_steps = [_clean_step_text(s) for s in steps]
-    cleaned_steps = [s for s in cleaned_steps if s and not re.fullmatch(r"\d+", s)]
-
-    # ── LTFRB-accurate fare (always computed here — never trusted from LLM) ──
-    reg_fare, disc_fare, fare_note = _calculate_fare_from_steps(
-        cleaned_steps,
-        routes=routes,
-        origin=origin,
-        destination=destination,
-        route_code=route_code,
-    )
-
-    # Numbered steps
-    steps_html = "".join(
-        '<div class="rg-step">'
-        + f'<div class="rg-step-num">{i}</div>'
-        + f'<div class="rg-step-content"><div class="rg-step-label">Step {i}</div><div class="rg-step-text">{_badge(s)}</div></div>'
-        + '</div>'
-        for i, s in enumerate(cleaned_steps, 1)
-    )
-
-    # Fare card — shows regular + discounted rows
-    fare_block = (
-        '<div class="rg-card rg-card-fare">'
-        + '<div class="rg-card-label">FARE ESTIMATE</div>'
-        + f'<div class="rg-fare-amount">{reg_fare}</div>'
-        + f'<div class="rg-card-sub">{fare_note}</div>'
-        + f'<div class="rg-fare-discounted">Student / Elderly / Disabled: <strong>{disc_fare}</strong></div>'
-        + '</div>'
-    )
-
-    # Drop-off card
-    dropoff_block = (
-        '<div class="rg-card rg-card-dropoff">'
-        + '<div class="rg-card-label">WHERE TO STOP (DROP OFF)</div>'
-        + f'<div class="rg-card-body">{dropoff}</div>'
-        + '</div>'
-    ) if dropoff else ""
-
-    # Tips card
-    tips_block = (
-        '<div class="rg-card rg-card-tips">'
-        + '<div class="rg-card-label">TIPS</div>'
-        + "".join(f'<div class="rg-tip-item">{t}</div>' for t in tips)
-        + '</div>'
-    ) if tips else ""
-
-    # Header
-    if origin and destination:
-        header = (
-            "Route: <strong style='color:#2563EB'>" + origin
-            + "</strong> &rarr; <strong style='color:#2563EB'>" + destination + "</strong>"
-        )
-    else:
-        header = "<strong>" + route_code + "</strong>"
-
-    return (
-        '<div class="rg-route-card-wrap">'
-        + '<div class="rg-route-header">'
-        + (f'<span class="jeep-code rg-route-code">{route_code}</span> ' if route_code else '')
-        + header
-        + '</div>'
-        + '<div class="rg-route-subtitle">Follow these passenger directions</div>'
-        + '<div class="rg-steps-label">DIRECTIONS</div>'
-        + f'<div class="rg-steps">{steps_html}</div>'
-        + fare_block
-        + dropoff_block
-        + tips_block
-        + '</div>'
-    )
+    return {"type": "none"}
