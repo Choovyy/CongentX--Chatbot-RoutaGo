@@ -1,9 +1,20 @@
 import streamlit as st
-import os, sys, json, urllib.parse
+import os, sys, json, urllib.parse, base64
 from PIL import Image
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.helpers import load_css, render_sidebar, page_loader
+
+def get_logo_b64(path="assets/logo.png"):
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    full_path = os.path.join(root_dir, path)
+    try:
+        with open(full_path, "rb") as f:
+            return base64.b64encode(f.read()).decode()
+    except FileNotFoundError:
+        return ""
+
+logo_b64 = get_logo_b64()
 
 try:
     logo_img = Image.open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "logo.png"))
@@ -16,10 +27,13 @@ load_css("assets/styles/main.css")
 load_css("assets/styles/plan.css")
 render_sidebar()
 
-st.markdown("""
+st.markdown(f"""
 <div class="rg-page-header">
-    <h1>🧭 <span class="rg-gradient-text">Route Explorer</span></h1>
-    <p>Browse the complete directory of Cebu Jeepney routes, terminals, and designated stops.</p>
+    <img src="data:image/png;base64,{logo_b64}" class="rg-header-logo" style="width: 50px; height: 50px;" />
+    <div>
+        <h1><span class="rg-gradient-text">Route Explorer</span></h1>
+        <p>Browse the complete directory of Cebu Jeepney routes, terminals, and designated stops.</p>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -48,40 +62,40 @@ if selected_code:
         
         with col2:
             st.markdown(f"""
-<div class="rg-result" style="margin-top: 0; padding: 2rem;">
-<div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-<span class="jeep-code" style="font-size: 1.5rem; padding: 5px 12px;">{selected_code}</span>
-<h3 style="margin:0;">{route_data['name'].split('-', 1)[-1].strip()}</h3>
-</div>
-<p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">{route_data.get('description', '')}</p>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; border-top: 1px solid rgba(128,128,128,0.1); padding-top: 1.5rem;">
-<div>
-<h4 style="color: #A78BFA; margin-bottom: 0.5rem; font-size: 1rem;">🚦 Terminals</h4>
-<p style="margin: 0;"><strong>Origin:</strong> {origin_term}</p>
-<p style="margin: 0;"><strong>Destination:</strong> {dest_term}</p>
-</div>
-<div>
-<h4 style="color: #60A5FA; margin-bottom: 0.5rem; font-size: 1rem;">💳 Est. Fare</h4>
-<p style="margin: 0;"><strong>Base:</strong> ₱{fare.get('base_fare', 13)}.00</p>
-<p style="margin: 0; font-size: 0.8rem; color: #64748B;">{fare.get('note', '₱13 first 4km')}</p>
-</div>
-</div>
+<div class="plan-result-card">
+    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
+        <div style="flex: 1 1 320px; min-width: 320px;">
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                <span class="jeep-code" style="font-size: 1.4rem; padding: 6px 14px;">{selected_code}</span>
+                <h3 style="margin:0; font-size: 1.3rem;">{route_data['name'].split('-', 1)[-1].strip()}</h3>
+            </div>
+            <p style="font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.4rem;">{route_data.get('description', '')}</p>
+        </div>
+        <div style="flex: 0 0 280px; min-width: 240px; display: grid; gap: 1rem;">
+            <div>
+                <h4 style="color: #A78BFA; margin-bottom: 0.6rem; font-size: 1rem;">🚦 Terminals</h4>
+                <p style="margin: 0;"><strong>Origin:</strong> {origin_term}</p>
+                <p style="margin: 0;"><strong>Destination:</strong> {dest_term}</p>
+            </div>
+            <div>
+                <h4 style="color: #60A5FA; margin-bottom: 0.6rem; font-size: 1rem;">💳 Est. Fare</h4>
+                <p style="margin: 0;"><strong>Base:</strong> ₱{fare.get('base_fare', 13)}.00</p>
+                <p style="margin: 0; font-size: 0.88rem; color: #94A3B8;">{fare.get('note', '₱13 first 4km')}</p>
+            </div>
+        </div>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
         # Map Section with Fallback Link
         st.markdown(f"""
-<div class="rg-result" style="margin-top: 1.5rem; padding: 0; overflow: hidden; height: 350px;">
-<iframe
-width="100%"
-height="350"
-frameborder="0"
-style="border:0"
-src="https://www.google.com/maps?q={origin_q}+to+{dest_q}&output=embed"
-allowfullscreen>
-</iframe>
-</div>
-<div style="margin-top: 10px; text-align: right;">
-<a href="https://www.google.com/maps/dir/{origin_q}/{dest_q}" target="_blank" style="color: #60A5FA; font-size: 0.85rem; text-decoration: none;">↗ View full directions on Google Maps</a>
+<div class="plan-map-card">
+    <iframe
+        src="https://www.google.com/maps?q={origin_q}+to+{dest_q}&output=embed"
+        allowfullscreen>
+    </iframe>
+    <div class="plan-map-actions">
+        <a href="https://www.google.com/maps/dir/{origin_q}/{dest_q}" target="_blank">↗ View full directions on Google Maps</a>
+    </div>
 </div>
 """, unsafe_allow_html=True)

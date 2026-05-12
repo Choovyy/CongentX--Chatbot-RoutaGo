@@ -148,8 +148,8 @@ def format_response(text):
     # Bold route codes like 01K, 13B, etc.
     formatted = re.sub(r'(\b\d+[A-Z]\b)', r'**\1**', text)
 
-    # Add line breaks after sentences
-    formatted = re.sub(r'([.!?])\s+([A-Z])', r'\1\n\n\2', formatted)
+    # Add line breaks after sentences, even when punctuation is not followed by a space
+    formatted = re.sub(r'([.!?])\s*([A-Z])', r'\1\n\n\2', formatted)
 
     # Convert numbered lists to markdown bullets
     formatted = re.sub(r'^\s*(\d+)[.)]\s+', r'- ', formatted, flags=re.MULTILINE)

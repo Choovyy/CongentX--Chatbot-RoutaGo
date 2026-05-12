@@ -1,7 +1,7 @@
 import streamlit as st
 from groq import Groq
 from dotenv import load_dotenv
-import os, json, sys, urllib.parse
+import os, json, sys, urllib.parse, base64
 from datetime import datetime
 
 # Add root to path so we can import from utils
@@ -12,6 +12,18 @@ from utils.helpers import load_css, render_sidebar, format_response, calculate_e
 load_dotenv()
 
 from PIL import Image
+
+def get_logo_b64(path="assets/logo.png"):
+    # Fix path to be relative to the project root
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    full_path = os.path.join(root_dir, path)
+    try:
+        with open(full_path, "rb") as f:
+            return base64.b64encode(f.read()).decode()
+    except FileNotFoundError:
+        return ""
+
+logo_b64 = get_logo_b64()
 
 try:
     logo_img = Image.open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "logo.png"))
@@ -65,10 +77,13 @@ STRICT RULES:
 Use light Cebuano flavor (e.g., "Lugar lang!")."""
 
 # UI Header
-st.markdown("""
+st.markdown(f"""
 <div class="rg-page-header">
-    <h1>🗺️ <span class="rg-gradient-text">Plan My Route</span></h1>
-    <p>Professional Cebu jeepney navigation and route planning.</p>
+    <img src="data:image/png;base64,{logo_b64}" class="rg-header-logo" style="width: 50px; height: 50px;" />
+    <div>
+        <h1><span class="rg-gradient-text">Plan My Route</span></h1>
+        <p>Professional Cebu jeepney navigation and route planning.</p>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -144,11 +159,11 @@ with tab1:
                     
                     result += f"\n\n[🗺️ **Open Full Map**]({map_url})"
                     map_html = f"""
-<div style="margin-top: 1.5rem; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+<div class="plan-map-card">
     <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{embed_url}"></iframe>
-</div>
-<div style="margin-top: 0.75rem; text-align: right;">
-    <a href="https://www.google.com/maps/dir/{o_q}/{d_q}" target="_blank" style="color: #60A5FA; font-size: 0.9rem; text-decoration: none;">↗ Open full directions on Google Maps</a>
+    <div class="plan-map-actions">
+        <a href="https://www.google.com/maps/dir/{o_q}/{d_q}" target="_blank">↗ Open full directions on Google Maps</a>
+    </div>
 </div>
 """
 
