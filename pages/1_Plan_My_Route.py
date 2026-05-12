@@ -163,7 +163,7 @@ with tab1:
                 })
                 st.session_state.recent_routes = st.session_state.recent_routes[:10]
 
-                st.markdown(formatted_result, unsafe_allow_html=True)
+                st.markdown(f"<div class='plan-result-card'>{formatted_result}</div>", unsafe_allow_html=True)
                 if map_html:
                     st.markdown(map_html, unsafe_allow_html=True)
 
@@ -174,5 +174,5 @@ with tab2:
         st.markdown("<div class='recent-container'>", unsafe_allow_html=True)
         for route in st.session_state.recent_routes:
             with st.expander(f"📍 {route['origin']} → {route['destination']} ({route['time']})"):
-                st.markdown(f"<div class='rg-result' style='margin-top:0;'>{route['result']}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='plan-result-card' style='margin-top:0;'>{route['result']}</div>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)

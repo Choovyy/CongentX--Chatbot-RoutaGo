@@ -91,10 +91,42 @@
     padding: 2rem;
     margin-top: 1.5rem;
     box-shadow: 0 18px 32px rgba(0, 0, 0, 0.18);
+    color: #E2E8F0 !important;
+    line-height: 1.85 !important;
+    font-size: 0.95rem !important;
+}
+
+.plan-result-card p {
+    margin: 1rem 0 !important;
+    color: #CBD5E1 !important;
+    font-size: 0.95rem !important;
+}
+
+.plan-result-card strong {
+    color: #A78BFA !important;
+    font-weight: 700 !important;
+}
+
+.plan-result-card ul,
+.plan-result-card ol {
+    margin: 1.25rem 0 !important;
+    padding-left: 2rem !important;
+}
+
+.plan-result-card li {
+    margin: 0.65rem 0 !important;
+    color: #CBD5E1 !important;
+    font-size: 0.95rem !important;
 }
 
 .plan-result-card a {
-    color: #7C3AED !important;
+    color: #60A5FA !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+}
+
+.plan-result-card a:hover {
+    text-decoration: underline !important;
 }
 
 .plan-map-card {
