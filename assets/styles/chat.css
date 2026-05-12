@@ -353,3 +353,78 @@
     color: #F8FAFC !important;
     text-align: right;
 }
+
+/* ── Route Leg & Stops Styling ── */
+.rg-leg-header {
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    color: #A78BFA !important;
+    margin: 1.5rem 0 0.75rem 0 !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.02em;
+}
+
+.rg-transfer-header {
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: #60A5FA !important;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-weight: 700 !important;
+    margin: 1.5rem 0 !important;
+    font-size: 0.9rem !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+.rg-stops-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0.75rem 0 1.5rem 0 !important;
+    padding-left: 4px;
+}
+
+.rg-stop-tag {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #CBD5E1 !important;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem !important;
+    font-weight: 500 !important;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.rg-stop-tag:hover {
+    background: rgba(30, 41, 59, 0.9);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.rg-map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    color: #60A5FA !important;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.rg-map-link:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3));
+    border-color: #8B5CF6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}

@@ -139,52 +139,72 @@ def format_response(text):
     text = remove_json_toolcalls(text)
     text = re.sub(r'<[^>]+>', '', text)
 
-    # 1. Standardize and wrap key-value pairs (e.g., **Distance:** 12km)
+    # 1. Standardize and wrap key-value pairs (Distance, Fare, Route, Stops)
     def wrap_key_value(match):
         key = match.group(1).strip()
         value = match.group(2).strip()
-        # Clean up any trailing punctuation on value
         value = re.sub(r'[.!?]$', '', value)
         
         icon = "📍"
-        if "distance" in key.lower(): icon = "📏"
-        elif "fare" in key.lower(): icon = "💰"
-        elif "route" in key.lower(): icon = "🚌"
-        elif "stop" in key.lower(): icon = "🛑"
+        k_lower = key.lower()
+        if "distance" in k_lower: icon = "📏"
+        elif "fare" in k_lower: icon = "💰"
+        elif "route" in k_lower: icon = "🚌"
+        elif "stops" in k_lower: icon = "🛑"
         
         return f"""<div class="rg-info-row">
             <span class="rg-info-label">{icon} {key}</span>
             <span class="rg-info-value">{value}</span>
         </div>"""
 
-    # Match **Key:** Value
-    text = re.sub(r'\*\*(Distance|Fare|Route|Stops):\*\*\s*(.+)', wrap_key_value, text, flags=re.IGNORECASE)
+    # Match [Emoji] **Key:** Value
+    text = re.sub(r'(?:[^\w\s]\s*)?\*\*(Distance|Fare|Route|Stops):\*\*\s*(.+)', wrap_key_value, text, flags=re.IGNORECASE)
 
-    # 2. Bold and style jeepney codes (e.g., 01K, 12L)
-    # We wrap them in a span with a class for special styling
+    # 2. Format Route Legs and Transfers
+    def format_leg(match):
+        title = match.group(1).strip()
+        return f'<div class="rg-leg-header">🚩 {title}</div>'
+    
+    # Handle both "**First Leg:**" and "Stops First Leg:"
+    text = re.sub(r'(?:\*\*Stops:\*\*\s*)?\*\*((?:First|Second) Leg):\*\*', format_leg, text, flags=re.IGNORECASE)
+    text = re.sub(r'((?:First|Second) Leg):', format_leg, text, flags=re.IGNORECASE)
+    
+    text = re.sub(r'\*\*(Transfer at [^*]+)\*\*', r'<div class="rg-transfer-header">🔄 \1</div>', text, flags=re.IGNORECASE)
+
+    # 3. Format Stop Lists (convert " - Stop - Stop" into styled spans)
+    def format_stops(match):
+        stops_str = match.group(0)
+        # Extract stops by splitting on '-'
+        stops = [s.strip() for s in stops_str.split('-') if s.strip()]
+        if len(stops) < 2: return match.group(0) # Not a list
+        html_stops = "".join([f'<span class="rg-stop-tag">{s}</span>' for s in stops])
+        return f'<div class="rg-stops-container">{html_stops}</div>'
+    
+    # Match strings of "- Stop - Stop"
+    text = re.sub(r'(?:\s*-\s*[^-]+){2,}', format_stops, text)
+
+    # 4. Bold and style jeepney codes
     text = re.sub(r'(\b\d+[A-Z]\b)', r'<span class="jeep-code">\1</span>', text)
 
-    # 3. Clean up formatting
-    # Fix sentence spacing
-    formatted = re.sub(r'([.!?])([A-Z])', r'\1 \2', text)
+    # 5. Clean up sentence spacing and paragraph breaks
+    # Fix missing spaces after punctuation
+    formatted = re.sub(r'([.!?])([^\s])', r'\1 \2', text)
     
-    # Add paragraph breaks after sentences (but not if it's inside our info-row)
-    # This is tricky with raw HTML, let's just do basic cleanup
+    # Add paragraph breaks
     formatted = re.sub(r'([.!?])\s+([A-Z])', r'\1\n\n\2', formatted)
 
-    # Convert remaining numbered lists to bullets
-    formatted = re.sub(r'^\s*(\d+)[.)]\s+', r'- ', formatted, flags=re.MULTILINE)
+    # 6. Style Links (like the map link)
+    def style_link(match):
+        label = match.group(1)
+        url = match.group(2)
+        return f'<a href="{url}" target="_blank" class="rg-map-link">{label}</a>'
+    formatted = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', style_link, formatted)
 
-    # Clean up excessive whitespace
+    # Final cleanup
     formatted = re.sub(r'\n\s*\n\s*\n+', '\n\n', formatted)
     formatted = re.sub(r'^\s+|\s+$', '', formatted, flags=re.MULTILINE)
 
-    # Wrap in markdown container
-    formatted = f"""<div class="rg-chat-response">
-{formatted}
-</div>"""
-
-    return formatted.strip()
+    return f'<div class="rg-chat-response">{formatted}</div>'
 
 def parse_agent_response(text: str) -> Dict[str, Any]:
     """Parse agent response to extract structured route and fare data."""
