@@ -1,20 +1,9 @@
 import streamlit as st
-import os, sys, json, urllib.parse, base64
+import os, sys, json, urllib.parse
 from PIL import Image
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.helpers import load_css, render_sidebar, page_loader
-
-def get_logo_b64(path="assets/logo.png"):
-    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    full_path = os.path.join(root_dir, path)
-    try:
-        with open(full_path, "rb") as f:
-            return base64.b64encode(f.read()).decode()
-    except FileNotFoundError:
-        return ""
-
-logo_b64 = get_logo_b64()
 
 try:
     logo_img = Image.open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "logo.png"))
@@ -27,13 +16,10 @@ load_css("assets/styles/main.css")
 load_css("assets/styles/plan.css")
 render_sidebar()
 
-st.markdown(f"""
+st.markdown("""
 <div class="rg-page-header">
-    <img src="data:image/png;base64,{logo_b64}" class="rg-header-logo" style="width: 50px; height: 50px;" />
-    <div>
-        <h1><span class="rg-gradient-text">Route Explorer</span></h1>
-        <p>Browse the complete directory of Cebu Jeepney routes, terminals, and designated stops.</p>
-    </div>
+    <h1>🧭 <span class="rg-gradient-text">Route Explorer</span></h1>
+    <p>Browse the complete directory of Cebu Jeepney routes, terminals, and designated stops.</p>
 </div>
 """, unsafe_allow_html=True)
 

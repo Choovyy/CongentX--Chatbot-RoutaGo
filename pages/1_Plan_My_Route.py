@@ -1,7 +1,7 @@
 import streamlit as st
 from groq import Groq
 from dotenv import load_dotenv
-import os, json, sys, urllib.parse, base64
+import os, json, sys, urllib.parse
 from datetime import datetime
 
 # Add root to path so we can import from utils
@@ -12,18 +12,6 @@ from utils.helpers import load_css, render_sidebar, format_response, calculate_e
 load_dotenv()
 
 from PIL import Image
-
-def get_logo_b64(path="assets/logo.png"):
-    # Fix path to be relative to the project root
-    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    full_path = os.path.join(root_dir, path)
-    try:
-        with open(full_path, "rb") as f:
-            return base64.b64encode(f.read()).decode()
-    except FileNotFoundError:
-        return ""
-
-logo_b64 = get_logo_b64()
 
 try:
     logo_img = Image.open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "logo.png"))
@@ -77,13 +65,10 @@ STRICT RULES:
 Use light Cebuano flavor (e.g., "Lugar lang!")."""
 
 # UI Header
-st.markdown(f"""
+st.markdown("""
 <div class="rg-page-header">
-    <img src="data:image/png;base64,{logo_b64}" class="rg-header-logo" style="width: 50px; height: 50px;" />
-    <div>
-        <h1><span class="rg-gradient-text">Plan My Route</span></h1>
-        <p>Professional Cebu jeepney navigation and route planning.</p>
-    </div>
+    <h1>🗺️ <span class="rg-gradient-text">Plan My Route</span></h1>
+    <p>Professional Cebu jeepney navigation and route planning.</p>
 </div>
 """, unsafe_allow_html=True)
 
