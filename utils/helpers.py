@@ -139,23 +139,47 @@ def format_response(text):
     text = remove_json_toolcalls(text)
     text = re.sub(r'<[^>]+>', '', text)
 
-    # Bold route codes
-    formatted = re.sub(r'(\b\d+[A-Z]\b)', r'**\1**', text)
+    # 1. Standardize and wrap key-value pairs (e.g., **Distance:** 12km)
+    def wrap_key_value(match):
+        key = match.group(1).strip()
+        value = match.group(2).strip()
+        # Clean up any trailing punctuation on value
+        value = re.sub(r'[.!?]$', '', value)
+        
+        icon = "📍"
+        if "distance" in key.lower(): icon = "📏"
+        elif "fare" in key.lower(): icon = "💰"
+        elif "route" in key.lower(): icon = "🚌"
+        elif "stop" in key.lower(): icon = "🛑"
+        
+        return f"""<div class="rg-info-row">
+            <span class="rg-info-label">{icon} {key}</span>
+            <span class="rg-info-value">{value}</span>
+        </div>"""
 
-    # Fix sentence spacing (ensure space after punctuation before capital letter)
-    formatted = re.sub(r'([.!?])([A-Z])', r'\1 \2', formatted)
+    # Match **Key:** Value
+    text = re.sub(r'\*\*(Distance|Fare|Route|Stops):\*\*\s*(.+)', wrap_key_value, text, flags=re.IGNORECASE)
+
+    # 2. Bold and style jeepney codes (e.g., 01K, 12L)
+    # We wrap them in a span with a class for special styling
+    text = re.sub(r'(\b\d+[A-Z]\b)', r'<span class="jeep-code">\1</span>', text)
+
+    # 3. Clean up formatting
+    # Fix sentence spacing
+    formatted = re.sub(r'([.!?])([A-Z])', r'\1 \2', text)
     
-    # Add paragraph breaks after sentences (but not excessive)
+    # Add paragraph breaks after sentences (but not if it's inside our info-row)
+    # This is tricky with raw HTML, let's just do basic cleanup
     formatted = re.sub(r'([.!?])\s+([A-Z])', r'\1\n\n\2', formatted)
 
-    # Convert numbered lists to bullets
+    # Convert remaining numbered lists to bullets
     formatted = re.sub(r'^\s*(\d+)[.)]\s+', r'- ', formatted, flags=re.MULTILINE)
 
     # Clean up excessive whitespace
     formatted = re.sub(r'\n\s*\n\s*\n+', '\n\n', formatted)
     formatted = re.sub(r'^\s+|\s+$', '', formatted, flags=re.MULTILINE)
 
-    # Wrap in markdown container for better styling
+    # Wrap in markdown container
     formatted = f"""<div class="rg-chat-response">
 {formatted}
 </div>"""

@@ -86,15 +86,20 @@ li,
 }
 
 .rg-result {
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    color: #334155;
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 1);
+    background: #FFFFFF !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    color: #1E293B !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
 }
 
 .rg-result p,
-.rg-result li {
+.rg-result li,
+.rg-result span {
     color: #475569 !important;
+}
+
+.rg-result h1, .rg-result h2, .rg-result h3 {
+    color: #0F172A !important;
 }
 
 .stTextInput>label {
@@ -214,6 +219,57 @@ li,
     background: rgba(79, 70, 229, 0.1);
     border: 1px solid rgba(79, 70, 229, 0.2);
     box-shadow: 0 0 8px rgba(79, 70, 229, 0.1);
+}
+
+/* ── Chat Response Container (Light Mode) ── */
+.rg-chat-response {
+    color: #1E293B !important;
+}
+
+.rg-chat-response p,
+.rg-chat-response li {
+    color: #475569 !important;
+}
+
+.rg-chat-response strong {
+    color: #4F46E5 !important;
+}
+
+/* ── Plan Result Card (Light Mode) ── */
+.plan-result-card {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    color: #1E293B !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04) !important;
+}
+
+.plan-result-card p,
+.plan-result-card li {
+    color: #475569 !important;
+}
+
+.plan-result-card strong {
+    color: #4F46E5 !important;
+}
+
+/* ── Info Rows (Light Mode) ── */
+.rg-info-row {
+    background: rgba(79, 70, 229, 0.04) !important;
+    border: 1px solid rgba(79, 70, 229, 0.1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+}
+
+.rg-info-row:hover {
+    background: rgba(79, 70, 229, 0.08) !important;
+    border-color: rgba(79, 70, 229, 0.2) !important;
+}
+
+.rg-info-label {
+    color: #4F46E5 !important;
+}
+
+.rg-info-value {
+    color: #0F172A !important;
 }
 
 /* ── Chat Input ── */

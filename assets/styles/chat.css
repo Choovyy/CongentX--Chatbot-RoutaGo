@@ -126,8 +126,9 @@
     content: "";
     position: absolute;
     top: 0; left: 0; width: 3px; height: 100%;
-    background: linear-gradient(to bottom, #60A5FA, #8B5CF6);
+    background: linear-gradient(135deg, #60A5FA, #8B5CF6);
     border-radius: 8px 0 0 20px;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
 }
 
 [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) *,
@@ -311,4 +312,44 @@
 
 .rg-chat-response a:hover {
     text-decoration: underline !important;
+}
+
+/* ── Info Rows (Premium Data Display) ── */
+.rg-info-row {
+    background: rgba(139, 92, 246, 0.08);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.rg-info-row:hover {
+    background: rgba(139, 92, 246, 0.12);
+    border-color: rgba(139, 92, 246, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.rg-info-label {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: #A78BFA !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.rg-info-value {
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: #F8FAFC !important;
+    text-align: right;
 }
