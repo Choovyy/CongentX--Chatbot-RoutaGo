@@ -1,7 +1,7 @@
 import streamlit as st
 from groq import Groq
 from dotenv import load_dotenv
-import os, json, sys, base64
+import os, json, sys, base64, re, urllib.parse
 from PIL import Image
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -32,6 +32,46 @@ def get_logo_b64(path="assets/logo.png"):
         return ""
 
 logo_b64 = get_logo_b64()
+
+
+def parse_route_query(text: str):
+    text = text.strip().lower()
+    patterns = [
+        r'from\s+(.+?)\s+to\s+(.+)',
+        r'(.+?)\s+to\s+(.+)',
+        r'gikan sa\s+(.+?)\s+padulong\s+(.+)',
+        r'(.+?)\s+padulong\s+(.+)',
+    ]
+
+    for pattern in patterns:
+        match = re.search(pattern, text, flags=re.IGNORECASE)
+        if match:
+            origin = match.group(1).strip(' .?')
+            destination = match.group(2).strip(' .?')
+            if origin and destination:
+                return origin, destination
+
+    return None, None
+
+
+def build_route_map_html(user_prompt: str):
+    origin, destination = parse_route_query(user_prompt)
+    if not origin or not destination:
+        return ""
+
+    origin_q = urllib.parse.quote(f"{origin}, Cebu City")
+    destination_q = urllib.parse.quote(f"{destination}, Cebu City")
+    embed_url = f"https://www.google.com/maps?q={origin_q}+to+{destination_q}&output=embed"
+    map_url = f"https://www.google.com/maps/dir/{origin_q}/{destination_q}"
+
+    return f"""
+<div style=\"margin-top: 1rem; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 24px rgba(0,0,0,0.15);\">
+    <iframe width=\"100%\" height=\"320\" frameborder=\"0\" style=\"border:0; min-height:320px;\" src=\"{embed_url}\"></iframe>
+</div>
+<div style=\"margin-top: 0.75rem; text-align: right;\">
+    <a href=\"{map_url}\" target=\"_blank\" style=\"color: #60A5FA; font-size: 0.9rem; text-decoration: none;\">↗ Open full directions on Google Maps</a>
+</div>
+"""
 
 load_css("assets/styles/main.css")
 load_css("assets/styles/chat.css")
@@ -103,5 +143,9 @@ if prompt := st.chat_input("🚌 Ask about jeepney routes... (e.g., 'Parkmall to
 
                 st.session_state.messages.append({"role": "assistant", "content": reply})
                 st.markdown(format_response(reply), unsafe_allow_html=True)
+
+                map_html = build_route_map_html(prompt)
+                if map_html:
+                    st.markdown(map_html, unsafe_allow_html=True)
             except Exception as e:
                 st.error(f"Error: {e}")

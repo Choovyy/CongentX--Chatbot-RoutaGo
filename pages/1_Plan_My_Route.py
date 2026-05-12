@@ -135,21 +135,24 @@ with tab1:
                 
                 result = response.choices[0].message.content or ""
 
+                map_html = ""
                 if exact_route.get("type") != "none" and origin and destination and origin.lower() != "none" and destination.lower() != "none":
                     o_q = urllib.parse.quote(f"{origin}, Cebu City")
                     d_q = urllib.parse.quote(f"{destination}, Cebu City")
                     map_url = f"https://www.google.com/maps/dir/?api=1&origin={o_q}&destination={d_q}"
-                    embed_url = f"https://www.google.com/maps?saddr={o_q}&daddr={d_q}&output=embed"
+                    embed_url = f"https://www.google.com/maps?q={o_q}+to+{d_q}&output=embed"
                     
                     result += f"\n\n[🗺️ **Open Full Map**]({map_url})"
-                    result += f"""
+                    map_html = f"""
 <div style="margin-top: 1.5rem; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
     <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{embed_url}"></iframe>
 </div>
+<div style="margin-top: 0.75rem; text-align: right;">
+    <a href="https://www.google.com/maps/dir/{o_q}/{d_q}" target="_blank" style="color: #60A5FA; font-size: 0.9rem; text-decoration: none;">↗ Open full directions on Google Maps</a>
+</div>
 """
 
-                display_result = result
-                formatted_result = format_response(display_result)
+                formatted_result = format_response(result)
 
                 # Store in history
                 st.session_state.recent_routes.insert(0, {
@@ -160,7 +163,9 @@ with tab1:
                 })
                 st.session_state.recent_routes = st.session_state.recent_routes[:10]
 
-                st.markdown(f"<div class='rg-result'>{formatted_result}</div>", unsafe_allow_html=True)
+                st.markdown(formatted_result, unsafe_allow_html=True)
+                if map_html:
+                    st.markdown(map_html, unsafe_allow_html=True)
 
 with tab2:
     if not st.session_state.recent_routes:
