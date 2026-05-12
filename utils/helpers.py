@@ -137,7 +137,7 @@ def format_response(text):
         return ''.join(result)
 
     text = remove_json_toolcalls(text)
-    text = re.sub(r'<[^>]+>', '', text)
+    text = re.sub(r'<[^>]+>', ' ', text)
 
     # 1. Standardize and wrap key-value pairs (Distance, Fare, Route, Stops)
     def wrap_key_value(match):
@@ -180,29 +180,40 @@ def format_response(text):
         html_stops = "".join([f'<span class="rg-stop-tag">{s}</span>' for s in stops])
         return f'<div class="rg-stops-container">{html_stops}</div>'
     
-    # Match strings of "- Stop - Stop"
-    text = re.sub(r'(?:\s*-\s*[^-]+){2,}', format_stops, text)
+    # Match strings of "- Stop" (bulleted lists) without swallowing paragraphs
+    text = re.sub(r'(?:^\s*-[^\n]+\n?){2,}', format_stops, text, flags=re.MULTILINE)
 
     # 4. Bold and style jeepney codes
     text = re.sub(r'(\b\d+[A-Z]\b)', r'<span class="jeep-code">\1</span>', text)
 
-    # 5. Clean up sentence spacing and paragraph breaks
-    # Fix missing spaces after punctuation
-    formatted = re.sub(r'([.!?])([^\s])', r'\1 \2', text)
-    
-    # Add paragraph breaks
-    formatted = re.sub(r'([.!?])\s+([A-Z])', r'\1\n\n\2', formatted)
+    # 5. Clean up sentence spacing
+    # First, protect markdown links and raw URLs from being spaced
+    _links = []
+    def save_link(match):
+        _links.append(match.group(0))
+        return f"__LINK_{len(_links)-1}__"
+        
+    text = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', save_link, text)
+    text = re.sub(r'https?://[^\s<]+', save_link, text)
 
-    # 6. Style Links (like the map link)
-    def style_link(match):
-        label = match.group(1)
-        url = match.group(2)
-        return f'<a href="{url}" target="_blank" class="rg-map-link">{label}</a>'
-    formatted = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', style_link, formatted)
+    # Fix missing spaces after punctuation (safely skips if already spaced)
+    formatted = re.sub(r'([.!?:])([A-Za-z*])', r'\1 \2', text)
+    
+    # Restore links
+    def restore_link(match):
+        idx = int(match.group(1))
+        return _links[idx]
+        
+    formatted = re.sub(r'__LINK_(\d+)__', restore_link, formatted)
+
+    # 6. Links are now natively handled by Streamlit Markdown to avoid HTML bleeding
+    # Just ensure any remaining raw URLs are clickable
+    pass
 
     # Final cleanup
-    formatted = re.sub(r'\n\s*\n\s*\n+', '\n\n', formatted)
-    formatted = re.sub(r'^\s+|\s+$', '', formatted, flags=re.MULTILINE)
+    formatted = re.sub(r'\n[ \t]*\n[ \t]*\n+', '\n\n', formatted)
+    formatted = re.sub(r'^[ \t]+|[ \t]+$', '', formatted, flags=re.MULTILINE)
+    formatted = formatted.strip()
 
     return f'<div class="rg-chat-response">{formatted}</div>'
 
@@ -257,6 +268,109 @@ def parse_agent_response(text: str) -> Dict[str, Any]:
 
     return data
 
+LANDMARK_MAP = {
+    # Schools
+    "citu": "cebu institute of technology university",
+    "cit": "cebu institute of technology university",
+    "cit-u": "cebu institute of technology university",
+    "usc": "university of san carlos",
+    "usc main": "university of san carlos main campus",
+    "usc north": "university of san carlos north campus",
+    "usc south": "university of san carlos south campus",
+    "uv": "university of visayas",
+    "uc": "university of cebu",
+    "ctu": "cebu technological university",
+    "usjr": "university of san jose recoletos",
+    "uspf": "university of southern philippines foundation",
+    "swu": "southwestern university",
+    "up": "university of the philippines",
+    "cim": "cebu institute of medicine",
+    "stc": "st theresa's college",
+    "cicu": "colegio de la inmaculada concepcion",
+    "sti": "sti college",
+    
+    # Malls & Markets
+    "sm": "sm city cebu",
+    "sm cebu": "sm city cebu",
+    "sm seaside": "sm seaside city cebu",
+    "ayala": "ayala center cebu",
+    "ayala cebu": "ayala center cebu",
+    "emall": "elizabeth mall",
+    "e-mall": "elizabeth mall",
+    "country mall": "gaisano country mall",
+    "g-mall": "gaisano grand mall",
+    "grand mall": "gaisano grand mall",
+    "jy": "jy square mall",
+    "jy square": "jy square mall",
+    "j centre": "j centre mall",
+    "pacific mall": "pacific mall",
+    "marina mall": "mactan marina mall",
+    "btc": "banilad town center",
+    "parkmall": "parkmall",
+    "carbon": "carbon public market",
+    "taboan": "taboan public market",
+    "pasil": "pasil fish market",
+    "colonnade": "colonnade supermarket",
+    "gaisano main": "gaisano main",
+    "metro colon": "metro colon",
+    "metro gaisano": "metro gaisano",
+    
+    # Terminals & Transport
+    "csbt": "south bus terminal",
+    "south bus": "south bus terminal",
+    "north bus": "north bus terminal",
+    "pier 1": "pier 1",
+    "pier 2": "pier 2",
+    "pier 3": "pier 3",
+    "pier 4": "pier 4",
+    "airport": "mactan cebu international airport",
+    "mcia": "mactan cebu international airport",
+    "it park": "it park",
+    "it-park": "it park",
+    "pueblo verde": "pueblo verde terminal",
+    "tamiya": "tamiya terminal",
+    "tintay": "tintay jeepney terminal",
+    
+    # Government & Public
+    "bir": "bureau of internal revenue",
+    "dfa": "department of foreign affairs",
+    "sss": "social security system",
+    "pldt": "pldt",
+    "prc": "professional regulations commission",
+    "coa": "commission on audit",
+    "sec": "securities and exchange commission",
+    "capitol": "cebu provincial capitol",
+    "city hall": "cebu city hall",
+    "hall of justice": "hall of justice",
+    
+    # Hospitals
+    "votto": "vicente sotto hospital",
+    "vsmmc": "vicente sotto memorial medical center",
+    "chong hua": "chong hua hospital",
+    "cebu doc": "cebu doctors university hospital",
+    "miller": "miller hospital",
+    "ccmc": "cebu city medical center",
+    
+    # Major Hubs / Areas
+    "colon": "colon",
+    "guadalupe": "guadalupe",
+    "labangon": "labangon",
+    "banawa": "banawa",
+    "lahug": "lahug",
+    "mabolo": "mabolo",
+    "talamban": "talamban",
+    "bulacao": "bulacao",
+    "pardo": "pardo",
+    "quiot": "quiot",
+    "tisa": "tisa",
+    "apas": "apas",
+    "busay": "busay",
+    "pitos": "pitos",
+    "mandaue": "mandaue",
+    "lapu-lapu": "lapu-lapu city",
+    "cordova": "cordova"
+}
+
 def calculate_exact_route(origin_query: str, dest_query: str, routes_data: dict) -> dict:
     o_q = origin_query.lower().strip()
     d_q = dest_query.lower().strip()
@@ -267,116 +381,12 @@ def calculate_exact_route(origin_query: str, dest_query: str, routes_data: dict)
         s = s.lower()
         s = re.sub(r'\b(mall|university|campus|public|market|street|st|ave|avenue|road|rd|hub|terminal)\b', '', s)
         return re.sub(r'[^a-z0-9]', '', s)
-
-    landmark_map = {
-        # Schools
-        "citu": "cebu institute of technology university",
-        "cit": "cebu institute of technology university",
-        "cit-u": "cebu institute of technology university",
-        "usc": "university of san carlos",
-        "usc main": "university of san carlos main campus",
-        "usc north": "university of san carlos north campus",
-        "usc south": "university of san carlos south campus",
-        "uv": "university of visayas",
-        "uc": "university of cebu",
-        "ctu": "cebu technological university",
-        "usjr": "university of san jose recoletos",
-        "uspf": "university of southern philippines foundation",
-        "swu": "southwestern university",
-        "up": "university of the philippines",
-        "ctu": "cebu technological university",
-        "cim": "cebu institute of medicine",
-        "stc": "st theresa's college",
-        "cicu": "colegio de la inmaculada concepcion",
-        "sti": "sti college",
-        
-        # Malls & Markets
-        "sm": "sm city cebu",
-        "sm cebu": "sm city cebu",
-        "sm seaside": "sm seaside city cebu",
-        "ayala": "ayala center cebu",
-        "ayala cebu": "ayala center cebu",
-        "emall": "elizabeth mall",
-        "e-mall": "elizabeth mall",
-        "country mall": "gaisano country mall",
-        "g-mall": "gaisano grand mall",
-        "grand mall": "gaisano grand mall",
-        "jy": "jy square mall",
-        "jy square": "jy square mall",
-        "j centre": "j centre mall",
-        "pacific mall": "pacific mall",
-        "marina mall": "mactan marina mall",
-        "btc": "banilad town center",
-        "parkmall": "parkmall",
-        "carbon": "carbon public market",
-        "taboan": "taboan public market",
-        "pasil": "pasil fish market",
-        "colonnade": "colonnade supermarket",
-        "gaisano main": "gaisano main",
-        "metro colon": "metro colon",
-        "metro gaisano": "metro gaisano",
-        
-        # Terminals & Transport
-        "csbt": "south bus terminal",
-        "south bus": "south bus terminal",
-        "north bus": "north bus terminal",
-        "pier 1": "pier 1",
-        "pier 2": "pier 2",
-        "pier 3": "pier 3",
-        "pier 4": "pier 4",
-        "airport": "mactan cebu international airport",
-        "mcia": "mactan cebu international airport",
-        "it park": "it park",
-        "it-park": "it park",
-        "pueblo verde": "pueblo verde terminal",
-        "tamiya": "tamiya terminal",
-        "tintay": "tintay jeepney terminal",
-        
-        # Government & Public
-        "bir": "bureau of internal revenue",
-        "dfa": "department of foreign affairs",
-        "sss": "social security system",
-        "pldt": "pldt",
-        "prc": "professional regulations commission",
-        "coa": "commission on audit",
-        "sec": "securities and exchange commission",
-        "capitol": "cebu provincial capitol",
-        "city hall": "cebu city hall",
-        "hall of justice": "hall of justice",
-        
-        # Hospitals
-        "votto": "vicente sotto hospital",
-        "vsmmc": "vicente sotto memorial medical center",
-        "chong hua": "chong hua hospital",
-        "cebu doc": "cebu doctors university hospital",
-        "miller": "miller hospital",
-        "ccmc": "cebu city medical center",
-        
-        # Major Hubs / Areas
-        "colon": "colon",
-        "guadalupe": "guadalupe",
-        "labangon": "labangon",
-        "banawa": "banawa",
-        "lahug": "lahug",
-        "mabolo": "mabolo",
-        "talamban": "talamban",
-        "bulacao": "bulacao",
-        "pardo": "pardo",
-        "quiot": "quiot",
-        "tisa": "tisa",
-        "apas": "apas",
-        "busay": "busay",
-        "pitos": "pitos",
-        "mandaue": "mandaue",
-        "lapu-lapu": "lapu-lapu city",
-        "cordova": "cordova"
-    }
     
     # Fuzzy match for landmark map
     o_norm = normalize(o_q)
     d_norm = normalize(d_q)
     
-    for key, val in landmark_map.items():
+    for key, val in LANDMARK_MAP.items():
         if o_norm == normalize(key): o_q = val
         if d_norm == normalize(key): d_q = val
 

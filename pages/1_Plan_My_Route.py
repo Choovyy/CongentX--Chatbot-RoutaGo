@@ -138,12 +138,15 @@ with tab1:
 
                 map_html = ""
                 if exact_route.get("type") != "none" and origin and destination and origin.lower() != "none" and destination.lower() != "none":
-                    o_q = urllib.parse.quote(f"{origin}, Cebu City")
-                    d_q = urllib.parse.quote(f"{destination}, Cebu City")
+                    from utils.helpers import LANDMARK_MAP
+                    o_full = LANDMARK_MAP.get(origin.lower(), origin)
+                    d_full = LANDMARK_MAP.get(destination.lower(), destination)
+                    
+                    o_q = urllib.parse.quote(f"{o_full}, Cebu City")
+                    d_q = urllib.parse.quote(f"{d_full}, Cebu City")
                     map_url = f"https://www.google.com/maps/dir/?api=1&origin={o_q}&destination={d_q}"
                     embed_url = f"https://www.google.com/maps?q={o_q}+to+{d_q}&output=embed"
                     
-                    result += f"\n\n[🗺️ **Open Full Map**]({map_url})"
                     map_html = f"""
 <div class="plan-map-card">
     <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{embed_url}"></iframe>

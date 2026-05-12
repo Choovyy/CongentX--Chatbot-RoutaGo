@@ -125,8 +125,6 @@ def run_agent(user_message: str, routes: dict, client: Groq, max_steps: int = 3)
     - Executes them
     - Returns final answer
     """
-    from utils.helpers import format_response
-
     system_prompt = build_agent_system_prompt(TOOL_SCHEMAS)
 
     # Conversation history for this agent run
@@ -150,7 +148,7 @@ def run_agent(user_message: str, routes: dict, client: Groq, max_steps: int = 3)
 
             # If no tool call, this is the final answer
             if tool_call is None:
-                return format_response(reply)
+                return reply
 
             # Execute the tool
             tool_name = tool_call["tool"]
@@ -179,6 +177,6 @@ def run_agent(user_message: str, routes: dict, client: Groq, max_steps: int = 3)
             messages=messages,
             temperature=0.0,
         )
-        return format_response(final.choices[0].message.content.strip())
+        return final.choices[0].message.content.strip()
     except Exception as e:
         return f"Error generating final answer: {str(e)}"
