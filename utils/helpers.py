@@ -102,14 +102,11 @@ def render_sidebar():
 
 def format_response(text):
     # Remove tool call JSON in various formats
-    # Pattern 1: Complete JSON tool calls {"tool": "...", "params": {...}}
-    # Uses a more robust brace-matching approach for nested objects
     def remove_json_toolcalls(s):
         result = []
         i = 0
         while i < len(s):
             if s[i] == '{':
-                # Try to extract a complete JSON object
                 brace_count = 0
                 start = i
                 for j in range(i, len(s)):
@@ -122,7 +119,6 @@ def format_response(text):
                             try:
                                 obj = json.loads(json_str)
                                 if "tool" in obj and "params" in obj:
-                                    # Skip this tool call
                                     i = j + 1
                                     break
                                 else:
@@ -141,22 +137,28 @@ def format_response(text):
         return ''.join(result)
 
     text = remove_json_toolcalls(text)
-
-    # Remove ALL HTML tags from LLM response (both opening and closing)
     text = re.sub(r'<[^>]+>', '', text)
 
-    # Bold route codes like 01K, 13B, etc.
+    # Bold route codes
     formatted = re.sub(r'(\b\d+[A-Z]\b)', r'**\1**', text)
 
-    # Add line breaks after sentences, even when punctuation is not followed by a space
-    formatted = re.sub(r'([.!?])\s*([A-Z])', r'\1\n\n\2', formatted)
+    # Fix sentence spacing (ensure space after punctuation before capital letter)
+    formatted = re.sub(r'([.!?])([A-Z])', r'\1 \2', formatted)
+    
+    # Add paragraph breaks after sentences (but not excessive)
+    formatted = re.sub(r'([.!?])\s+([A-Z])', r'\1\n\n\2', formatted)
 
-    # Convert numbered lists to markdown bullets
+    # Convert numbered lists to bullets
     formatted = re.sub(r'^\s*(\d+)[.)]\s+', r'- ', formatted, flags=re.MULTILINE)
 
-    # Clean up extra whitespace
+    # Clean up excessive whitespace
     formatted = re.sub(r'\n\s*\n\s*\n+', '\n\n', formatted)
     formatted = re.sub(r'^\s+|\s+$', '', formatted, flags=re.MULTILINE)
+
+    # Wrap in markdown container for better styling
+    formatted = f"""<div class="rg-chat-response">
+{formatted}
+</div>"""
 
     return formatted.strip()
 

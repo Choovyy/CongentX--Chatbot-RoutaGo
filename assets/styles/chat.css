@@ -274,3 +274,41 @@
 [data-testid="column"] {
     min-width: unset !important;
 }
+
+/* ─── Chat Response Container ─── */
+.rg-chat-response {
+    color: #E2E8F0 !important;
+    line-height: 1.85 !important;
+    font-size: 0.95rem !important;
+}
+
+.rg-chat-response p {
+    margin: 1rem 0 !important;
+    color: #CBD5E1 !important;
+}
+
+.rg-chat-response strong {
+    color: #A78BFA !important;
+    font-weight: 700 !important;
+}
+
+.rg-chat-response ul,
+.rg-chat-response ol {
+    margin: 1rem 0 !important;
+    padding-left: 1.5rem !important;
+}
+
+.rg-chat-response li {
+    margin: 0.5rem 0 !important;
+    color: #CBD5E1 !important;
+}
+
+.rg-chat-response a {
+    color: #60A5FA !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+}
+
+.rg-chat-response a:hover {
+    text-decoration: underline !important;
+}
