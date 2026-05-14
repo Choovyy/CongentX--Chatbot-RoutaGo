@@ -651,7 +651,7 @@
     "terminals": ["Quiot", "Colon Obelisk"],
     "stops": [
       { "name": "Quiot", "type": "Landmark" },
-      { "name": "Southwestern University Basak Campus", "type": "School" },
+      
       { "name": "Don Vicente Rama Memorial National High School", "type": "School" },
       { "name": "Shopwise", "type": "Mall / Grocery" },
       { "name": "Mambaling Flyover", "type": "Landmark" },
@@ -681,7 +681,7 @@
     "terminals": ["Quiot", "Cebu Metropolitan Cathedral"],
     "stops": [
       { "name": "Quiot", "type": "Landmark" },
-      { "name": "Southwestern University Basak Campus", "type": "School" },
+    
       { "name": "Don Vicente Rama Memorial National High School", "type": "School" },
       { "name": "Shopwise", "type": "Mall / Grocery" },
       { "name": "Mambaling Flyover", "type": "Landmark" },
@@ -712,11 +712,11 @@
   },
   "09G": {
     "name": "09G - Quiot to Sto Nino Brgy Hall",
-    "description": "Route from Quiot through Mambaling and the city hall corridor ending at Sto Nino Barangay Hall. Passes SWU Basak Campus, Leon Kilat Street, and key government offices.",
+    "description": "Route from Quiot through Mambaling and the city hall corridor ending at Sto Nino Barangay Hall. Passes Leon Kilat Street, and key government offices.",
     "terminals": ["Quiot", "Sto Nino Brgy Hall"],
     "stops": [
       { "name": "Quiot", "type": "Landmark" },
-      { "name": "Southwestern University Basak Campus", "type": "School" },
+  
       { "name": "Don Vicente Rama Memorial National High School", "type": "School" },
       { "name": "Shopwise", "type": "Mall / Grocery" },
       { "name": "Mambaling Flyover", "type": "Landmark" },
